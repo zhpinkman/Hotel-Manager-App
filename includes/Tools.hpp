@@ -1,8 +1,6 @@
 #ifndef _TOOLS_H_
 #define _TOOLS_H_
 
-#include "Exception.hpp"
-#include "constants.hpp"
 #include <fstream>
 #include <string>
 #include <vector>

@@ -1,12 +1,12 @@
 #ifndef __HOTEL_H__
 #define __HOTEL_H__ __HOTEL_H__
 
-#include "Room_service.hpp"
-
 #include <string>
 #include <vector>
 
 typedef std::vector<std::string> Amenities;
+
+class Room_service;
 
 struct City {
   std::string city_name;
@@ -17,7 +17,6 @@ struct City {
 class Hotel {
 public:
   Hotel();
-  ~Hotel();
 
 private:
   std::string hotel_id;
@@ -27,7 +26,7 @@ private:
   Amenities amenities;
   City city;
   std::string image_url;
-  Room_service room_service;
+  Room_service *room_service;
 };
 
 #endif

@@ -6,11 +6,8 @@ private:
   /* data */
 public:
   Reservation_time(/* args */);
-  ~Reservation_time();
 };
 
 Reservation_time::Reservation_time(/* args */) {}
-
-Reservation_time::~Reservation_time() {}
 
 #endif
