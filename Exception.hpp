@@ -27,22 +27,22 @@ private:
 };
 
 
-class Not_Found_Exception : public Exception
+class Not_found_exception : public Exception
 {
 public:
-    Not_Found_Exception() : Exception(NOT_FOUND) {}
+    Not_found_exception() : Exception(NOT_FOUND) {}
 };
 
-class Bad_Request_Exception : public Exception
+class Bad_request_exception : public Exception
 {
 public:
-    Bad_Request_Exception() : Exception(BAD_REQUEST) {}
+    Bad_request_exception() : Exception(BAD_REQUEST) {}
 };
 
-class Permission_Exception : public Exception
+class Permission_exception : public Exception
 {
 public:
-    Permission_Exception() : Exception(PERMISSION_DENIED) {}
+    Permission_exception() : Exception(PERMISSION_DENIED) {}
 };
 
 

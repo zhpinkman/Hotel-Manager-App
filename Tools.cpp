@@ -2,10 +2,9 @@
 #include <random>
 #include <algorithm>
 #include "Tools.hpp"
-#include "Exceptions.hpp"
 using namespace std;
 
-vector<string> Tools::splitByChar(string word, char separator)
+vector<string> Tools::split_by_char(string word, char separator)
 {
     vector<string> result;
     stringstream ss(word);
@@ -17,44 +16,24 @@ vector<string> Tools::splitByChar(string word, char separator)
     return result;
 }
 
-ifstream Tools::openCSVFile(string filePath)
+ifstream Tools::open_csv_file(string filePath)
 {
     ifstream file(filePath);
     if (file.fail())
-        throw Not_Found_Exception();
+        throw Not_found_exception();
     return file;
 }
 
-vector<vector<string>> Tools::parseCSVFile(ifstream &file)
+vector<vector<string>> Tools::parse_csv_file(ifstream &file)
 {
     string line;
     vector<vector<string>> result;
 
     while (getline(file, line))
     {
-        vector<string> words = Tools::splitByChar(line, COMMA);
+        vector<string> words = split_by_char(line, COMMA);
         result.push_back(words);
     }
 
-    return result;
-}
-
-string Tools::generateRandomString()
-{
-
-    string str("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
-    random_device rd;
-    mt19937 generator(rd());
-
-    shuffle(str.begin(), str.end(), generator);
-
-    return str.substr(0, 32); // assumes 32 < number of characters in str
-}
-
-bool Tools::stringToBool(string word)
-{
-    istringstream is(word);
-    bool result;
-    is >> boolalpha >> result;
     return result;
 }
