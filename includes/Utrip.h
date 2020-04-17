@@ -6,6 +6,12 @@
 #define UT_AP_S99_FINAL_UTRIP_H
 
 
+
+#include <vector>
+
+class UserManager;
+class HotelManager;
+
 class Utrip{
 public:
     Utrip();
@@ -17,6 +23,9 @@ public:
     void logout();
 
 private:
+    UserManager* userManager;
+    HotelManager* hotelManager;
+
 };
 
 #endif //UT_AP_S99_FINAL_UTRIP_H

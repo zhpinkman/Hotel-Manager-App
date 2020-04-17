@@ -174,6 +174,32 @@ CMakeFiles/ut_ap_s99_final.dir/src/Utrip.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ut_ap_s99_final.dir/src/Utrip.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/src/Utrip.cpp -o CMakeFiles/ut_ap_s99_final.dir/src/Utrip.cpp.s
 
+CMakeFiles/ut_ap_s99_final.dir/src/User.cpp.o: CMakeFiles/ut_ap_s99_final.dir/flags.make
+CMakeFiles/ut_ap_s99_final.dir/src/User.cpp.o: ../src/User.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/ut_ap_s99_final.dir/src/User.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ut_ap_s99_final.dir/src/User.cpp.o -c /home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/src/User.cpp
+
+CMakeFiles/ut_ap_s99_final.dir/src/User.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ut_ap_s99_final.dir/src/User.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/src/User.cpp > CMakeFiles/ut_ap_s99_final.dir/src/User.cpp.i
+
+CMakeFiles/ut_ap_s99_final.dir/src/User.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ut_ap_s99_final.dir/src/User.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/src/User.cpp -o CMakeFiles/ut_ap_s99_final.dir/src/User.cpp.s
+
+CMakeFiles/ut_ap_s99_final.dir/src/UserManager.cpp.o: CMakeFiles/ut_ap_s99_final.dir/flags.make
+CMakeFiles/ut_ap_s99_final.dir/src/UserManager.cpp.o: ../src/UserManager.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/ut_ap_s99_final.dir/src/UserManager.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ut_ap_s99_final.dir/src/UserManager.cpp.o -c /home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/src/UserManager.cpp
+
+CMakeFiles/ut_ap_s99_final.dir/src/UserManager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ut_ap_s99_final.dir/src/UserManager.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/src/UserManager.cpp > CMakeFiles/ut_ap_s99_final.dir/src/UserManager.cpp.i
+
+CMakeFiles/ut_ap_s99_final.dir/src/UserManager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ut_ap_s99_final.dir/src/UserManager.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/src/UserManager.cpp -o CMakeFiles/ut_ap_s99_final.dir/src/UserManager.cpp.s
+
 # Object files for target ut_ap_s99_final
 ut_ap_s99_final_OBJECTS = \
 "CMakeFiles/ut_ap_s99_final.dir/src/CommandHandler.cpp.o" \
@@ -184,7 +210,9 @@ ut_ap_s99_final_OBJECTS = \
 "CMakeFiles/ut_ap_s99_final.dir/src/Tools.cpp.o" \
 "CMakeFiles/ut_ap_s99_final.dir/src/Wallet.cpp.o" \
 "CMakeFiles/ut_ap_s99_final.dir/src/Interface.cpp.o" \
-"CMakeFiles/ut_ap_s99_final.dir/src/Utrip.cpp.o"
+"CMakeFiles/ut_ap_s99_final.dir/src/Utrip.cpp.o" \
+"CMakeFiles/ut_ap_s99_final.dir/src/User.cpp.o" \
+"CMakeFiles/ut_ap_s99_final.dir/src/UserManager.cpp.o"
 
 # External object files for target ut_ap_s99_final
 ut_ap_s99_final_EXTERNAL_OBJECTS =
@@ -198,9 +226,11 @@ ut_ap_s99_final: CMakeFiles/ut_ap_s99_final.dir/src/Tools.cpp.o
 ut_ap_s99_final: CMakeFiles/ut_ap_s99_final.dir/src/Wallet.cpp.o
 ut_ap_s99_final: CMakeFiles/ut_ap_s99_final.dir/src/Interface.cpp.o
 ut_ap_s99_final: CMakeFiles/ut_ap_s99_final.dir/src/Utrip.cpp.o
+ut_ap_s99_final: CMakeFiles/ut_ap_s99_final.dir/src/User.cpp.o
+ut_ap_s99_final: CMakeFiles/ut_ap_s99_final.dir/src/UserManager.cpp.o
 ut_ap_s99_final: CMakeFiles/ut_ap_s99_final.dir/build.make
 ut_ap_s99_final: CMakeFiles/ut_ap_s99_final.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable ut_ap_s99_final"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable ut_ap_s99_final"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ut_ap_s99_final.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

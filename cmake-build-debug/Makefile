@@ -312,6 +312,60 @@ src/Tools.cpp.s:
 	$(MAKE) -f CMakeFiles/ut_ap_s99_final.dir/build.make CMakeFiles/ut_ap_s99_final.dir/src/Tools.cpp.s
 .PHONY : src/Tools.cpp.s
 
+src/User.o: src/User.cpp.o
+
+.PHONY : src/User.o
+
+# target to build an object file
+src/User.cpp.o:
+	$(MAKE) -f CMakeFiles/ut_ap_s99_final.dir/build.make CMakeFiles/ut_ap_s99_final.dir/src/User.cpp.o
+.PHONY : src/User.cpp.o
+
+src/User.i: src/User.cpp.i
+
+.PHONY : src/User.i
+
+# target to preprocess a source file
+src/User.cpp.i:
+	$(MAKE) -f CMakeFiles/ut_ap_s99_final.dir/build.make CMakeFiles/ut_ap_s99_final.dir/src/User.cpp.i
+.PHONY : src/User.cpp.i
+
+src/User.s: src/User.cpp.s
+
+.PHONY : src/User.s
+
+# target to generate assembly for a file
+src/User.cpp.s:
+	$(MAKE) -f CMakeFiles/ut_ap_s99_final.dir/build.make CMakeFiles/ut_ap_s99_final.dir/src/User.cpp.s
+.PHONY : src/User.cpp.s
+
+src/UserManager.o: src/UserManager.cpp.o
+
+.PHONY : src/UserManager.o
+
+# target to build an object file
+src/UserManager.cpp.o:
+	$(MAKE) -f CMakeFiles/ut_ap_s99_final.dir/build.make CMakeFiles/ut_ap_s99_final.dir/src/UserManager.cpp.o
+.PHONY : src/UserManager.cpp.o
+
+src/UserManager.i: src/UserManager.cpp.i
+
+.PHONY : src/UserManager.i
+
+# target to preprocess a source file
+src/UserManager.cpp.i:
+	$(MAKE) -f CMakeFiles/ut_ap_s99_final.dir/build.make CMakeFiles/ut_ap_s99_final.dir/src/UserManager.cpp.i
+.PHONY : src/UserManager.cpp.i
+
+src/UserManager.s: src/UserManager.cpp.s
+
+.PHONY : src/UserManager.s
+
+# target to generate assembly for a file
+src/UserManager.cpp.s:
+	$(MAKE) -f CMakeFiles/ut_ap_s99_final.dir/build.make CMakeFiles/ut_ap_s99_final.dir/src/UserManager.cpp.s
+.PHONY : src/UserManager.cpp.s
+
 src/Utrip.o: src/Utrip.cpp.o
 
 .PHONY : src/Utrip.o
@@ -396,6 +450,12 @@ help:
 	@echo "... src/Tools.o"
 	@echo "... src/Tools.i"
 	@echo "... src/Tools.s"
+	@echo "... src/User.o"
+	@echo "... src/User.i"
+	@echo "... src/User.s"
+	@echo "... src/UserManager.o"
+	@echo "... src/UserManager.i"
+	@echo "... src/UserManager.s"
 	@echo "... src/Utrip.o"
 	@echo "... src/Utrip.i"
 	@echo "... src/Utrip.s"

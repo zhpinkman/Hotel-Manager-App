@@ -23,6 +23,7 @@ public:
 
 private:
     Utrip* utrip;
+
 };
 
 #endif //UT_AP_S99_FINAL_INTERFACE_H

@@ -110,6 +110,12 @@
 		<Unit filename="/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/includes/Tools.hpp">
 			<Option target="ut_ap_s99_final"/>
 		</Unit>
+		<Unit filename="/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/includes/User.h">
+			<Option target="ut_ap_s99_final"/>
+		</Unit>
+		<Unit filename="/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/includes/UserManager.h">
+			<Option target="ut_ap_s99_final"/>
+		</Unit>
 		<Unit filename="/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/includes/Utrip.h">
 			<Option target="ut_ap_s99_final"/>
 		</Unit>
@@ -138,6 +144,12 @@
 			<Option target="ut_ap_s99_final"/>
 		</Unit>
 		<Unit filename="/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/src/Tools.cpp">
+			<Option target="ut_ap_s99_final"/>
+		</Unit>
+		<Unit filename="/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/src/User.cpp">
+			<Option target="ut_ap_s99_final"/>
+		</Unit>
+		<Unit filename="/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/src/UserManager.cpp">
 			<Option target="ut_ap_s99_final"/>
 		</Unit>
 		<Unit filename="/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/src/Utrip.cpp">

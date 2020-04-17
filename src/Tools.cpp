@@ -1,7 +1,6 @@
 #include "../includes/Tools.hpp"
 #include "../includes/Exception.hpp"
 #include "../includes/constants.hpp"
-#include <algorithm>
 #include <random>
 #include <sstream>
 using namespace std;

@@ -15,15 +15,33 @@ OBJECTS = \
 	$(BUILD_DIR)/Room.o \
 	$(BUILD_DIR)/Interface.o \
 	$(BUILD_DIR)/CommandHandler.o \
-	$(BUILD_DIR)/Utrip.o
+	$(BUILD_DIR)/Utrip.o \
+	$(BUILD_DIR)/User.o \
+	$(BUILD_DIR)/UserManager.o
+
 
 HotelSensitivityList = \
 	$(SRC_DIR)/Hotel.cpp \
+	$(INCLUDE_DIR)/Hotel.hpp \
 	$(INCLUDE_DIR)/Room_service.hpp
 
 UtripSensitivityList = \
 	$(SRC_DIR)/Utrip.cpp \
-	$(INCLUDE_DIR)/Utrip.h
+	$(INCLUDE_DIR)/Utrip.h \
+	$(INCLUDE_DIR)/UserManager.h \
+	$(INCLUDE_DIR)/Exception.hpp \
+	$(INCLUDE_DIR)/constants.hpp
+
+UserSensitivityList = \
+	$(SRC_DIR)/User.cpp \
+	$(INCLUDE_DIR)/User.h
+
+UserManagerSensitivityList = \
+    $(SRC_DIR)/UserManager.cpp \
+    $(INCLUDE_DIR)/UserManager.h \
+    $(INCLUDE_DIR)/User.h \
+    $(INCLUDE_DIR)/Exception.hpp
+
 
 ToolsSensitivityList = \
 	$(SRC_DIR)/Tools.cpp \
@@ -34,11 +52,16 @@ ToolsSensitivityList = \
 
 InterfaceSensitivityList = \
     $(SRC_DIR)/Interface.cpp \
-    $(INCLUDE_DIR)/Interface.h
+    $(INCLUDE_DIR)/Interface.h \
+    $(INCLUDE_DIR)/Utrip.h
 
 CommandHandlerSensitivityList = \
     $(SRC_DIR)/CommandHandler.cpp \
-    $(INCLUDE_DIR)/CommandHandler.hpp
+    $(INCLUDE_DIR)/CommandHandler.hpp \
+    $(INCLUDE_DIR)/constants.hpp \
+    $(INCLUDE_DIR)/Tools.hpp \
+    $(INCLUDE_DIR)/Exception.hpp \
+    $(INCLUDE_DIR)/Interface.h
 
 
 RoomServiceSensitivityList = \
@@ -87,12 +110,17 @@ $(BUILD_DIR)/Main.o: $(MainSensitivityList)
 $(BUILD_DIR)/CommandHandler.o: $(CommandHandlerSensitivityList)
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/CommandHandler.cpp -o $(BUILD_DIR)/CommandHandler.o
 
-
 $(BUILD_DIR)/Interface.o: $(InterfaceSensitivityList)
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/Interface.cpp -o $(BUILD_DIR)/Interface.o
 
 $(BUILD_DIR)/Utrip.o: $(UtripSensitivityList)
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/Utrip.cpp -o $(BUILD_DIR)/Utrip.o
+
+$(BUILD_DIR)/User.o: $(UserSensitivityList)
+	$(CC) $(CFLAGS) -c $(SRC_DIR)/User.cpp -o $(BUILD_DIR)/User.o
+
+$(BUILD_DIR)/UserManager.o: $(UserManagerSensitivityList)
+	$(CC) $(CFLAGS) -c $(SRC_DIR)/UserManager.cpp -o $(BUILD_DIR)/UserManager.o
 
 
 $(EXECUTABLE_FILE): $(OBJECTS)
