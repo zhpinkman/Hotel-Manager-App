@@ -3,6 +3,7 @@
 
 #define OK "OK"
 #define BAD_REQUEST "Bad Request"
+#define ENTER '\n'
 #define SUCCESS true
 #define FAILED false
 #define SEPERATOR " | "
