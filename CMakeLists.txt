@@ -21,4 +21,4 @@ add_executable(ut_ap_s99_final
     src/Room.cpp
     src/Room_service.cpp
     src/Tools.cpp
-    src/Wallet.cpp src/Interface.cpp includes/Interface.h)
+    src/Wallet.cpp src/Interface.cpp includes/Interface.h includes/Utrip.h src/Utrip.cpp)

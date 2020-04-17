@@ -9,13 +9,20 @@
 #include <vector>
 
 
-#include <vector>
+class Utrip;
 
 class Interface {
 public:
     Interface();
 
-    void runCommand(std::vector<std::string> vector);
+    void runSignupCommand(const std::vector<std::string> &vector);
+
+    void runLoginCommand(const std::vector<std::string> &vector);
+
+    void runLogoutCommand(const std::vector<std::string> &vector);
+
+private:
+    Utrip* utrip;
 };
 
 #endif //UT_AP_S99_FINAL_INTERFACE_H

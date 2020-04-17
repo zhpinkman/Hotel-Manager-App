@@ -34,7 +34,7 @@ void CommandHandler::processCommand(std::string command)
     {
         std::vector<std::string> commandWords = Tools::split_by_char(command, SPACE);
         validateCommand(commandWords);
-        interface->runCommand(commandWords);
+        runCommand(commandWords);
     }
     catch (Exception *e)
     {
@@ -64,4 +64,20 @@ void CommandHandler::validateCommandType(const std::vector<std::string> &command
 void CommandHandler::validateCommandOrder(const std::vector<std::string> &commandWords)
 {
 //    todo
+}
+
+
+void CommandHandler::runCommand(const std::vector<std::string> &commandWords)
+{
+    std::string commandMethod = commandWords[0];
+    std::string order = commandWords[1];
+
+    if (order == SIGNUP && commandMethod == POST)
+        interface->runSignupCommand(commandWords);
+    else if (order == LOGIN && commandMethod == POST)
+        interface->runLoginCommand(commandWords);
+    else if (order == LOGOUT && commandMethod == POST)
+        interface->runLogoutCommand(commandWords);
+    else
+        throw new Not_found_exception();
 }

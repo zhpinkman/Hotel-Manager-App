@@ -14,11 +14,16 @@ OBJECTS = \
 	$(BUILD_DIR)/Room_service.o \
 	$(BUILD_DIR)/Room.o \
 	$(BUILD_DIR)/Interface.o \
-	$(BUILD_DIR)/CommandHandler.o
+	$(BUILD_DIR)/CommandHandler.o \
+	$(BUILD_DIR)/Utrip.o
 
 HotelSensitivityList = \
 	$(SRC_DIR)/Hotel.cpp \
 	$(INCLUDE_DIR)/Room_service.hpp
+
+UtripSensitivityList = \
+	$(SRC_DIR)/Utrip.cpp \
+	$(INCLUDE_DIR)/Utrip.h
 
 ToolsSensitivityList = \
 	$(SRC_DIR)/Tools.cpp \
@@ -86,6 +91,8 @@ $(BUILD_DIR)/CommandHandler.o: $(CommandHandlerSensitivityList)
 $(BUILD_DIR)/Interface.o: $(InterfaceSensitivityList)
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/Interface.cpp -o $(BUILD_DIR)/Interface.o
 
+$(BUILD_DIR)/Utrip.o: $(UtripSensitivityList)
+	$(CC) $(CFLAGS) -c $(SRC_DIR)/Utrip.cpp -o $(BUILD_DIR)/Utrip.o
 
 
 $(EXECUTABLE_FILE): $(OBJECTS)

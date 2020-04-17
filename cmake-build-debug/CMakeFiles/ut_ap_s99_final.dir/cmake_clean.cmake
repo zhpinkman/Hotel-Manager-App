@@ -6,6 +6,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/ut_ap_s99_final.dir/src/Room.cpp.o"
   "CMakeFiles/ut_ap_s99_final.dir/src/Room_service.cpp.o"
   "CMakeFiles/ut_ap_s99_final.dir/src/Tools.cpp.o"
+  "CMakeFiles/ut_ap_s99_final.dir/src/Utrip.cpp.o"
   "CMakeFiles/ut_ap_s99_final.dir/src/Wallet.cpp.o"
   "ut_ap_s99_final"
   "ut_ap_s99_final.pdb"

@@ -28,6 +28,8 @@ public:
     void validateCommandOrder(const std::vector<std::string> &commandWords);
 
     void validateCommandType(const std::vector<std::string> &commandWords);
+
+    void runCommand(const std::vector<std::string> &commandWords);
 };
 
 

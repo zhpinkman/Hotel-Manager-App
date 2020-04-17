@@ -312,6 +312,33 @@ src/Tools.cpp.s:
 	$(MAKE) -f CMakeFiles/ut_ap_s99_final.dir/build.make CMakeFiles/ut_ap_s99_final.dir/src/Tools.cpp.s
 .PHONY : src/Tools.cpp.s
 
+src/Utrip.o: src/Utrip.cpp.o
+
+.PHONY : src/Utrip.o
+
+# target to build an object file
+src/Utrip.cpp.o:
+	$(MAKE) -f CMakeFiles/ut_ap_s99_final.dir/build.make CMakeFiles/ut_ap_s99_final.dir/src/Utrip.cpp.o
+.PHONY : src/Utrip.cpp.o
+
+src/Utrip.i: src/Utrip.cpp.i
+
+.PHONY : src/Utrip.i
+
+# target to preprocess a source file
+src/Utrip.cpp.i:
+	$(MAKE) -f CMakeFiles/ut_ap_s99_final.dir/build.make CMakeFiles/ut_ap_s99_final.dir/src/Utrip.cpp.i
+.PHONY : src/Utrip.cpp.i
+
+src/Utrip.s: src/Utrip.cpp.s
+
+.PHONY : src/Utrip.s
+
+# target to generate assembly for a file
+src/Utrip.cpp.s:
+	$(MAKE) -f CMakeFiles/ut_ap_s99_final.dir/build.make CMakeFiles/ut_ap_s99_final.dir/src/Utrip.cpp.s
+.PHONY : src/Utrip.cpp.s
+
 src/Wallet.o: src/Wallet.cpp.o
 
 .PHONY : src/Wallet.o
@@ -369,6 +396,9 @@ help:
 	@echo "... src/Tools.o"
 	@echo "... src/Tools.i"
 	@echo "... src/Tools.s"
+	@echo "... src/Utrip.o"
+	@echo "... src/Utrip.i"
+	@echo "... src/Utrip.s"
 	@echo "... src/Wallet.o"
 	@echo "... src/Wallet.i"
 	@echo "... src/Wallet.s"
