@@ -1,3 +1,8 @@
 #include <iostream>
+#include "../includes/CommandHandler.hpp"
 
-int main(int argc, char const *argv[]) { return 0; }
+int main(int argc, char const *argv[]) {
+//  CommandHandler* commandHandler = new CommandHandler();
+//  commandHandler->start();
+  return 0;
+}

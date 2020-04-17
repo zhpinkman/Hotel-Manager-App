@@ -12,7 +12,9 @@ OBJECTS = \
 	$(BUILD_DIR)/Tools.o \
 	$(BUILD_DIR)/Wallet.o \
 	$(BUILD_DIR)/Room_service.o \
-	$(BUILD_DIR)/Room.o
+	$(BUILD_DIR)/Room.o \
+	$(BUILD_DIR)/Interface.o \
+	$(BUILD_DIR)/CommandHandler.o
 
 HotelSensitivityList = \
 	$(SRC_DIR)/Hotel.cpp \
@@ -23,6 +25,15 @@ ToolsSensitivityList = \
 	$(INCLUDE_DIR)/Tools.hpp \
 	$(INCLUDE_DIR)/constants.hpp \
 	$(INCLUDE_DIR)/Exception.hpp
+
+
+InterfaceSensitivityList = \
+    $(SRC_DIR)/Interface.cpp \
+    $(INCLUDE_DIR)/Interface.h
+
+CommandHandlerSensitivityList = \
+    $(SRC_DIR)/CommandHandler.cpp \
+    $(INCLUDE_DIR)/CommandHandler.hpp
 
 
 RoomServiceSensitivityList = \
@@ -66,6 +77,16 @@ $(BUILD_DIR)/Room.o: $(RoomSensitivityList)
 
 $(BUILD_DIR)/Main.o: $(MainSensitivityList)
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/Main.cpp -o $(BUILD_DIR)/Main.o
+
+
+$(BUILD_DIR)/CommandHandler.o: $(CommandHandlerSensitivityList)
+	$(CC) $(CFLAGS) -c $(SRC_DIR)/CommandHandler.cpp -o $(BUILD_DIR)/CommandHandler.o
+
+
+$(BUILD_DIR)/Interface.o: $(InterfaceSensitivityList)
+	$(CC) $(CFLAGS) -c $(SRC_DIR)/Interface.cpp -o $(BUILD_DIR)/Interface.o
+
+
 
 $(EXECUTABLE_FILE): $(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) -o $(EXECUTABLE_FILE)
