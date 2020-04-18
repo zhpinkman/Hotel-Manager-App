@@ -77,3 +77,10 @@ void Utrip::getHotels() {
     }
     hotelManager->getHotels();
 }
+
+void Utrip::getHotelById(const std::string &hotelId) {
+    if (!userManager->isUserLoggedIn()) {
+        throw new Bad_request_exception();
+    }
+    hotelManager->getHotelById(hotelId);
+}

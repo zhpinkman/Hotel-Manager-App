@@ -2,7 +2,9 @@
 #define __COMMANDHANDLER_H__
 
 
+#define HOTESL_GET_ARG_SIZE 2
 
+#define HOTEL_GET_ARG_SIZE 5
 
 #include <string>
 #include <vector>

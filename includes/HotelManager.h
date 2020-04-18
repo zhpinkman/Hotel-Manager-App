@@ -20,6 +20,8 @@ public:
 
     void getHotels();
 
+    void getHotelById(const std::string &hotelId);
+
 private:
     std::vector<Hotel*> hotels;
 };

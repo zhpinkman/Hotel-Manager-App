@@ -19,10 +19,12 @@ public:
 
     void printBriefly();
 
+    bool idsMatches(const std::string &hotelId);
+
 private:
-    std::string hotel_id;
-    std::string hotel_name;
-    int hotel_rating;
+    std::string hotelId;
+    std::string hotelName;
+    int hotelRating;
     std::string hotel_overview;
     Amenities amenities;
     City city;

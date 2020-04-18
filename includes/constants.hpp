@@ -42,11 +42,11 @@ typedef std::vector<std::string> Amenities;
 
 struct City {
     City(const std::string _city, const double _latitude, const double _longitude) {
-        city_name = _city;
+        cityName = _city;
         latitude = _latitude;
         longitude = _longitude;
     }
-    std::string city_name;
+    std::string cityName;
     double latitude;
     double longitude;
 };

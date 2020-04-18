@@ -33,3 +33,11 @@ void HotelManager::getHotels() {
     }
 }
 
+void HotelManager::getHotelById(const std::string &hotelId) {
+    for (auto hotel: hotels) {
+        if (hotel->idsMatches(hotelId)) {
+            hotel->print();
+        }
+    }
+}
+

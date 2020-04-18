@@ -28,6 +28,8 @@ public:
 
     void runGetHotelsCommand();
 
+    void runGetHotelCommand(const std::string &hotelId);
+
 private:
 
     Utrip* utrip;

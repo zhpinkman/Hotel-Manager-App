@@ -28,6 +28,8 @@ public:
 
     void getHotels();
 
+    void getHotelById(const std::string &hotelId);
+
 private:
     UserManager* userManager;
     HotelManager* hotelManager;

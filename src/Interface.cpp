@@ -35,4 +35,8 @@ void Interface::runGetHotelsCommand() {
     utrip->getHotels();
 }
 
+void Interface::runGetHotelCommand(const std::string &hotelId) {
+    utrip->getHotelById(hotelId);
+}
+
 
