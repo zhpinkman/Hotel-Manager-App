@@ -3,29 +3,28 @@
 
 #include <string>
 #include <vector>
+#include "../includes/constants.hpp"
 
-typedef std::vector<std::string> Amenities;
 
 class Room_service;
 
-struct City {
-  std::string city_name;
-  double latitude;
-  double longitude;
-};
+
 
 class Hotel {
 public:
-  Hotel();
-
+    Hotel(const std::string &hotelId, std::string hotelName, int hotelRating, std::string hotelOverview,
+          Amenities amenities, City city, std::string imageUrl);
+    void print();
+    std::string getAmenities();
 private:
-  std::string hotel_id;
-  std::string hotel_name;
-  int hotel_rating;
-  std::string hotel_overview;
-  Amenities amenities;
-  City city;
-  std::string image_url;
+    std::string hotel_id;
+    std::string hotel_name;
+    int hotel_rating;
+    std::string hotel_overview;
+    Amenities amenities;
+    City city;
+    std::string image_url;
+
   Room_service *room_service;
 };
 

@@ -5,9 +5,9 @@
 #ifndef UT_AP_S99_FINAL_UTRIP_H
 #define UT_AP_S99_FINAL_UTRIP_H
 
-
-
 #include <vector>
+#include <string>
+
 
 class UserManager;
 class HotelManager;
@@ -21,6 +21,8 @@ public:
     void login(std::string email, std::string password);
 
     void logout();
+
+    void importHotels(const std::string &hotelsFile);
 
 private:
     UserManager* userManager;

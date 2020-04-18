@@ -17,20 +17,30 @@ OBJECTS = \
 	$(BUILD_DIR)/CommandHandler.o \
 	$(BUILD_DIR)/Utrip.o \
 	$(BUILD_DIR)/User.o \
-	$(BUILD_DIR)/UserManager.o
+	$(BUILD_DIR)/UserManager.o \
+	$(BUILD_DIR)/HotelManager.o
 
 
 HotelSensitivityList = \
 	$(SRC_DIR)/Hotel.cpp \
 	$(INCLUDE_DIR)/Hotel.hpp \
-	$(INCLUDE_DIR)/Room_service.hpp
+	$(INCLUDE_DIR)/Room_service.hpp \
+	$(INCLUDE_DIR)/constants.hpp
+
+HotelManagerSensitivityList = \
+	$(SRC_DIR)/HotelManager.cpp \
+	$(INCLUDE_DIR)/HotelManager.h \
+	$(INCLUDE_DIR)/constants.hpp \
+	$(INCLUDE_DIR)/Hotel.hpp \
+	$(INCLUDE_DIR)/Tools.hpp
 
 UtripSensitivityList = \
 	$(SRC_DIR)/Utrip.cpp \
 	$(INCLUDE_DIR)/Utrip.h \
 	$(INCLUDE_DIR)/UserManager.h \
 	$(INCLUDE_DIR)/Exception.hpp \
-	$(INCLUDE_DIR)/constants.hpp
+	$(INCLUDE_DIR)/constants.hpp \
+	$(INCLUDE_DIR)/Tools.hpp
 
 UserSensitivityList = \
 	$(SRC_DIR)/User.cpp \
@@ -81,7 +91,9 @@ WalletSensitivityList = \
 	$(INCLUDE_DIR)/constants.hpp
 
 MainSensitivityList = \
-	$(SRC_DIR)/Main.cpp
+	$(SRC_DIR)/Main.cpp \
+	$(INCLUDE_DIR)/CommandHandler.hpp \
+	$(INCLUDE_DIR)/constants.hpp
 
 all: $(BUILD_DIR) $(EXECUTABLE_FILE)
 
@@ -121,6 +133,9 @@ $(BUILD_DIR)/User.o: $(UserSensitivityList)
 
 $(BUILD_DIR)/UserManager.o: $(UserManagerSensitivityList)
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/UserManager.cpp -o $(BUILD_DIR)/UserManager.o
+
+$(BUILD_DIR)/HotelManager.o: $(HotelManagerSensitivityList)
+	$(CC) $(CFLAGS) -c $(SRC_DIR)/HotelManager.cpp -o $(BUILD_DIR)/HotelManager.o
 
 
 $(EXECUTABLE_FILE): $(OBJECTS)

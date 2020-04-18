@@ -22,6 +22,8 @@ public:
 
     void runLogoutCommand();
 
+    void runHotelsImport(const std::string &basicString);
+
 private:
 
     Utrip* utrip;

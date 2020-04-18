@@ -8,10 +8,11 @@
 #include "../includes/UserManager.h"
 #include "../includes/Exception.hpp"
 #include "../includes/constants.hpp"
+#include "../includes/Tools.hpp"
+#include "../includes/HotelManager.h"
 
 Utrip::Utrip() {
     userManager = new UserManager();
-    hotelManager = nullptr;
 }
 
 
@@ -45,4 +46,11 @@ void Utrip::logout() {
 
 void Utrip::printSuccessMessage() {
     std::cout << OK << std::endl;
+}
+
+void Utrip::importHotels(const std::string &hotelsFilePath) {
+    const std::ifstream &hotelsFile = Tools::open_csv_file(hotelsFilePath);
+    RAW_DATA_LIST rawHotelsData = Tools::parse_csv_file(
+            const_cast<std::ifstream &>(hotelsFile));
+    hotelManager = new HotelManager(rawHotelsData);
 }

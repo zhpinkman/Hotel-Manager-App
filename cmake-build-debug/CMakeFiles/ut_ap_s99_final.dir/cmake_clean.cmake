@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/ut_ap_s99_final.dir/src/CommandHandler.cpp.o"
   "CMakeFiles/ut_ap_s99_final.dir/src/Hotel.cpp.o"
+  "CMakeFiles/ut_ap_s99_final.dir/src/HotelManager.cpp.o"
   "CMakeFiles/ut_ap_s99_final.dir/src/Interface.cpp.o"
   "CMakeFiles/ut_ap_s99_final.dir/src/Main.cpp.o"
   "CMakeFiles/ut_ap_s99_final.dir/src/Room.cpp.o"

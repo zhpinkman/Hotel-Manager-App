@@ -177,6 +177,33 @@ src/Hotel.cpp.s:
 	$(MAKE) -f CMakeFiles/ut_ap_s99_final.dir/build.make CMakeFiles/ut_ap_s99_final.dir/src/Hotel.cpp.s
 .PHONY : src/Hotel.cpp.s
 
+src/HotelManager.o: src/HotelManager.cpp.o
+
+.PHONY : src/HotelManager.o
+
+# target to build an object file
+src/HotelManager.cpp.o:
+	$(MAKE) -f CMakeFiles/ut_ap_s99_final.dir/build.make CMakeFiles/ut_ap_s99_final.dir/src/HotelManager.cpp.o
+.PHONY : src/HotelManager.cpp.o
+
+src/HotelManager.i: src/HotelManager.cpp.i
+
+.PHONY : src/HotelManager.i
+
+# target to preprocess a source file
+src/HotelManager.cpp.i:
+	$(MAKE) -f CMakeFiles/ut_ap_s99_final.dir/build.make CMakeFiles/ut_ap_s99_final.dir/src/HotelManager.cpp.i
+.PHONY : src/HotelManager.cpp.i
+
+src/HotelManager.s: src/HotelManager.cpp.s
+
+.PHONY : src/HotelManager.s
+
+# target to generate assembly for a file
+src/HotelManager.cpp.s:
+	$(MAKE) -f CMakeFiles/ut_ap_s99_final.dir/build.make CMakeFiles/ut_ap_s99_final.dir/src/HotelManager.cpp.s
+.PHONY : src/HotelManager.cpp.s
+
 src/Interface.o: src/Interface.cpp.o
 
 .PHONY : src/Interface.o
@@ -435,6 +462,9 @@ help:
 	@echo "... src/Hotel.o"
 	@echo "... src/Hotel.i"
 	@echo "... src/Hotel.s"
+	@echo "... src/HotelManager.o"
+	@echo "... src/HotelManager.i"
+	@echo "... src/HotelManager.s"
 	@echo "... src/Interface.o"
 	@echo "... src/Interface.i"
 	@echo "... src/Interface.s"

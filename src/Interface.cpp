@@ -23,4 +23,8 @@ void Interface::runLogoutCommand() {
     utrip->logout();
 }
 
+void Interface::runHotelsImport(const std::string &hotelsFile) {
+    utrip->importHotels(hotelsFile);
+}
+
 

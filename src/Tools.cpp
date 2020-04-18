@@ -3,32 +3,31 @@
 #include "../includes/constants.hpp"
 #include <random>
 #include <sstream>
-using namespace std;
 
-vector<string> Tools::split_by_char(string word, char separator) {
-  vector<string> result;
-  stringstream ss(word);
+std::vector<std::string> Tools::split_by_char(std::string word, char separator) {
+  std::vector<std::string> result;
+  std::stringstream ss(word);
 
-  string str;
+  std::string str;
   while (getline(ss, str, separator))
     result.push_back(str);
 
   return result;
 }
 
-ifstream Tools::open_csv_file(string filePath) {
-  ifstream file(filePath);
+std::ifstream Tools::open_csv_file(std::string filePath) {
+  std::ifstream file(filePath);
   if (file.fail())
     throw Not_found_exception();
   return file;
 }
 
-vector<vector<string>> Tools::parse_csv_file(ifstream &file) {
-  string line;
-  vector<vector<string>> result;
+std::vector<std::vector<std::string>> Tools::parse_csv_file(std::ifstream &file) {
+  std::string line;
+  std::vector<std::vector<std::string>> result;
 
-  while (getline(file, line)) {
-    vector<string> words = split_by_char(line, COMMA);
+  while (std::getline(file, line, ENTER)) {
+    std::vector<std::string> words = split_by_char(line, COMMA);
     result.push_back(words);
   }
 

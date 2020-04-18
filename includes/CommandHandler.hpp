@@ -14,7 +14,7 @@ private:
 public:
   CommandHandler(/* args */);
 
-    void start();
+    void start(const std::string &pathToCSVFile);
 
     void processCommands();
 

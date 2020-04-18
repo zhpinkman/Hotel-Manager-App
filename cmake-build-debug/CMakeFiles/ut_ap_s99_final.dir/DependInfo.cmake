@@ -6,6 +6,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/src/CommandHandler.cpp" "/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/cmake-build-debug/CMakeFiles/ut_ap_s99_final.dir/src/CommandHandler.cpp.o"
   "/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/src/Hotel.cpp" "/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/cmake-build-debug/CMakeFiles/ut_ap_s99_final.dir/src/Hotel.cpp.o"
+  "/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/src/HotelManager.cpp" "/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/cmake-build-debug/CMakeFiles/ut_ap_s99_final.dir/src/HotelManager.cpp.o"
   "/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/src/Interface.cpp" "/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/cmake-build-debug/CMakeFiles/ut_ap_s99_final.dir/src/Interface.cpp.o"
   "/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/src/Main.cpp" "/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/cmake-build-debug/CMakeFiles/ut_ap_s99_final.dir/src/Main.cpp.o"
   "/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/src/Room.cpp" "/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/cmake-build-debug/CMakeFiles/ut_ap_s99_final.dir/src/Room.cpp.o"

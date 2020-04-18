@@ -15,8 +15,8 @@ CommandHandler::CommandHandler(/* args */) {
 }
 
 
-void CommandHandler::start()
-{
+void CommandHandler::start(const std::string &pathToCSVFile) {
+    interface->runHotelsImport(pathToCSVFile);
     processCommands();
 }
 
