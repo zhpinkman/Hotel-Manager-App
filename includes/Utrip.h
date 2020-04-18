@@ -24,6 +24,8 @@ public:
 
     void importHotels(const std::string &hotelsFile);
 
+    void getWallet(const std::string &amount);
+
 private:
     UserManager* userManager;
     HotelManager* hotelManager;

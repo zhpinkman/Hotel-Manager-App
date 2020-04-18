@@ -54,3 +54,19 @@ void Utrip::importHotels(const std::string &hotelsFilePath) {
             const_cast<std::ifstream &>(hotelsFile));
     hotelManager = new HotelManager(rawHotelsData);
 }
+
+void Utrip::getWallet(const std::string &amount) {
+//    if (userManager->isUserLoggedIn()) {
+//        throw new Bad_request_exception();
+//    }
+    try {
+        double amountValue = std::stod(amount);
+        if (amountValue < 0) {
+            throw new Bad_request_exception();
+        }
+        userManager->getWallet(amountValue);
+    }
+    catch (std::exception &exception) {
+        throw new Bad_request_exception();
+    }
+}

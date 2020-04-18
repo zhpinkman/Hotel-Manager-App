@@ -44,3 +44,7 @@ bool UserManager::isUserLoggedIn() {
     return loggedInUser != nullptr;
 }
 
+void UserManager::getWallet(double amount) {
+    loggedInUser->getWallet(amount);
+}
+

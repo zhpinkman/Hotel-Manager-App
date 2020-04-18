@@ -15,7 +15,6 @@ HotelManager::HotelManager(const RAW_DATA_LIST &hotelsRawData) {
         Hotel* hotel = constructHotelFromHotelRawData(hotelsRawData[i]);
         hotels.push_back(hotel);
     }
-    hotels[0]->print();
 }
 
 

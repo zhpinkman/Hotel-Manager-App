@@ -18,11 +18,15 @@ public:
 
     bool passwordMatches(std::string _password);
 
+    void getWallet(double amount);
+
 private:
     std::string email;
     std::string username;
     std::string password;
     std::vector<Reservation*> reservations;
+    double balance;
+    std::vector<double> balanceHistory;
 
 };
 

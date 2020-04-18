@@ -27,4 +27,8 @@ void Interface::runHotelsImport(const std::string &hotelsFile) {
     utrip->importHotels(hotelsFile);
 }
 
+void Interface::runWalletCommand(const std::string &amount) {
+    utrip->getWallet(amount);
+}
+
 

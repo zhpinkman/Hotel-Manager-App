@@ -72,12 +72,18 @@ void CommandHandler::runCommand(const std::vector<std::string> &commandWords)
     std::string commandMethod = commandWords[0];
     std::string order = commandWords[1];
 
-    if (order == SIGNUP && commandMethod == POST)
+    if (order == SIGNUP && commandMethod == POST) {
         interface->runSignupCommand(commandWords[4], commandWords[6], commandWords[8]);
-    else if (order == LOGIN && commandMethod == POST)
+    }
+    else if (order == LOGIN && commandMethod == POST) {
         interface->runLoginCommand(commandWords[4], commandWords[6]);
-    else if (order == LOGOUT && commandMethod == POST)
+    }
+    else if (order == LOGOUT && commandMethod == POST) {
         interface->runLogoutCommand();
+    }
+    else if (order == "wallet" && commandMethod == GET) {
+        interface->runWalletCommand(commandWords[4]);
+    }
     else
         throw new Not_found_exception();
 }

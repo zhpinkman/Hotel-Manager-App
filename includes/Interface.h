@@ -24,6 +24,8 @@ public:
 
     void runHotelsImport(const std::string &basicString);
 
+    void runWalletCommand(const std::string &amount);
+
 private:
 
     Utrip* utrip;

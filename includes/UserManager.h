@@ -19,6 +19,9 @@ public:
 
 
     bool isUserLoggedIn();
+
+    void getWallet(double amount);
+
 private:
     User* loggedInUser;
 
