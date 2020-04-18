@@ -16,7 +16,7 @@ class Utrip{
 public:
     Utrip();
 
-    void signup(std::string email, std::string username, std::string password);
+    void signup(const std::string& email, std::string username, const std::string& password);
 
     void login(std::string email, std::string password);
 
@@ -26,6 +26,7 @@ private:
     UserManager* userManager;
     HotelManager* hotelManager;
 
+    void printSuccessMessage();
 };
 
 #endif //UT_AP_S99_FINAL_UTRIP_H

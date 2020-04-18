@@ -15,15 +15,16 @@ class Interface {
 public:
     Interface();
 
-    void runSignupCommand(const std::vector<std::string> &vector);
 
-    void runLoginCommand(const std::vector<std::string> &vector);
+    void runLoginCommand(const std::string &email, const std::string &password);
 
-    void runLogoutCommand(const std::vector<std::string> &vector);
+    void runSignupCommand(const std::string &email, const std::string &username, const std::string &password);
+
+    void runLogoutCommand();
 
 private:
-    Utrip* utrip;
 
+    Utrip* utrip;
 };
 
 #endif //UT_AP_S99_FINAL_INTERFACE_H

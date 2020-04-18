@@ -11,15 +11,15 @@ Interface::Interface() {
     utrip = new Utrip();
 }
 
-void Interface::runSignupCommand(const std::vector<std::string> &args) {
-    utrip->signup(args[4], args[6], args[8]);
+void Interface::runSignupCommand(const std::string &email, const std::string &username, const std::string &password) {
+    utrip->signup(email, username, password);
 }
 
-void Interface::runLoginCommand(const std::vector<std::string> &args) {
-    utrip->login(args[4], args[6]);
+void Interface::runLoginCommand(const std::string &email, const std::string &password) {
+    utrip->login(email, password);
 }
 
-void Interface::runLogoutCommand(const std::vector<std::string> &args) {
+void Interface::runLogoutCommand() {
     utrip->logout();
 }
 

@@ -13,18 +13,19 @@ class User;
 class UserManager {
 public:
     UserManager();
-    void login(std::string email, std::string password);
-    void signup(std::string email, std::string username, std::string password);
+    void login(const std::string& email, const std::string &password);
+    void signup(const std::string &email, const std::string &username, const std::string &password);
     void logout();
 
-    bool isUserLoggedIn();
 
+    bool isUserLoggedIn();
 private:
     User* loggedInUser;
+
     std::vector<User*> users;
 
-    User *findUser(std::string email);
 
+    User *findUser(const std::string& email);
 };
 
 #endif //UT_AP_S99_FINAL_USERMANAGER_H

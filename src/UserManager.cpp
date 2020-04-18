@@ -11,14 +11,14 @@ UserManager::UserManager() {
     loggedInUser = nullptr;
 }
 
-void UserManager::login(std::string email, std::string password) {
+void UserManager::login(const std::string& email, const std::string &password) {
     User* user = findUser(email);
     if (user->passwordMatches(password)) {
         loggedInUser = user;
     }
 }
 
-void UserManager::signup(std::string email, std::string username, std::string password) {
+void UserManager::signup(const std::string& email, const std::string &username, const std::string &password) {
     if (findUser(email)) {
         throw new Bad_request_exception();
     }
@@ -30,7 +30,7 @@ void UserManager::logout() {
 }
 
 
-User* UserManager::findUser(std::string email) {
+User* UserManager::findUser(const std::string& email) {
     for (auto& user: users) {
         if (user->emailMatches(email)) {
             return user;
@@ -43,3 +43,4 @@ User* UserManager::findUser(std::string email) {
 bool UserManager::isUserLoggedIn() {
     return loggedInUser != nullptr;
 }
+

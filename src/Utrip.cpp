@@ -15,13 +15,13 @@ Utrip::Utrip() {
 }
 
 
-void Utrip::signup(std::string email, std::string username, std::string password) {
+void Utrip::signup(const std::string& email, std::string username, const std::string& password) {
     if (userManager->isUserLoggedIn()) {
         throw new Bad_request_exception();
     }
     userManager->signup(email, username, password);
     userManager->login(email, password);
-    std::cout << OK << std::endl;
+    printSuccessMessage();
 }
 
 
@@ -30,7 +30,7 @@ void Utrip::login(std::string email, std::string password) {
         throw new Bad_request_exception();
     }
     userManager->login(email, password);
-    std::cout << OK << std::endl;
+    printSuccessMessage();
 }
 
 
@@ -39,5 +39,10 @@ void Utrip::logout() {
         throw new Bad_request_exception();
     }
     userManager->logout();
+    printSuccessMessage();
+}
+
+
+void Utrip::printSuccessMessage() {
     std::cout << OK << std::endl;
 }
