@@ -27,3 +27,9 @@ Hotel *HotelManager::constructHotelFromHotelRawData(const RAW_DATA hotelRawData)
             hotelRawData[HOTEL_OVERVIEW_ARG_INDEX], amenities, city, hotelRawData[HOTEL_IMAGE_ARG_INDEX]);
 }
 
+void HotelManager::getHotels() {
+    for (auto hotel: hotels) {
+        hotel->printBriefly();
+    }
+}
+

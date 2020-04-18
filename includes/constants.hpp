@@ -26,6 +26,8 @@
 #define SIGNUP "signup"
 #define LOGIN "login"
 #define LOGOUT "logout"
+#define WALLET "wallet"
+#define HOTELS_GET "hotels"
 #define SPACE ' '
 #define COMMA ','
 

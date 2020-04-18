@@ -81,8 +81,11 @@ void CommandHandler::runCommand(const std::vector<std::string> &commandWords)
     else if (order == LOGOUT && commandMethod == POST) {
         interface->runLogoutCommand();
     }
-    else if (order == "wallet" && commandMethod == GET) {
+    else if (order == WALLET && commandMethod == GET) {
         interface->runWalletCommand(commandWords[4]);
+    }
+    else if (order == HOTELS_GET && commandMethod == GET) {
+        interface->runGetHotelsCommand();
     }
     else
         throw new Not_found_exception();

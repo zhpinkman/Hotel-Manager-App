@@ -1,2 +1,3 @@
 POST signup ? email zhivarsourati@gmail.com username zh.sourati password 1234
 GET wallet ? amount 2
+GET hotels

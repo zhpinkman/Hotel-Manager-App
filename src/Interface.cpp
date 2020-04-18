@@ -31,4 +31,8 @@ void Interface::runWalletCommand(const std::string &amount) {
     utrip->getWallet(amount);
 }
 
+void Interface::runGetHotelsCommand() {
+    utrip->getHotels();
+}
+
 

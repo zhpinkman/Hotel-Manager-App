@@ -26,6 +26,8 @@ public:
 
     void runWalletCommand(const std::string &amount);
 
+    void runGetHotelsCommand();
+
 private:
 
     Utrip* utrip;

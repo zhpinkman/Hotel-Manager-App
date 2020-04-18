@@ -17,6 +17,9 @@ class HotelManager {
 public:
     HotelManager(const RAW_DATA_LIST &hotelsRawData);
     Hotel *constructHotelFromHotelRawData(const RAW_DATA hotelRawData);
+
+    void getHotels();
+
 private:
     std::vector<Hotel*> hotels;
 };

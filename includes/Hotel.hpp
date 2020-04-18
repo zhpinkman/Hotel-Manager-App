@@ -16,6 +16,9 @@ public:
           Amenities amenities, City city, std::string imageUrl);
     void print();
     std::string getAmenities();
+
+    void printBriefly();
+
 private:
     std::string hotel_id;
     std::string hotel_name;

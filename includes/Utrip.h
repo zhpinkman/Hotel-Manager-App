@@ -26,6 +26,8 @@ public:
 
     void getWallet(const std::string &amount);
 
+    void getHotels();
+
 private:
     UserManager* userManager;
     HotelManager* hotelManager;

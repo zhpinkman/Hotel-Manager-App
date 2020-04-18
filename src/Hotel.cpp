@@ -32,3 +32,13 @@ std::string Hotel::getAmenities() {
     amenitiesString += amenities[amenities.size() - 1];
     return amenitiesString;
 }
+
+void Hotel::printBriefly() {
+    std::string hotel_description;
+    hotel_description += "id: " + hotel_id + SPACE;
+    hotel_description += "name: " + hotel_name + SPACE;
+    hotel_description += "star: " + std::to_string(hotel_rating) + SPACE;
+    hotel_description += "city: " + city.city_name + SPACE;
+//    todo other attributes
+    std::cout << hotel_description << std::endl;
+}

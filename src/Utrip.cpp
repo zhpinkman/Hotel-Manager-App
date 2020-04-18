@@ -56,9 +56,9 @@ void Utrip::importHotels(const std::string &hotelsFilePath) {
 }
 
 void Utrip::getWallet(const std::string &amount) {
-//    if (userManager->isUserLoggedIn()) {
-//        throw new Bad_request_exception();
-//    }
+    if (!userManager->isUserLoggedIn()) {
+        throw new Bad_request_exception();
+    }
     try {
         double amountValue = std::stod(amount);
         if (amountValue < 0) {
@@ -69,4 +69,11 @@ void Utrip::getWallet(const std::string &amount) {
     catch (std::exception &exception) {
         throw new Bad_request_exception();
     }
+}
+
+void Utrip::getHotels() {
+    if (!userManager->isUserLoggedIn()) {
+        throw new Bad_request_exception();
+    }
+    hotelManager->getHotels();
 }
