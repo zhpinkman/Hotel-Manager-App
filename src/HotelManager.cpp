@@ -24,7 +24,11 @@ Hotel *HotelManager::constructHotelFromHotelRawData(const RAW_DATA hotelRawData)
             hotelRawData[LATITUDE_ARG_INDEX]), std::stod(hotelRawData[LONGITUDE_ARG_INDEX]));
     return new Hotel(hotelRawData[HOTEL_ID_ARG_INDEX], hotelRawData[HOTEL_NAME_ARG_INDEX],
             std::stoi(hotelRawData[HOTEL_RATING_ARG_INDEX]),
-            hotelRawData[HOTEL_OVERVIEW_ARG_INDEX], amenities, city, hotelRawData[HOTEL_IMAGE_ARG_INDEX]);
+            hotelRawData[HOTEL_OVERVIEW_ARG_INDEX], amenities, city, hotelRawData[HOTEL_IMAGE_ARG_INDEX],
+            std::stoi(hotelRawData[NUM_OF_STANDARD_ROOMS_ARG_INDEX]), std::stoi(hotelRawData[NUM_OF_DELUXE_ROOMS_ARG_INDEX]),
+            std::stoi(hotelRawData[NUM_OF_LUXURY_ROOMS_ARG_INDEX]), std::stoi(hotelRawData[NUM_OF_PREMIUM_ROOMS_ARG_INDEX]),
+            std::stoi(hotelRawData[PRICE_OF_STANDARD_ROOMS_ARG_INDEX]), std::stoi(hotelRawData[PRICE_OF_DELUXE_ROOMS_ARG_INDEX]),
+            std::stoi(hotelRawData[PRICE_OF_LUXURY_ROOMS_ARG_INDEX]), std::stoi(hotelRawData[PRICE_OF_PREMIUM_ROOMS_ARG_INDEX]));
 }
 
 void HotelManager::getHotels() {

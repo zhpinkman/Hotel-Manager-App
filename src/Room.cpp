@@ -1,7 +1,10 @@
-#include "../includes/Room.hpp"
-#include "../includes/Reservation_time.hpp"
+//
+// Created by zhivar on 4/20/20.
+//
 
-Room::Room(double _room_id, double _room_price) {
-  room_id = _room_id;
-  room_price = _room_price;
+
+#include "../includes/Room.h"
+
+Room::Room() {
+
 }

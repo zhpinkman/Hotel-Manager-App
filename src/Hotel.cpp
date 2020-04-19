@@ -1,14 +1,18 @@
 #include <iostream>
 #include "../includes/Hotel.hpp"
-#include "../includes/Room_service.hpp"
+#include "../includes/RoomService.hpp"
 #include "../includes/constants.hpp"
 
+
 Hotel::Hotel(const std::string &hotelId, std::string hotelName, int hotelRating, std::string hotelOverview,
-             Amenities amenities, City city, std::string imageUrl)
-        : hotelId(hotelId), hotelName(hotelName), hotelRating(hotelRating), hotel_overview(hotelOverview),
-          amenities(amenities), city(city), image_url(imageUrl) {
-    room_service = new Room_service();
+             Amenities amenities, City city, std::string imageUrl, int numOfStandardRooms, int numOfDeluxeRooms,
+             int numOfLuxuryRooms, int numOfPremiumRooms, double standardRoomPrice, double deluxeRoomPrice,
+             double luxuryRoomPrice, double premiumRoomPrice) : hotelId(hotelId), hotelName(hotelName),
+                                                                hotelRating(hotelRating), hotel_overview(hotelOverview),
+                                                                amenities(amenities), city(city), image_url(imageUrl) {
+    roomService = new RoomService(numOfStandardRooms, numOfDeluxeRooms, numOfLuxuryRooms, numOfPremiumRooms, standardRoomPrice, deluxeRoomPrice, luxuryRoomPrice, premiumRoomPrice);
 }
+
 
 void Hotel::print() {
     std::string hotel_description;
@@ -20,9 +24,16 @@ void Hotel::print() {
     hotel_description += "city: " + city.cityName + ENTER;
     hotel_description += "latitude: " + std::to_string(city.latitude) + ENTER;
     hotel_description += "logitude: " + std::to_string(city.longitude) + ENTER;
+    hotel_description += "#rooms: " + std::to_string(roomService->getNumOfStandardRooms()) + SPACE +
+            std::to_string(roomService->getNumOfDeluxeRooms()) + SPACE +
+            std::to_string(roomService->getNumOfLuxuryRooms()) + SPACE +
+            std::to_string(roomService->getNumOfPremiumRooms()) + ENTER;
+    hotel_description += "price: " + std::to_string(roomService->getPriceOfStandardRooms()) + SPACE +
+            std::to_string(roomService->getPriceOfDeluxeRooms()) + SPACE +
+            std::to_string(roomService->getPriceOfLuxuryRooms()) + SPACE +
+            std::to_string(roomService->getPriceOfPremiumRooms()) + ENTER;
     std::cout << hotel_description << std::endl;
 }
-
 
 std::string Hotel::getAmenities() {
     std::string amenitiesString;
@@ -35,14 +46,16 @@ std::string Hotel::getAmenities() {
 
 void Hotel::printBriefly() {
     std::string hotel_description;
-    hotel_description += "id: " + hotelId + SPACE;
-    hotel_description += "name: " + hotelName + SPACE;
-    hotel_description += "star: " + std::to_string(hotelRating) + SPACE;
-    hotel_description += "city: " + city.cityName + SPACE;
-//    todo other attributes
+    hotel_description += hotelId + SPACE;
+    hotel_description += hotelName + SPACE;
+    hotel_description += std::to_string(hotelRating) + SPACE;
+    hotel_description += city.cityName + SPACE;
+    hotel_description += std::to_string(roomService->getTotalNumOfRooms()) + SPACE;
+    hotel_description += std::to_string(roomService->getRoomsAveragePrice()) + SPACE;
     std::cout << hotel_description << std::endl;
 }
 
 bool Hotel::idsMatches(const std::string &_hotelId) {
     return hotelId == _hotelId;
 }
+

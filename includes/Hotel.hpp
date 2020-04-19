@@ -6,14 +6,17 @@
 #include "../includes/constants.hpp"
 
 
-class Room_service;
+class RoomService;
 
 
 
 class Hotel {
 public:
     Hotel(const std::string &hotelId, std::string hotelName, int hotelRating, std::string hotelOverview,
-          Amenities amenities, City city, std::string imageUrl);
+          Amenities amenities, City city, std::string imageUrl, int numOfStandardRooms,
+          int numOfDeluxeRooms, int numOfLuxuryRooms, int numOfPremiumRooms,
+          double standardRoomPrice, double deluxeRoomPrice, double luxuryRoomPrice,
+          double premiumRoomPrice);
     void print();
     std::string getAmenities();
 
@@ -29,8 +32,8 @@ private:
     Amenities amenities;
     City city;
     std::string image_url;
+    RoomService* roomService;
 
-  Room_service *room_service;
 };
 
 #endif

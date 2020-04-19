@@ -285,32 +285,32 @@ src/Room.cpp.s:
 	$(MAKE) -f CMakeFiles/ut_ap_s99_final.dir/build.make CMakeFiles/ut_ap_s99_final.dir/src/Room.cpp.s
 .PHONY : src/Room.cpp.s
 
-src/Room_service.o: src/Room_service.cpp.o
+src/RoomService.o: src/RoomService.cpp.o
 
-.PHONY : src/Room_service.o
+.PHONY : src/RoomService.o
 
 # target to build an object file
-src/Room_service.cpp.o:
-	$(MAKE) -f CMakeFiles/ut_ap_s99_final.dir/build.make CMakeFiles/ut_ap_s99_final.dir/src/Room_service.cpp.o
-.PHONY : src/Room_service.cpp.o
+src/RoomService.cpp.o:
+	$(MAKE) -f CMakeFiles/ut_ap_s99_final.dir/build.make CMakeFiles/ut_ap_s99_final.dir/src/RoomService.cpp.o
+.PHONY : src/RoomService.cpp.o
 
-src/Room_service.i: src/Room_service.cpp.i
+src/RoomService.i: src/RoomService.cpp.i
 
-.PHONY : src/Room_service.i
+.PHONY : src/RoomService.i
 
 # target to preprocess a source file
-src/Room_service.cpp.i:
-	$(MAKE) -f CMakeFiles/ut_ap_s99_final.dir/build.make CMakeFiles/ut_ap_s99_final.dir/src/Room_service.cpp.i
-.PHONY : src/Room_service.cpp.i
+src/RoomService.cpp.i:
+	$(MAKE) -f CMakeFiles/ut_ap_s99_final.dir/build.make CMakeFiles/ut_ap_s99_final.dir/src/RoomService.cpp.i
+.PHONY : src/RoomService.cpp.i
 
-src/Room_service.s: src/Room_service.cpp.s
+src/RoomService.s: src/RoomService.cpp.s
 
-.PHONY : src/Room_service.s
+.PHONY : src/RoomService.s
 
 # target to generate assembly for a file
-src/Room_service.cpp.s:
-	$(MAKE) -f CMakeFiles/ut_ap_s99_final.dir/build.make CMakeFiles/ut_ap_s99_final.dir/src/Room_service.cpp.s
-.PHONY : src/Room_service.cpp.s
+src/RoomService.cpp.s:
+	$(MAKE) -f CMakeFiles/ut_ap_s99_final.dir/build.make CMakeFiles/ut_ap_s99_final.dir/src/RoomService.cpp.s
+.PHONY : src/RoomService.cpp.s
 
 src/Tools.o: src/Tools.cpp.o
 
@@ -474,9 +474,9 @@ help:
 	@echo "... src/Room.o"
 	@echo "... src/Room.i"
 	@echo "... src/Room.s"
-	@echo "... src/Room_service.o"
-	@echo "... src/Room_service.i"
-	@echo "... src/Room_service.s"
+	@echo "... src/RoomService.o"
+	@echo "... src/RoomService.i"
+	@echo "... src/RoomService.s"
 	@echo "... src/Tools.o"
 	@echo "... src/Tools.i"
 	@echo "... src/Tools.s"

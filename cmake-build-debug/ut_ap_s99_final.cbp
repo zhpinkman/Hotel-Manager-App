@@ -104,10 +104,10 @@
 		<Unit filename="/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/includes/Reservation_time.hpp">
 			<Option target="ut_ap_s99_final"/>
 		</Unit>
-		<Unit filename="/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/includes/Room.hpp">
+		<Unit filename="/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/includes/Room.h">
 			<Option target="ut_ap_s99_final"/>
 		</Unit>
-		<Unit filename="/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/includes/Room_service.hpp">
+		<Unit filename="/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/includes/RoomService.hpp">
 			<Option target="ut_ap_s99_final"/>
 		</Unit>
 		<Unit filename="/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/includes/Tools.hpp">
@@ -146,7 +146,7 @@
 		<Unit filename="/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/src/Room.cpp">
 			<Option target="ut_ap_s99_final"/>
 		</Unit>
-		<Unit filename="/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/src/Room_service.cpp">
+		<Unit filename="/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/src/RoomService.cpp">
 			<Option target="ut_ap_s99_final"/>
 		</Unit>
 		<Unit filename="/home/zhivar/Documents/university/AP_Spring99/ut_ap_s99_final/src/Tools.cpp">

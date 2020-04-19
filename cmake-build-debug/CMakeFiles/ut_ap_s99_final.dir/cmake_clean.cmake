@@ -5,7 +5,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/ut_ap_s99_final.dir/src/Interface.cpp.o"
   "CMakeFiles/ut_ap_s99_final.dir/src/Main.cpp.o"
   "CMakeFiles/ut_ap_s99_final.dir/src/Room.cpp.o"
-  "CMakeFiles/ut_ap_s99_final.dir/src/Room_service.cpp.o"
+  "CMakeFiles/ut_ap_s99_final.dir/src/RoomService.cpp.o"
   "CMakeFiles/ut_ap_s99_final.dir/src/Tools.cpp.o"
   "CMakeFiles/ut_ap_s99_final.dir/src/User.cpp.o"
   "CMakeFiles/ut_ap_s99_final.dir/src/UserManager.cpp.o"

@@ -11,7 +11,7 @@ OBJECTS = \
 	$(BUILD_DIR)/Main.o \
 	$(BUILD_DIR)/Tools.o \
 	$(BUILD_DIR)/Wallet.o \
-	$(BUILD_DIR)/Room_service.o \
+	$(BUILD_DIR)/RoomService.o \
 	$(BUILD_DIR)/Room.o \
 	$(BUILD_DIR)/Interface.o \
 	$(BUILD_DIR)/CommandHandler.o \
@@ -24,7 +24,7 @@ OBJECTS = \
 HotelSensitivityList = \
 	$(SRC_DIR)/Hotel.cpp \
 	$(INCLUDE_DIR)/Hotel.hpp \
-	$(INCLUDE_DIR)/Room_service.hpp \
+	$(INCLUDE_DIR)/RoomService.hpp \
 	$(INCLUDE_DIR)/constants.hpp
 
 HotelManagerSensitivityList = \
@@ -75,14 +75,13 @@ CommandHandlerSensitivityList = \
 
 
 RoomServiceSensitivityList = \
-	$(SRC_DIR)/Room_service.cpp \
-	$(INCLUDE_DIR)/Room_service.hpp \
-	$(INCLUDE_DIR)/Room.hpp 
+	$(SRC_DIR)/RoomService.cpp \
+	$(INCLUDE_DIR)/RoomService.hpp \
+	$(INCLUDE_DIR)/Room.h
 
 RoomSensitivityList = \
 	$(SRC_DIR)/Room.cpp \
-	$(INCLUDE_DIR)/Room.hpp \
-	$(INCLUDE_DIR)/Reservation_time.hpp 
+	$(INCLUDE_DIR)/Room.h
 
 WalletSensitivityList = \
 	$(SRC_DIR)/Wallet.cpp \
@@ -109,8 +108,8 @@ $(BUILD_DIR)/Tools.o: $(ToolsSensitivityList)
 $(BUILD_DIR)/Wallet.o: $(WalletSensitivityList)
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/Wallet.cpp -o $(BUILD_DIR)/Wallet.o
 
-$(BUILD_DIR)/Room_service.o: $(RoomServiceSensitivityList)
-	$(CC) $(CFLAGS) -c $(SRC_DIR)/Room_service.cpp -o $(BUILD_DIR)/Room_service.o
+$(BUILD_DIR)/RoomService.o: $(RoomServiceSensitivityList)
+	$(CC) $(CFLAGS) -c $(SRC_DIR)/RoomService.cpp -o $(BUILD_DIR)/RoomService.o
 
 $(BUILD_DIR)/Room.o: $(RoomSensitivityList)
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/Room.cpp -o $(BUILD_DIR)/Room.o

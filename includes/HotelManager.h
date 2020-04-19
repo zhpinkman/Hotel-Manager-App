@@ -6,7 +6,6 @@
 #define UT_AP_S99_FINAL_HOTELMANAGER_H
 
 
-
 #include <vector>
 #include <string>
 #include "../includes/constants.hpp"

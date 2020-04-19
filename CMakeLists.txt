@@ -11,14 +11,12 @@ add_executable(ut_ap_s99_final
     includes/Exception.hpp
     includes/Hotel.hpp
     includes/Reservation_time.hpp
-    includes/Room.hpp
-    includes/Room_service.hpp
+        includes/RoomService.hpp
     includes/Tools.hpp
     includes/Wallet.hpp
     src/CommandHandler.cpp
     src/Hotel.cpp
     src/Main.cpp
-    src/Room.cpp
-    src/Room_service.cpp
+        src/RoomService.cpp
     src/Tools.cpp
-    src/Wallet.cpp src/Interface.cpp includes/Interface.h includes/Utrip.h src/Utrip.cpp includes/User.h src/User.cpp includes/UserManager.h src/UserManager.cpp includes/HotelManager.h src/HotelManager.cpp)
+    src/Wallet.cpp src/Interface.cpp includes/Interface.h includes/Utrip.h src/Utrip.cpp includes/User.h src/User.cpp includes/UserManager.h src/UserManager.cpp includes/HotelManager.h src/HotelManager.cpp includes/Room.h src/Room.cpp)
