@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "fixture.hh"
+#include "TestFixture.hh"
 
 TEST_F(TestFixture, dummyTest)
 {

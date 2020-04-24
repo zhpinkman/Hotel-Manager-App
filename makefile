@@ -23,77 +23,77 @@ OBJECTS = $(LIB_OBJECTS) $(BUILD_DIR)/Main.o
 
 HotelSensitivityList = \
 	$(SRC_DIR)/Hotel.cpp \
-	$(INCLUDE_DIR)/Hotel.hpp \
-	$(INCLUDE_DIR)/RoomService.hpp \
-	$(INCLUDE_DIR)/constants.hpp
+	$(INCLUDE_DIR)/Hotel.hh \
+	$(INCLUDE_DIR)/RoomService.hh \
+	$(INCLUDE_DIR)/Constants.hh
 
 HotelManagerSensitivityList = \
 	$(SRC_DIR)/HotelManager.cpp \
-	$(INCLUDE_DIR)/HotelManager.h \
-	$(INCLUDE_DIR)/constants.hpp \
-	$(INCLUDE_DIR)/Hotel.hpp \
-	$(INCLUDE_DIR)/Tools.hpp
+	$(INCLUDE_DIR)/HotelManager.hh \
+	$(INCLUDE_DIR)/Constants.hh \
+	$(INCLUDE_DIR)/Hotel.hh \
+	$(INCLUDE_DIR)/Tools.hh
 
 UtripSensitivityList = \
 	$(SRC_DIR)/Utrip.cpp \
-	$(INCLUDE_DIR)/Utrip.h \
-	$(INCLUDE_DIR)/UserManager.h \
-	$(INCLUDE_DIR)/Exception.hpp \
-	$(INCLUDE_DIR)/constants.hpp \
-	$(INCLUDE_DIR)/Tools.hpp
+	$(INCLUDE_DIR)/Utrip.hh \
+	$(INCLUDE_DIR)/UserManager.hh \
+	$(INCLUDE_DIR)/Exception.hh \
+	$(INCLUDE_DIR)/Constants.hh \
+	$(INCLUDE_DIR)/Tools.hh
 
 UserSensitivityList = \
 	$(SRC_DIR)/User.cpp \
-	$(INCLUDE_DIR)/User.h
+	$(INCLUDE_DIR)/User.hh
 
 UserManagerSensitivityList = \
     $(SRC_DIR)/UserManager.cpp \
-    $(INCLUDE_DIR)/UserManager.h \
-    $(INCLUDE_DIR)/User.h \
-    $(INCLUDE_DIR)/Exception.hpp
+    $(INCLUDE_DIR)/UserManager.hh \
+    $(INCLUDE_DIR)/User.hh \
+    $(INCLUDE_DIR)/Exception.hh
 
 
 ToolsSensitivityList = \
 	$(SRC_DIR)/Tools.cpp \
-	$(INCLUDE_DIR)/Tools.hpp \
-	$(INCLUDE_DIR)/constants.hpp \
-	$(INCLUDE_DIR)/Exception.hpp
+	$(INCLUDE_DIR)/Tools.hh \
+	$(INCLUDE_DIR)/Constants.hh \
+	$(INCLUDE_DIR)/Exception.hh
 
 
 InterfaceSensitivityList = \
     $(SRC_DIR)/Interface.cpp \
-    $(INCLUDE_DIR)/Interface.h \
-    $(INCLUDE_DIR)/Utrip.h
+    $(INCLUDE_DIR)/Interface.hh \
+    $(INCLUDE_DIR)/Utrip.hh
 
 CommandHandlerSensitivityList = \
     $(SRC_DIR)/CommandHandler.cpp \
-    $(INCLUDE_DIR)/CommandHandler.hpp \
-    $(INCLUDE_DIR)/constants.hpp \
-    $(INCLUDE_DIR)/Tools.hpp \
-    $(INCLUDE_DIR)/Exception.hpp \
-    $(INCLUDE_DIR)/Interface.h \
+    $(INCLUDE_DIR)/CommandHandler.hh \
+    $(INCLUDE_DIR)/Constants.hh \
+    $(INCLUDE_DIR)/Tools.hh \
+    $(INCLUDE_DIR)/Exception.hh \
+    $(INCLUDE_DIR)/Interface.hh \
     $(INCLUDE_DIR)/Request.hh
 
 
 RoomServiceSensitivityList = \
 	$(SRC_DIR)/RoomService.cpp \
-	$(INCLUDE_DIR)/RoomService.hpp \
-	$(INCLUDE_DIR)/Room.h
+	$(INCLUDE_DIR)/RoomService.hh \
+	$(INCLUDE_DIR)/Room.hh
 
 RoomSensitivityList = \
 	$(SRC_DIR)/Room.cpp \
-	$(INCLUDE_DIR)/Room.h
+	$(INCLUDE_DIR)/Room.hh
 
 WalletSensitivityList = \
 	$(SRC_DIR)/Wallet.cpp \
-	$(INCLUDE_DIR)/Wallet.hpp \
-	$(INCLUDE_DIR)/Exception.hpp \
-	$(INCLUDE_DIR)/constants.hpp
+	$(INCLUDE_DIR)/Wallet.hh \
+	$(INCLUDE_DIR)/Exception.hh \
+	$(INCLUDE_DIR)/Constants.hh
 
 MainSensitivityList = \
 	$(SRC_DIR)/Main.cpp \
-	$(INCLUDE_DIR)/CommandHandler.hpp \
-	$(INCLUDE_DIR)/constants.hpp
+	$(INCLUDE_DIR)/CommandHandler.hh \
+	$(INCLUDE_DIR)/Constants.hh
 
 all: $(BUILD_DIR) $(EXECUTABLE_FILE)
 
@@ -147,17 +147,17 @@ TEST_CCFLAGS = $(CFLAGS) -I/usr/local/include -I/usr/include/ -Itest/
 
 test-all: $(BUILD_DIR) $(TEST_BUILD_DIR)/test-utrip.out
 
-TESTS_OBJS = $(TEST_BUILD_DIR)/testSignup.o
+TESTS_OBJS = $(TEST_BUILD_DIR)/TestSignup.o
 
-$(TEST_BUILD_DIR)/test-utrip.out: $(LIB_OBJECTS) $(TEST_DIR)/main.cc $(TESTS_OBJS)
-	$(CC) $(TEST_DIR)/main.cc \
+$(TEST_BUILD_DIR)/test-utrip.out: $(LIB_OBJECTS) $(TEST_DIR)/Main.cpp $(TESTS_OBJS)
+	$(CC) $(TEST_DIR)/Main.cpp \
 	$(LIB_OBJECTS) \
 	$(TESTS_OBJS) \
 	$(TEST_CCFLAGS) -lgtest -lgtest_main -pthread -o $(TEST_BUILD_DIR)/test-utrip.out
 
 
-$(TEST_BUILD_DIR)/testSignup.o: $(TEST_DIR)/fixture.hh $(TEST_DIR)/testSignup.cc
-	$(CC) -c $(TEST_CCFLAGS) $(TEST_DIR)/testSignup.cc -o $(TEST_BUILD_DIR)/testSignup.o
+$(TEST_BUILD_DIR)/TestSignup.o: $(TEST_DIR)/TestFixture.hh $(TEST_DIR)/TestSignup.cpp
+	$(CC) -c $(TEST_CCFLAGS) $(TEST_DIR)/TestSignup.cpp -o $(TEST_BUILD_DIR)/TestSignup.o
 
 .PHONY: clean
 clean:

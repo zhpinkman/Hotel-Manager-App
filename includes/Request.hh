@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Exception.hpp"
+#include "Exception.hh"
 
 #include <cstdlib>
 #include <sstream>

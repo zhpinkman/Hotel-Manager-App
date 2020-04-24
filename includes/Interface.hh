@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-#include "Utrip.h"
+#include "Utrip.hh"
 #include "Request.hh"
 
 template <typename RequestType>

@@ -3,14 +3,12 @@
 
 #include <string>
 #include <vector>
-#include "../includes/constants.hpp"
-
+#include "../includes/Constants.hh"
 
 class RoomService;
 
-
-
-class Hotel {
+class Hotel
+{
 public:
     Hotel(const std::string &hotelId, std::string hotelName, int hotelRating, std::string hotelOverview,
           Amenities amenities, City city, std::string imageUrl, int numOfStandardRooms,
@@ -32,8 +30,7 @@ private:
     Amenities amenities;
     City city;
     std::string image_url;
-    RoomService* roomService;
-
+    RoomService *roomService;
 };
 
 #endif

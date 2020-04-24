@@ -1,13 +1,12 @@
-#ifndef __ROOM_SERVICE_H__
-#define __ROOM_SERVICE_H__ __ROOM_SERVICE_H__
-
+#pragma once
 #include <vector>
 
 class Room;
 
-typedef std::vector<Room*> Rooms;
+typedef std::vector<Room *> Rooms;
 
-class RoomService {
+class RoomService
+{
 private:
   Rooms standardRooms;
   Rooms deluxeRooms;
@@ -33,5 +32,3 @@ public:
   int getPriceOfLuxuryRooms();
   int getPriceOfPremiumRooms();
 };
-
-#endif // MACRO

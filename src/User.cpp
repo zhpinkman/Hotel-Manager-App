@@ -3,7 +3,7 @@
 //
 
 #include <iostream>
-#include "../includes/User.h"
+#include "../includes/User.hh"
 
 User::User(std::string _email, std::string _username, std::string _password)
 {

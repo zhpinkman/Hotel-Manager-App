@@ -2,12 +2,12 @@
 // // Created by zhivar on 4/17/20.
 // //
 
-// #include "../includes/Exception.hpp"
-// #include "../includes/HotelManager.h"
-// #include "../includes/Tools.hpp"
-// #include "../includes/UserManager.h"
-// #include "../includes/Utrip.h"
-// #include "../includes/constants.hpp"
+// #include "../includes/Exception.hh"
+// #include "../includes/HotelManager.hh"
+// #include "../includes/Tools.hh"
+// #include "../includes/UserManager.hh"
+// #include "../includes/Utrip.hh"
+// #include "../includes/Constants.hh"
 // #include <iostream>
 // #include <string>
 

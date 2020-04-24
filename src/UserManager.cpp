@@ -2,9 +2,9 @@
 // Created by zhivar on 4/17/20.
 //
 
-#include "../includes/Exception.hpp"
-#include "../includes/User.h"
-#include "../includes/UserManager.h"
+#include "../includes/Exception.hh"
+#include "../includes/User.hh"
+#include "../includes/UserManager.hh"
 #include <iostream>
 
 UserManager::UserManager() { loggedInUser = nullptr; }

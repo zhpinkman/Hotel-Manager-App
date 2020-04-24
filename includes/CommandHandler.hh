@@ -7,7 +7,7 @@
 
 #include <string>
 #include <vector>
-#include "Interface.h"
+#include "Interface.hh"
 #include "Request.hh"
 
 class CommandHandler

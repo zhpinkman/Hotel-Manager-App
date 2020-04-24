@@ -4,12 +4,12 @@
 #include <vector>
 #include <iostream>
 
-#include "UserManager.h"
-#include "User.h"
-#include "Exception.hpp"
-#include "Tools.hpp"
-#include "constants.hpp"
-#include "HotelManager.h"
+#include "UserManager.hh"
+#include "User.hh"
+#include "Exception.hh"
+#include "Tools.hh"
+#include "Constants.hh"
+#include "HotelManager.hh"
 
 class HotelManager;
 

@@ -1,8 +1,8 @@
-#include "../includes/CommandHandler.hpp"
-#include "../includes/constants.hpp"
-#include "../includes/Tools.hpp"
-#include "../includes/Exception.hpp"
-#include "../includes/Interface.h"
+#include "../includes/CommandHandler.hh"
+#include "../includes/Constants.hh"
+#include "../includes/Tools.hh"
+#include "../includes/Exception.hh"
+#include "../includes/Interface.hh"
 #include "../includes/Request.hh"
 
 #include <string>

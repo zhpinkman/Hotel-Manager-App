@@ -5,14 +5,14 @@
 #ifndef UT_AP_S99_FINAL_HOTELMANAGER_H
 #define UT_AP_S99_FINAL_HOTELMANAGER_H
 
-
 #include <vector>
 #include <string>
-#include "../includes/constants.hpp"
+#include "../includes/Constants.hh"
 
 class Hotel;
 
-class HotelManager {
+class HotelManager
+{
 public:
     HotelManager(const RAW_DATA_LIST &hotelsRawData);
     Hotel *constructHotelFromHotelRawData(const RAW_DATA hotelRawData);
@@ -22,9 +22,7 @@ public:
     void getHotelById(const std::string &hotelId);
 
 private:
-    std::vector<Hotel*> hotels;
+    std::vector<Hotel *> hotels;
 };
-
-
 
 #endif //UT_AP_S99_FINAL_HOTELMANAGER_H

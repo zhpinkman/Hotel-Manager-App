@@ -3,8 +3,8 @@
 //
 
 #include <iostream>
-#include "../includes/Interface.h"
-#include "../includes/Utrip.h"
+#include "../includes/Interface.hh"
+#include "../includes/Utrip.hh"
 
 // void Interface::runSignupCommand(const std::string &email, const std::string &username, const std::string &password)
 // {
