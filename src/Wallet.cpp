@@ -1,5 +1,5 @@
-#include "../includes/Wallet.hpp"
 #include "../includes/Exception.hpp"
+#include "../includes/Wallet.hpp"
 #include "../includes/constants.hpp"
 #include <iostream>
 
@@ -24,7 +24,7 @@ void Wallet::charge(double amount) {
     history.push_back(balance);
     cout << OK << '\n';
   } else {
-    throw Bad_request_exception();
+    throw BadRequestException();
   }
 }
 

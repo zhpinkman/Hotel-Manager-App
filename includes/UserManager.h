@@ -10,25 +10,24 @@
 
 class User;
 
-class UserManager {
+class UserManager
+{
 public:
     UserManager();
-    void login(const std::string& email, const std::string &password);
-    void signup(const std::string &email, const std::string &username, const std::string &password);
+    void login(const User &user);
+    void signup(const User &user);
     void logout();
-
 
     bool isUserLoggedIn();
 
     void getWallet(double amount);
 
 private:
-    User* loggedInUser;
+    User *loggedInUser;
 
-    std::vector<User*> users;
+    std::vector<User *> users;
 
-
-    User *findUser(const std::string& email);
+    User *findUser(const std::string &email);
 };
 
 #endif //UT_AP_S99_FINAL_USERMANAGER_H

@@ -1,40 +1,51 @@
-//
-// Created by zhivar on 4/17/20.
-//
+#pragma once
 
-#ifndef UT_AP_S99_FINAL_UTRIP_H
-#define UT_AP_S99_FINAL_UTRIP_H
-
-#include <vector>
 #include <string>
+#include <vector>
+#include <iostream>
 
+#include "UserManager.h"
+#include "User.h"
+#include "Exception.hpp"
+#include "Tools.hpp"
+#include "constants.hpp"
+#include "HotelManager.h"
 
-class UserManager;
 class HotelManager;
 
-class Utrip{
+class Utrip
+{
+    UserManager userManager;
+    HotelManager *hotelManager;
+
+    void printSuccessMessage() { std::cout << "OK" << std::endl; }
+
 public:
-    Utrip();
+    Utrip() = default;
 
-    void signup(const std::string& email, std::string username, const std::string& password);
+    void signup(const User &user)
+    {
+        if (userManager.isUserLoggedIn())
+            throw new BadRequestException();
 
-    void login(std::string email, std::string password);
+        userManager.signup(user);
+        userManager.login(user);
+        printSuccessMessage();
+    }
 
-    void logout();
+    // void login(const RequestType &request);
+    // void logout(const RequestType &request);
+    // void getWallet(const RequestType &request);
+    // void getHotels(const RequestType &request);
+    // void getHotelById(const RequestType &request);
 
-    void importHotels(const std::string &hotelsFile);
+    void importHotels(const RAW_DATA_LIST &rawHotelsData)
+    {
+        hotelManager = new HotelManager(rawHotelsData);
+    }
 
-    void getWallet(const std::string &amount);
-
-    void getHotels();
-
-    void getHotelById(const std::string &hotelId);
-
-private:
-    UserManager* userManager;
-    HotelManager* hotelManager;
-
-    void printSuccessMessage();
+    ~Utrip()
+    {
+        delete hotelManager;
+    }
 };
-
-#endif //UT_AP_S99_FINAL_UTRIP_H

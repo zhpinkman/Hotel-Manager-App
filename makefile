@@ -71,7 +71,8 @@ CommandHandlerSensitivityList = \
     $(INCLUDE_DIR)/constants.hpp \
     $(INCLUDE_DIR)/Tools.hpp \
     $(INCLUDE_DIR)/Exception.hpp \
-    $(INCLUDE_DIR)/Interface.h
+    $(INCLUDE_DIR)/Interface.h \
+    $(INCLUDE_DIR)/Request.hh
 
 
 RoomServiceSensitivityList = \

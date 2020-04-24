@@ -8,31 +8,35 @@
 #include <string>
 #include <vector>
 
+#include "Utrip.h"
+#include "Request.hh"
 
-class Utrip;
+template <typename RequestType>
+class Interface
+{
+    Utrip utrip;
 
-class Interface {
 public:
-    Interface();
+    Interface(const std::string &hotelsFilePath)
+    {
+        const std::ifstream &hotelsFile = Tools::open_csv_file(hotelsFilePath);
+        RAW_DATA_LIST rawHotelsData = Tools::parse_csv_file(const_cast<std::ifstream &>(hotelsFile));
+        utrip.importHotels(rawHotelsData);
+    }
 
+    void runSignupCommand(const RequestType &request)
+    {
+        const User user(request.getParam("email"),
+                        request.getParam("username"),
+                        request.getParam("password"));
+        utrip.signup(user);
+    }
 
-    void runLoginCommand(const std::string &email, const std::string &password);
-
-    void runSignupCommand(const std::string &email, const std::string &username, const std::string &password);
-
-    void runLogoutCommand();
-
-    void runHotelsImport(const std::string &basicString);
-
-    void runWalletCommand(const std::string &amount);
-
-    void runGetHotelsCommand();
-
-    void runGetHotelCommand(const std::string &hotelId);
-
-private:
-
-    Utrip* utrip;
+    // void runLoginCommand(const UtripType::RequestType &reqeust);
+    // void runLogoutCommand(const UtripType::RequestType &reqeust);
+    // void runWalletCommand(const UtripType::RequestType &reqeust);
+    // void runGetHotelsCommand(const UtripType::RequestType &reqeust);
+    // void runGetHotelCommand(const UtripType::RequestType &reqeust);
 };
 
 #endif //UT_AP_S99_FINAL_INTERFACE_H
