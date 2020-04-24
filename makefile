@@ -6,9 +6,8 @@ CFLAGS = -std=c++11 -Wall -Werror -I$(INCLUDE_DIR)
 
 EXECUTABLE_FILE = UTRIP.out
 
-OBJECTS = \
+LIB_OBJECTS = \
 	$(BUILD_DIR)/Hotel.o \
-	$(BUILD_DIR)/Main.o \
 	$(BUILD_DIR)/Tools.o \
 	$(BUILD_DIR)/Wallet.o \
 	$(BUILD_DIR)/RoomService.o \
@@ -20,6 +19,7 @@ OBJECTS = \
 	$(BUILD_DIR)/UserManager.o \
 	$(BUILD_DIR)/HotelManager.o
 
+OBJECTS = $(LIB_OBJECTS) $(BUILD_DIR)/Main.o
 
 HotelSensitivityList = \
 	$(SRC_DIR)/Hotel.cpp \
@@ -98,7 +98,7 @@ MainSensitivityList = \
 all: $(BUILD_DIR) $(EXECUTABLE_FILE)
 
 $(BUILD_DIR):
-	mkdir -p $(BUILD_DIR)
+	mkdir -p $(BUILD_DIR)/test
 
 $(BUILD_DIR)/Hotel.o: $(HotelSensitivityList)
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/Hotel.cpp -o $(BUILD_DIR)/Hotel.o
@@ -140,6 +140,24 @@ $(BUILD_DIR)/HotelManager.o: $(HotelManagerSensitivityList)
 
 $(EXECUTABLE_FILE): $(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) -o $(EXECUTABLE_FILE)
+
+TEST_BUILD_DIR = $(BUILD_DIR)/test
+TEST_DIR = test
+TEST_CCFLAGS = $(CFLAGS) -I/usr/local/include -I/usr/include/ -Itest/
+
+test-all: $(BUILD_DIR) $(TEST_BUILD_DIR)/test-utrip.out
+
+TESTS_OBJS = $(TEST_BUILD_DIR)/testSignup.o
+
+$(TEST_BUILD_DIR)/test-utrip.out: $(LIB_OBJECTS) $(TEST_DIR)/main.cc $(TESTS_OBJS)
+	$(CC) $(TEST_DIR)/main.cc \
+	$(LIB_OBJECTS) \
+	$(TESTS_OBJS) \
+	$(TEST_CCFLAGS) -lgtest -lgtest_main -pthread -o $(TEST_BUILD_DIR)/test-utrip.out
+
+
+$(TEST_BUILD_DIR)/testSignup.o: $(TEST_DIR)/fixture.hh $(TEST_DIR)/testSignup.cc
+	$(CC) -c $(TEST_CCFLAGS) $(TEST_DIR)/testSignup.cc -o $(TEST_BUILD_DIR)/testSignup.o
 
 .PHONY: clean
 clean:
