@@ -10,6 +10,7 @@
 #include <iostream>
 
 #include "UserManager.h"
+#include "User.h"
 #include "Exception.hpp"
 #include "Tools.hpp"
 #include "constants.hpp"
@@ -17,7 +18,6 @@
 
 class HotelManager;
 
-template <typename RequestType>
 class Utrip
 {
     UserManager userManager;
@@ -28,13 +28,16 @@ class Utrip
 public:
     Utrip() = default;
 
-    void signup(const RequestType &request)
+    void signup(const User &user)
     {
         if (userManager.isUserLoggedIn())
             throw new BadRequestException();
 
-        userManager.signup(request.getParam("email"), request.getParam("username"), request.getParam("password"));
-        userManager.login(request.getParam("email"), request.getParam("password"));
+        // userManager.signup(request.getParam("email"), request.getParam("username"), request.getParam("password"));
+        // userManager.login(request.getParam("email"), request.getParam("password"));
+
+        userManager.signup(user);
+        userManager.login(user);
         printSuccessMessage();
     }
 

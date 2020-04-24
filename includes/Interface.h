@@ -14,14 +14,17 @@
 template <typename RequestType>
 class Interface
 {
-    Utrip<RequestType> utrip;
+    Utrip utrip;
 
 public:
     Interface() = default;
 
-    void runSignupCommand(const RequestType &reqeust)
+    void runSignupCommand(const RequestType &request)
     {
-        utrip.signup(reqeust);
+        const User user(request.getParam("email"),
+                        request.getParam("username"),
+                        request.getParam("password"));
+        utrip.signup(user);
     }
 
     // void runLoginCommand(const UtripType::RequestType &reqeust);
