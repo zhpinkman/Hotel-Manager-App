@@ -107,13 +107,12 @@ _deps
 
 ### VisualStudioCode ###
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
 
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
 
 # End of https://www.gitignore.io/api/cmake,clion+all,visualstudiocode
+
+*.out
+build/

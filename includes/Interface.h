@@ -9,29 +9,31 @@
 #include <vector>
 
 #include "Utrip.h"
+#include "Request.hh"
 
-class Interface {
+template <typename RequestType>
+class Interface
+{
+    Utrip<RequestType> utrip;
+
 public:
-    Interface();
+    Interface() = default;
 
+    void runSignupCommand(const RequestType &reqeust)
+    {
+        utrip.signup(reqeust);
+    }
 
-    void runLoginCommand(const std::string &email, const std::string &password);
+    // void runLoginCommand(const UtripType::RequestType &reqeust);
+    // void runLogoutCommand(const UtripType::RequestType &reqeust);
+    // void runWalletCommand(const UtripType::RequestType &reqeust);
+    // void runGetHotelsCommand(const UtripType::RequestType &reqeust);
+    // void runGetHotelCommand(const UtripType::RequestType &reqeust);
 
-    void runSignupCommand(const std::string &email, const std::string &username, const std::string &password);
-
-    void runLogoutCommand();
-
-    void runHotelsImport(const std::string &basicString);
-
-    void runWalletCommand(const std::string &amount);
-
-    void runGetHotelsCommand();
-
-    void runGetHotelCommand(const std::string &hotelId);
-
-private:
-
-    Utrip utrip;
+    void runHotelsImport(const std::string &basicString)
+    {
+        utrip.importHotels(basicString);
+    }
 };
 
 #endif //UT_AP_S99_FINAL_INTERFACE_H

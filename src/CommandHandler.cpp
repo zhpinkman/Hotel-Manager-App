@@ -9,15 +9,13 @@
 #include <iostream>
 #include <vector>
 
-
-
-
-CommandHandler::CommandHandler(const std::string& pathToCSVFile) {
+CommandHandler::CommandHandler(const std::string &pathToCSVFile)
+{
     interface.runHotelsImport(pathToCSVFile);
 }
 
-
-void CommandHandler::start() {
+void CommandHandler::start()
+{
     processCommands();
 }
 
@@ -33,17 +31,16 @@ void CommandHandler::processCommand(std::string command)
 {
     try
     {
-        const Request request(command);
+        const RequestType request(command);
         std::vector<std::string> commandWords = Tools::split_by_char(command, SPACE);
         validateCommand(commandWords);
-        runCommand(commandWords);
+        runCommand(request);
     }
     catch (Exception *e)
     {
         std::cout << e->what() << std::endl;
     }
 }
-
 
 void CommandHandler::validateCommand(const std::vector<std::string> &commandWords)
 {
@@ -54,7 +51,7 @@ void CommandHandler::validateCommand(const std::vector<std::string> &commandWord
 
 void CommandHandler::validateCommandSize(const std::vector<std::string> &commandWords)
 {
-//    todo
+    //    todo
 }
 
 void CommandHandler::validateCommandType(const std::vector<std::string> &commandWords)
@@ -65,33 +62,30 @@ void CommandHandler::validateCommandType(const std::vector<std::string> &command
 
 void CommandHandler::validateCommandOrder(const std::vector<std::string> &commandWords)
 {
-//    todo
+    //    todo
 }
 
-
-void CommandHandler::runCommand(const std::vector<std::string> &commandWords)
+void CommandHandler::runCommand(const RequestType &request)
 {
-    std::string commandMethod = commandWords[0];
-    std::string order = commandWords[1];
-
-    if (order == SIGNUP && commandMethod == "POST") {
-        interface.runSignupCommand(commandWords[4], commandWords[6], commandWords[8]);
+    if (request.getRequestUrl()[0] == SIGNUP && request.getMethod() == RequestType::Methods::POST)
+    {
+        interface.runSignupCommand(request);
     }
-    else if (order == LOGIN && commandMethod == "POST") {
-        interface.runLoginCommand(commandWords[4], commandWords[6]);
-    }
-    else if (order == LOGOUT && commandMethod == "POST") {
-        interface.runLogoutCommand();
-    }
-    else if (order == WALLET && commandMethod == "GET") {
-        interface.runWalletCommand(commandWords[4]);
-    }
-    else if (order == HOTELS_GET && commandMethod == "GET" && commandWords.size() == HOTESL_GET_ARG_SIZE) {
-        interface.runGetHotelsCommand();
-    }
-    else if (order == HOTELS_GET && commandMethod == "GET" && commandWords.size() == HOTEL_GET_ARG_SIZE) {
-        interface.runGetHotelCommand(commandWords[4]);
-    }
+    // else if (order == LOGIN && commandMethod == "POST") {
+    //     interface.runLoginCommand(commandWords[4], commandWords[6]);
+    // }
+    // else if (order == LOGOUT && commandMethod == "POST") {
+    //     interface.runLogoutCommand();
+    // }
+    // else if (order == WALLET && commandMethod == "GET") {
+    //     interface.runWalletCommand(commandWords[4]);
+    // }
+    // else if (order == HOTELS_GET && commandMethod == "GET" && commandWords.size() == HOTESL_GET_ARG_SIZE) {
+    //     interface.runGetHotelsCommand();
+    // }
+    // else if (order == HOTELS_GET && commandMethod == "GET" && commandWords.size() == HOTEL_GET_ARG_SIZE) {
+    //     interface.runGetHotelCommand(commandWords[4]);
+    // }
     else
         throw new Not_found_exception();
 }

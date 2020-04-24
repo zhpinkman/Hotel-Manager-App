@@ -8,9 +8,12 @@
 #include <unordered_map>
 #include <vector>
 
-struct Request {
-
-  enum class Methods {
+template <typename InvalidFormatExceptionType,
+          typename InvalidParamAccessExceptionType>
+struct Request
+{
+  enum class Methods
+  {
     GET,
     POST,
   };
@@ -19,7 +22,8 @@ struct Request {
   using UrlType = std::vector<std::string>;
 
   template <char Delimiter = ' '>
-  static std::vector<std::string> splitString(const std::string input) {
+  static std::vector<std::string> splitString(const std::string input)
+  {
     std::vector<std::string> parsedRequest;
     std::stringstream ss(input);
     std::string str;
@@ -37,7 +41,8 @@ private:
 public:
   Request() = delete;
 
-  Request(const std::string &rawRequest) {
+  Request(const std::string &rawRequest)
+  {
     const auto parsedRequest = splitString(rawRequest);
 
     if (!parsedRequest.size())
@@ -73,4 +78,12 @@ public:
   const ParamsMap &getRequestParams() const { return params; }
 
   ParamsMap &getRequestParams() { return params; }
+
+  const std::string &getParam(const std::string &paramKey) const
+  {
+    if (params.find(paramKey) == params.end())
+      throw new InvalidFormatExceptionType();
+
+    return params.at(paramKey);
+  }
 };

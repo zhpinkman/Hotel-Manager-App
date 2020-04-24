@@ -6,36 +6,33 @@
 #include "../includes/Interface.h"
 #include "../includes/Utrip.h"
 
+// void Interface::runSignupCommand(const std::string &email, const std::string &username, const std::string &password)
+// {
+//     utrip.signup(email, username, password);
+// }
 
-Interface::Interface() {
-}
+// void Interface::runLoginCommand(const std::string &email, const std::string &password) {
+//     utrip.login(email, password);
+// }
 
-void Interface::runSignupCommand(const std::string &email, const std::string &username, const std::string &password) {
-    utrip.signup(email, username, password);
-}
+// void Interface::runLogoutCommand() {
+//     utrip.logout();
+// }
 
-void Interface::runLoginCommand(const std::string &email, const std::string &password) {
-    utrip.login(email, password);
-}
+// template <typename RequestType>
+// void Interface::runHotelsImport(const std::string &hotelsFile)
+// {
+//     utrip.importHotels(hotelsFile);
+// }
 
-void Interface::runLogoutCommand() {
-    utrip.logout();
-}
+// void Interface::runWalletCommand(const std::string &amount) {
+//     utrip.getWallet(amount);
+// }
 
-void Interface::runHotelsImport(const std::string &hotelsFile) {
-    utrip.importHotels(hotelsFile);
-}
+// void Interface::runGetHotelsCommand() {
+//     utrip.getHotels();
+// }
 
-void Interface::runWalletCommand(const std::string &amount) {
-    utrip.getWallet(amount);
-}
-
-void Interface::runGetHotelsCommand() {
-    utrip.getHotels();
-}
-
-void Interface::runGetHotelCommand(const std::string &hotelId) {
-    utrip.getHotelById(hotelId);
-}
-
-
+// void Interface::runGetHotelCommand(const std::string &hotelId) {
+//     utrip.getHotelById(hotelId);
+// }

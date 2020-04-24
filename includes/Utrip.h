@@ -5,36 +5,51 @@
 #ifndef UT_AP_S99_FINAL_UTRIP_H
 #define UT_AP_S99_FINAL_UTRIP_H
 
-#include <vector>
 #include <string>
+#include <vector>
+#include <iostream>
 
+#include "UserManager.h"
+#include "Exception.hpp"
+#include "Tools.hpp"
+#include "constants.hpp"
+#include "HotelManager.h"
 
-class UserManager;
 class HotelManager;
 
-class Utrip{
+template <typename RequestType>
+class Utrip
+{
+    UserManager userManager;
+    HotelManager *hotelManager;
+
+    void printSuccessMessage() { std::cout << "OK" << std::endl; }
+
 public:
-    Utrip();
+    Utrip() = default;
 
-    void signup(const std::string& email, std::string username, const std::string& password);
+    void signup(const RequestType &request)
+    {
+        if (userManager.isUserLoggedIn())
+            throw new BadRequestException();
 
-    void login(std::string email, std::string password);
+        userManager.signup(request.getParam("email"), request.getParam("username"), request.getParam("password"));
+        userManager.login(request.getParam("email"), request.getParam("password"));
+        printSuccessMessage();
+    }
 
-    void logout();
+    // void login(const RequestType &request);
+    // void logout(const RequestType &request);
+    // void getWallet(const RequestType &request);
+    // void getHotels(const RequestType &request);
+    // void getHotelById(const RequestType &request);
 
-    void importHotels(const std::string &hotelsFile);
-
-    void getWallet(const std::string &amount);
-
-    void getHotels();
-
-    void getHotelById(const std::string &hotelId);
-
-private:
-    UserManager* userManager;
-    HotelManager* hotelManager;
-
-    void printSuccessMessage();
+    void importHotels(const std::string &hotelsFilePath)
+    {
+        const std::ifstream &hotelsFile = Tools::open_csv_file(hotelsFilePath);
+        RAW_DATA_LIST rawHotelsData = Tools::parse_csv_file(const_cast<std::ifstream &>(hotelsFile));
+        hotelManager = new HotelManager(rawHotelsData);
+    }
 };
 
-#endif //UT_AP_S99_FINAL_UTRIP_H
+#endif // UT_AP_S99_FINAL_UTRIP_H
