@@ -1,7 +1,6 @@
 #ifndef _CONSTANTS_H_
 #define _CONSTANTS_H_
 
-#define INPUT_CSV_FILE_INDEX 1
 #define AMENITIES_ARG_INDEX 4
 #define CITY_ARG_INDEX 5
 #define LATITUDE_ARG_INDEX 6
@@ -26,8 +25,8 @@
 #define SUCCESS true
 #define FAILED false
 #define SEPERATOR " | "
-#define POST "POST"
-#define GET "GET"
+// #define POST "POST"
+// #define GET "GET"
 #define ADMIN_USERNAME "admin"
 #define ADMIN_PASSWORD "admin"
 #define ADMIN_EMAIL "admin@gmail.com"

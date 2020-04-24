@@ -8,17 +8,15 @@
 
 #include <string>
 #include <vector>
-
-
-class Interface;
+#include "Interface.h"
 
 class CommandHandler {
-private:
-  Interface* interface;
-public:
-  CommandHandler(/* args */);
+  Interface interface;
 
-    void start(const std::string &pathToCSVFile);
+public:
+    CommandHandler(const std::string &pathToCSVFile);
+
+    void start();
 
     void processCommands();
 

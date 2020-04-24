@@ -8,8 +8,7 @@
 #include <string>
 #include <vector>
 
-
-class Utrip;
+#include "Utrip.h"
 
 class Interface {
 public:
@@ -32,7 +31,7 @@ public:
 
 private:
 
-    Utrip* utrip;
+    Utrip utrip;
 };
 
 #endif //UT_AP_S99_FINAL_INTERFACE_H

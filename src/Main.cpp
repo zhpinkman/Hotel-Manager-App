@@ -2,12 +2,13 @@
 #include "../includes/CommandHandler.hpp"
 #include "../includes/constants.hpp"
 #include <string>
-
+#include <cstdlib>
 
 
 int main(int argc, char const *argv[]) {
-  CommandHandler* commandHandler = new CommandHandler();
-  std::string pathToHotelsFile = argv[INPUT_CSV_FILE_INDEX];
-  commandHandler->start(pathToHotelsFile);
+  constexpr std::size_t INPUT_CSV_FILE_INDEX = 1;
+
+  CommandHandler* commandHandler = new CommandHandler(argv[INPUT_CSV_FILE_INDEX]);
+  commandHandler->start();
   return 0;
 }

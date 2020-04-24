@@ -8,35 +8,34 @@
 
 
 Interface::Interface() {
-    utrip = new Utrip();
 }
 
 void Interface::runSignupCommand(const std::string &email, const std::string &username, const std::string &password) {
-    utrip->signup(email, username, password);
+    utrip.signup(email, username, password);
 }
 
 void Interface::runLoginCommand(const std::string &email, const std::string &password) {
-    utrip->login(email, password);
+    utrip.login(email, password);
 }
 
 void Interface::runLogoutCommand() {
-    utrip->logout();
+    utrip.logout();
 }
 
 void Interface::runHotelsImport(const std::string &hotelsFile) {
-    utrip->importHotels(hotelsFile);
+    utrip.importHotels(hotelsFile);
 }
 
 void Interface::runWalletCommand(const std::string &amount) {
-    utrip->getWallet(amount);
+    utrip.getWallet(amount);
 }
 
 void Interface::runGetHotelsCommand() {
-    utrip->getHotels();
+    utrip.getHotels();
 }
 
 void Interface::runGetHotelCommand(const std::string &hotelId) {
-    utrip->getHotelById(hotelId);
+    utrip.getHotelById(hotelId);
 }
 
 
