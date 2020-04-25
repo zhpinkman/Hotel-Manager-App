@@ -19,10 +19,10 @@ private:
   std::string msg;
 };
 
-class Not_found_exception : public Exception
+class NotFoundException : public Exception
 {
 public:
-  Not_found_exception() : Exception(NOT_FOUND) {}
+  NotFoundException() : Exception(NOT_FOUND) {}
 };
 
 class BadRequestException : public Exception

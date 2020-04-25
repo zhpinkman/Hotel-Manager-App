@@ -49,12 +49,12 @@ public:
         loggedInUser = nullptr;
     }
 
-    std::vector<double> getBalanceHistory(const std::size_t count)
+    std::vector<double> getBalanceHistory(const std::size_t count) const
     {
         return loggedInUser->getBalanceHistoryReport(count);
     }
 
-    bool isUserLoggedIn()
+    bool isUserLoggedIn() const
     {
         return loggedInUser != nullptr;
     }

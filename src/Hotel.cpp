@@ -13,7 +13,7 @@ Hotel::Hotel(const std::string &hotelId, std::string hotelName, int hotelRating,
     roomService = new RoomService(numOfStandardRooms, numOfDeluxeRooms, numOfLuxuryRooms, numOfPremiumRooms, standardRoomPrice, deluxeRoomPrice, luxuryRoomPrice, premiumRoomPrice);
 }
 
-void Hotel::print()
+void Hotel::print() const
 {
     std::string hotel_description;
     hotel_description += "id: " + hotelId + ENTER;
@@ -35,7 +35,7 @@ void Hotel::print()
     std::cout << hotel_description << std::endl;
 }
 
-std::string Hotel::getAmenities()
+std::string Hotel::getAmenities() const
 {
     std::string amenitiesString;
     for (size_t i = 0; i < amenities.size() - 1; i++)
@@ -46,7 +46,7 @@ std::string Hotel::getAmenities()
     return amenitiesString;
 }
 
-void Hotel::printBriefly()
+void Hotel::printBriefly() const
 {
     std::string hotel_description;
     hotel_description += hotelId + SPACE;
@@ -58,7 +58,7 @@ void Hotel::printBriefly()
     std::cout << hotel_description << std::endl;
 }
 
-bool Hotel::idsMatches(const std::string &_hotelId)
+bool Hotel::idsMatches(const std::string &_hotelId) const
 {
     return hotelId == _hotelId;
 }

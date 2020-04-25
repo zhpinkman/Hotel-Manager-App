@@ -6,6 +6,7 @@
 
 #include "UserManager.hh"
 #include "User.hh"
+#include "Hotel.hh"
 #include "Exception.hh"
 #include "Tools.hh"
 #include "Constants.hh"
@@ -16,7 +17,7 @@ class HotelManager;
 class Utrip
 {
     UserManager userManager;
-    HotelManager *hotelManager;
+    HotelManager hotelManager;
 
 public:
     Utrip() = default;
@@ -58,22 +59,29 @@ public:
         userManager.loggedInUser->addCredit(amount);
     }
 
-    std::vector<double> reportBalanceHistory(const std::size_t count)
+    std::vector<double> reportBalanceHistory(const std::size_t count) const
     {
         return userManager.getBalanceHistory(count);
     }
 
-    // void getWallet(const RequestType &request);
-    // void getHotels(const RequestType &request);
-    // void getHotelById(const RequestType &request);
+    const HotelManager::HotelList &getHotels() const
+    {
+        return hotelManager.getHotels();
+    }
+
+    const Hotel *const getHotels(const std::string &id) const
+    {
+        const auto hotel = hotelManager.getHotels(id);
+        if (!hotel)
+            throw new NotFoundException();
+
+        return hotel;
+    }
 
     void importHotels(const RAW_DATA_LIST &rawHotelsData)
     {
-        hotelManager = new HotelManager(rawHotelsData);
+        hotelManager = HotelManager(rawHotelsData);
     }
 
-    ~Utrip()
-    {
-        delete hotelManager;
-    }
+    ~Utrip() = default;
 };

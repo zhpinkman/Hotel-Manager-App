@@ -67,6 +67,13 @@ public:
             std::cout << balanceHistoryLine << std::endl;
     }
 
-    // void runGetHotelsCommand(const RequestType &request);
-    // void runGetHotelCommand(const RequestType &request);
+    void runGetHotelsCommand(const RequestType &request)
+    {
+        const auto &params = request.getRequestParams();
+        if (params.find("id") != params.end())
+            utrip.getHotels(request.getParam("id"))->printBriefly();
+        else
+            for (const auto &hotel : utrip.getHotels())
+                hotel.second->printBriefly();
+    }
 };

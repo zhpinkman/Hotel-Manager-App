@@ -1,28 +1,35 @@
-//
-// Created by zhivar on 4/18/20.
-//
+#pragma once
 
-#ifndef UT_AP_S99_FINAL_HOTELMANAGER_H
-#define UT_AP_S99_FINAL_HOTELMANAGER_H
-
-#include <vector>
+#include <unordered_map>
 #include <string>
-#include "../includes/Constants.hh"
-
-class Hotel;
+#include "Constants.hh"
+#include "Hotel.hh"
 
 class HotelManager
 {
 public:
+    using HotelList = std::unordered_map<std::string, Hotel *>;
+
+    HotelManager() = default;
     HotelManager(const RAW_DATA_LIST &hotelsRawData);
     Hotel *constructHotelFromHotelRawData(const RAW_DATA hotelRawData);
 
-    void getHotels();
+    const HotelList &getHotels() const
+    {
+        return hotels;
+    }
 
-    void getHotelById(const std::string &hotelId);
+    const Hotel *const getHotels(const std::string &id) const
+    {
+        if (hotels.find(id) == hotels.end())
+            return nullptr;
+
+        return hotels.at(id);
+    }
+
+    void
+    getHotelById(const std::string &hotelId);
 
 private:
-    std::vector<Hotel *> hotels;
+    std::unordered_map<std::string, Hotel *> hotels;
 };
-
-#endif //UT_AP_S99_FINAL_HOTELMANAGER_H

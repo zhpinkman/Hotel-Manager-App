@@ -1,9 +1,8 @@
-#ifndef __HOTEL_H__
-#define __HOTEL_H__ __HOTEL_H__
+#pragma once
 
 #include <string>
 #include <vector>
-#include "../includes/Constants.hh"
+#include "Constants.hh"
 
 class RoomService;
 
@@ -15,12 +14,17 @@ public:
           int numOfDeluxeRooms, int numOfLuxuryRooms, int numOfPremiumRooms,
           double standardRoomPrice, double deluxeRoomPrice, double luxuryRoomPrice,
           double premiumRoomPrice);
-    void print();
-    std::string getAmenities();
+    void print() const;
+    std::string getAmenities() const;
 
-    void printBriefly();
+    std::string getId() const
+    {
+        return hotelId;
+    };
 
-    bool idsMatches(const std::string &hotelId);
+    void printBriefly() const;
+
+    bool idsMatches(const std::string &hotelId) const;
 
 private:
     std::string hotelId;
@@ -32,5 +36,3 @@ private:
     std::string image_url;
     RoomService *roomService;
 };
-
-#endif

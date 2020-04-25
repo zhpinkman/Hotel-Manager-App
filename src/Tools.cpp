@@ -20,7 +20,7 @@ std::ifstream Tools::open_csv_file(std::string filePath)
 {
   std::ifstream file(filePath);
   if (file.fail())
-    throw Not_found_exception();
+    throw NotFoundException();
   return file;
 }
 

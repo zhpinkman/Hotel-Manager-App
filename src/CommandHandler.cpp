@@ -1,9 +1,9 @@
-#include "../includes/CommandHandler.hh"
-#include "../includes/Constants.hh"
-#include "../includes/Tools.hh"
-#include "../includes/Exception.hh"
-#include "../includes/Interface.hh"
-#include "../includes/Request.hh"
+#include "CommandHandler.hh"
+#include "Constants.hh"
+#include "Tools.hh"
+#include "Exception.hh"
+#include "Interface.hh"
+#include "Request.hh"
 
 #include <string>
 #include <iostream>
@@ -41,24 +41,10 @@ void CommandHandler::runCommand(const RequestType &&request)
             interface.runAddWalletCommand(request);
         else if (request.getRequestUrl()[0] == WALLET && request.getMethod() == RequestType::Methods::GET)
             interface.runGetWalletCommand(request);
-
-        // else if (order == LOGIN && commandMethod == "POST") {
-        //     interface.runLoginCommand(commandWords[4], commandWords[6]);
-        // }
-        // else if (order == LOGOUT && commandMethod == "POST") {
-        //     interface.runLogoutCommand();
-        // }
-        // else if (order == WALLET && commandMethod == "GET") {
-        //     interface.runWalletCommand(commandWords[4]);
-        // }
-        // else if (order == HOTELS_GET && commandMethod == "GET" && commandWords.size() == HOTESL_GET_ARG_SIZE) {
-        //     interface.runGetHotelsCommand();
-        // }
-        // else if (order == HOTELS_GET && commandMethod == "GET" && commandWords.size() == HOTEL_GET_ARG_SIZE) {
-        //     interface.runGetHotelCommand(commandWords[4]);
-        // }
+        else if (request.getRequestUrl()[0] == HOTELS_GET && request.getMethod() == RequestType::Methods::GET)
+            interface.runGetHotelsCommand(request);
         else
-            throw new Not_found_exception();
+            throw new NotFoundException();
     }
     catch (Exception *exception)
     {
