@@ -1,9 +1,4 @@
-//
-// Created by zhivar on 4/17/20.
-//
-
-#ifndef UT_AP_S99_FINAL_INTERFACE_H
-#define UT_AP_S99_FINAL_INTERFACE_H
+#pragma once
 
 #include <string>
 #include <vector>
@@ -15,6 +10,15 @@ template <typename RequestType>
 class Interface
 {
     Utrip utrip;
+
+    template <typename ReturnValueType>
+    static ReturnValueType extractFromString(const std::string &stringValue)
+    {
+        std::stringstream ss(stringValue);
+        ReturnValueType result;
+        ss >> result;
+        return result;
+    }
 
 public:
     Interface(const std::string &hotelsFilePath)
@@ -38,7 +42,7 @@ public:
     void runLoginCommand(const RequestType &request)
     {
         const User user(request.getParam("email"),
-                        nullptr,
+                        "",
                         request.getParam("password"));
         utrip.login(user);
         printSuccessMessage();
@@ -50,12 +54,19 @@ public:
         printSuccessMessage();
     }
 
-    // void runAddWalletCommand(const RequestType &request)
-    // {
-    // }
+    void runAddWalletCommand(const RequestType &request)
+    {
+        utrip.addCreditToWallet(extractFromString<double>(request.getParam("amount")));
+        printSuccessMessage();
+    }
+
+    void runGetWalletCommand(const RequestType &request)
+    {
+        const auto balanceHistory = utrip.reportBalanceHistory(extractFromString<double>(request.getParam("count")));
+        for (const auto &balanceHistoryLine : balanceHistory)
+            std::cout << balanceHistoryLine << std::endl;
+    }
 
     // void runGetHotelsCommand(const RequestType &request);
     // void runGetHotelCommand(const RequestType &request);
 };
-
-#endif //UT_AP_S99_FINAL_INTERFACE_H

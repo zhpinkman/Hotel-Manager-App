@@ -12,7 +12,7 @@ public:
         : email(email),
           username(username),
           password(password),
-          balance(0),
+          credit(0),
           balanceHistory({0})
     {
     }
@@ -30,13 +30,31 @@ public:
     std::string getEmail() const { return email; }
     std::string getUsername() const { return username; }
     std::string getPassword() const { return password; }
-    // void getWallet(double amount) const;
+
+    void addCredit(const double amount)
+    {
+        credit += amount;
+        balanceHistory.push_back(credit);
+    }
+
+    std::vector<double> getBalanceHistoryReport(const std::size_t count) const
+    {
+        std::vector<double> result;
+        for (std::size_t i = balanceHistory.size() - 1; (balanceHistory.size() - 1 - i) < count; i--)
+        {
+            result.push_back(balanceHistory[i]);
+            if (!i)
+                return result;
+        }
+
+        return result;
+    }
 
 private:
     std::string email;
     std::string username;
     std::string password;
     std::vector<Reservation *> reservations;
-    double balance;
+    double credit;
     std::vector<double> balanceHistory;
 };

@@ -46,6 +46,23 @@ public:
         userManager.logout();
     }
 
+    void addCreditToWallet(const double amount)
+    {
+        if (!userManager.isUserLoggedIn())
+            throw new PermissionDeniedException();
+
+        constexpr double MinimumCreditAddition = 0;
+        if (amount <= MinimumCreditAddition)
+            throw new BadRequestException();
+
+        userManager.loggedInUser->addCredit(amount);
+    }
+
+    std::vector<double> reportBalanceHistory(const std::size_t count)
+    {
+        return userManager.getBalanceHistory(count);
+    }
+
     // void getWallet(const RequestType &request);
     // void getHotels(const RequestType &request);
     // void getHotelById(const RequestType &request);

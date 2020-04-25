@@ -49,13 +49,13 @@ public:
         loggedInUser = nullptr;
     }
 
+    std::vector<double> getBalanceHistory(const std::size_t count)
+    {
+        return loggedInUser->getBalanceHistoryReport(count);
+    }
+
     bool isUserLoggedIn()
     {
         return loggedInUser != nullptr;
-    }
-
-    void getWallet(double amount)
-    {
-        std::cerr << "TODO get wallet" << std::endl;
     }
 };

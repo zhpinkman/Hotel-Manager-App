@@ -37,6 +37,10 @@ void CommandHandler::runCommand(const RequestType &&request)
             interface.runLoginCommand(request);
         else if (request.getRequestUrl()[0] == LOGOUT && request.getMethod() == RequestType::Methods::POST)
             interface.runLogoutCommand(request);
+        else if (request.getRequestUrl()[0] == WALLET && request.getMethod() == RequestType::Methods::POST)
+            interface.runAddWalletCommand(request);
+        else if (request.getRequestUrl()[0] == WALLET && request.getMethod() == RequestType::Methods::GET)
+            interface.runGetWalletCommand(request);
 
         // else if (order == LOGIN && commandMethod == "POST") {
         //     interface.runLoginCommand(commandWords[4], commandWords[6]);
