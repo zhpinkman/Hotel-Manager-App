@@ -58,7 +58,7 @@ public:
       throw new BadRequestException();
 
     std::size_t i = MethodIndex + 1;
-    for (; parsedRequest[i] != "?"; ++i)
+    for (; i < parsedRequest.size() && parsedRequest[i] != "?"; ++i)
       url.push_back(parsedRequest[i]);
 
     ++i;

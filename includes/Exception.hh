@@ -8,7 +8,8 @@
 #define BAD_REQUEST "Bad Request"
 #define PERMISSION_DENIED "Permission Denied"
 
-class Exception : public std::exception {
+class Exception : public std::exception
+{
 public:
   Exception(const std::string _msg) : msg(_msg) {}
   virtual ~Exception() throw() {}
@@ -19,19 +20,22 @@ private:
   std::string msg;
 };
 
-class Not_found_exception : public Exception {
+class Not_found_exception : public Exception
+{
 public:
   Not_found_exception() : Exception(NOT_FOUND) {}
 };
 
-class BadRequestException : public Exception {
+class BadRequestException : public Exception
+{
 public:
   BadRequestException() : Exception(BAD_REQUEST) {}
 };
 
-class Permission_exception : public Exception {
+class PermissionDeniedException : public Exception
+{
 public:
-  Permission_exception() : Exception(PERMISSION_DENIED) {}
+  PermissionDeniedException() : Exception(PERMISSION_DENIED) {}
 };
 
 #endif

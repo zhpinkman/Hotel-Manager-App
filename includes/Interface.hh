@@ -24,19 +24,38 @@ public:
         utrip.importHotels(rawHotelsData);
     }
 
+    void printSuccessMessage() { std::cout << "OK" << std::endl; }
+
     void runSignupCommand(const RequestType &request)
     {
         const User user(request.getParam("email"),
                         request.getParam("username"),
                         request.getParam("password"));
         utrip.signup(user);
+        printSuccessMessage();
     }
 
-    // void runLoginCommand(const UtripType::RequestType &reqeust);
-    // void runLogoutCommand(const UtripType::RequestType &reqeust);
-    // void runWalletCommand(const UtripType::RequestType &reqeust);
-    // void runGetHotelsCommand(const UtripType::RequestType &reqeust);
-    // void runGetHotelCommand(const UtripType::RequestType &reqeust);
+    void runLoginCommand(const RequestType &request)
+    {
+        const User user(request.getParam("email"),
+                        nullptr,
+                        request.getParam("password"));
+        utrip.login(user);
+        printSuccessMessage();
+    }
+
+    void runLogoutCommand(const RequestType &request)
+    {
+        utrip.logout();
+        printSuccessMessage();
+    }
+
+    // void runAddWalletCommand(const RequestType &request)
+    // {
+    // }
+
+    // void runGetHotelsCommand(const RequestType &request);
+    // void runGetHotelCommand(const RequestType &request);
 };
 
 #endif //UT_AP_S99_FINAL_INTERFACE_H

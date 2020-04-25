@@ -1,9 +1,4 @@
-//
-// Created by zhivar on 4/17/20.
-//
-
-#ifndef UT_AP_S99_FINAL_USER_H
-#define UT_AP_S99_FINAL_USER_H
+#pragma once
 
 #include <string>
 #include <vector>
@@ -13,26 +8,29 @@ class Reservation;
 class User
 {
 public:
-    User(std::string, std::string, std::string);
-
-    bool emailMatches(std::string _email) const;
-
-    bool passwordMatches(std::string _password) const;
-
-    void getWallet(double amount) const;
-
-    std::string getEmail() const
+    User(const std::string &email, const std::string &username, const std::string &password)
+        : email(email),
+          username(username),
+          password(password),
+          balance(0),
+          balanceHistory({0})
     {
-        return email;
     }
-    std::string getUsername() const
+
+    bool emailMatches(const std::string &_email) const
     {
-        return username;
+        return (email == _email);
     }
-    std::string getPassword() const
+
+    bool passwordMatches(const std::string &_password) const
     {
-        return password;
+        return password == _password;
     }
+
+    std::string getEmail() const { return email; }
+    std::string getUsername() const { return username; }
+    std::string getPassword() const { return password; }
+    // void getWallet(double amount) const;
 
 private:
     std::string email;
@@ -42,5 +40,3 @@ private:
     double balance;
     std::vector<double> balanceHistory;
 };
-
-#endif //UT_AP_S99_FINAL_USER_H

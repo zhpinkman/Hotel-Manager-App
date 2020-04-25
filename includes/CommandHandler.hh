@@ -24,17 +24,9 @@ public:
 
   void processCommands();
 
-  void processCommand(std::string command);
+  void processCommand(const std::string &command);
 
-  void validateCommand(const std::vector<std::string> &commandWords);
-
-  void validateCommandSize(const std::vector<std::string> &commandWords);
-
-  void validateCommandOrder(const std::vector<std::string> &commandWords);
-
-  void validateCommandType(const std::vector<std::string> &commandWords);
-
-  void runCommand(const RequestType &request);
+  void runCommand(const RequestType &&request);
 };
 
 #endif

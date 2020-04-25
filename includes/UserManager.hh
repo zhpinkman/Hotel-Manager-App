@@ -1,33 +1,61 @@
-//
-// Created by zhivar on 4/17/20.
-//
+#pragma once
 
-#ifndef UT_AP_S99_FINAL_USERMANAGER_H
-#define UT_AP_S99_FINAL_USERMANAGER_H
-
-#include <vector>
+#include <unordered_map>
 #include <string>
+#include "User.hh"
+#include "Exception.hh"
 
-class User;
+#include <iostream> // TODO
 
-class UserManager
+struct UserManager
 {
+    User *loggedInUser; // TODO: It could be replaced with std::optional in C++17
+    std::unordered_map<std::string, User *> users;
+    User *findUser(const std::string &email)
+    {
+        if (users.find(email) == users.end())
+            return nullptr;
+
+        return users[email];
+    }
+
 public:
-    UserManager();
-    void login(const User &user);
-    void signup(const User &user);
-    void logout();
+    UserManager() : loggedInUser(nullptr)
+    {
+    }
 
-    bool isUserLoggedIn();
+    void login(const User &user)
+    {
+        User *const foundedUser = findUser(user.getEmail());
 
-    void getWallet(double amount);
+        if (foundedUser && foundedUser->passwordMatches(user.getPassword()))
+            loggedInUser = foundedUser;
+        else
+            throw new BadRequestException();
+    }
 
-private:
-    User *loggedInUser;
+    void signup(const User &user)
+    {
+        if (findUser(user.getEmail()))
+            throw new BadRequestException();
 
-    std::vector<User *> users;
+        users.emplace(user.getEmail(), new User(user.getEmail(),
+                                                user.getUsername(),
+                                                user.getPassword()));
+    }
 
-    User *findUser(const std::string &email);
+    void logout()
+    {
+        loggedInUser = nullptr;
+    }
+
+    bool isUserLoggedIn()
+    {
+        return loggedInUser != nullptr;
+    }
+
+    void getWallet(double amount)
+    {
+        std::cerr << "TODO get wallet" << std::endl;
+    }
 };
-
-#endif //UT_AP_S99_FINAL_USERMANAGER_H

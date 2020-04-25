@@ -18,8 +18,6 @@ class Utrip
     UserManager userManager;
     HotelManager *hotelManager;
 
-    void printSuccessMessage() { std::cout << "OK" << std::endl; }
-
 public:
     Utrip() = default;
 
@@ -30,11 +28,24 @@ public:
 
         userManager.signup(user);
         userManager.login(user);
-        printSuccessMessage();
     }
 
-    // void login(const RequestType &request);
-    // void logout(const RequestType &request);
+    void login(const User &user)
+    {
+        if (userManager.isUserLoggedIn())
+            throw new BadRequestException();
+
+        userManager.login(user);
+    }
+
+    void logout()
+    {
+        if (!userManager.isUserLoggedIn())
+            throw new PermissionDeniedException();
+
+        userManager.logout();
+    }
+
     // void getWallet(const RequestType &request);
     // void getHotels(const RequestType &request);
     // void getHotelById(const RequestType &request);

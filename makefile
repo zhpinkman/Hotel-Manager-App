@@ -2,7 +2,7 @@ CC = g++
 BUILD_DIR = build
 SRC_DIR = src
 INCLUDE_DIR = includes
-CFLAGS = -std=c++11 -Wall -Werror -I$(INCLUDE_DIR)
+CFLAGS = -std=c++11 -Wall -Werror -g -I$(INCLUDE_DIR)
 
 EXECUTABLE_FILE = UTRIP.out
 
@@ -15,8 +15,6 @@ LIB_OBJECTS = \
 	$(BUILD_DIR)/Interface.o \
 	$(BUILD_DIR)/CommandHandler.o \
 	$(BUILD_DIR)/Utrip.o \
-	$(BUILD_DIR)/User.o \
-	$(BUILD_DIR)/UserManager.o \
 	$(BUILD_DIR)/HotelManager.o
 
 OBJECTS = $(LIB_OBJECTS) $(BUILD_DIR)/Main.o
@@ -37,20 +35,9 @@ HotelManagerSensitivityList = \
 UtripSensitivityList = \
 	$(SRC_DIR)/Utrip.cpp \
 	$(INCLUDE_DIR)/Utrip.hh \
-	$(INCLUDE_DIR)/UserManager.hh \
 	$(INCLUDE_DIR)/Exception.hh \
 	$(INCLUDE_DIR)/Constants.hh \
 	$(INCLUDE_DIR)/Tools.hh
-
-UserSensitivityList = \
-	$(SRC_DIR)/User.cpp \
-	$(INCLUDE_DIR)/User.hh
-
-UserManagerSensitivityList = \
-    $(SRC_DIR)/UserManager.cpp \
-    $(INCLUDE_DIR)/UserManager.hh \
-    $(INCLUDE_DIR)/User.hh \
-    $(INCLUDE_DIR)/Exception.hh
 
 
 ToolsSensitivityList = \
@@ -127,12 +114,6 @@ $(BUILD_DIR)/Interface.o: $(InterfaceSensitivityList)
 
 $(BUILD_DIR)/Utrip.o: $(UtripSensitivityList)
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/Utrip.cpp -o $(BUILD_DIR)/Utrip.o
-
-$(BUILD_DIR)/User.o: $(UserSensitivityList)
-	$(CC) $(CFLAGS) -c $(SRC_DIR)/User.cpp -o $(BUILD_DIR)/User.o
-
-$(BUILD_DIR)/UserManager.o: $(UserManagerSensitivityList)
-	$(CC) $(CFLAGS) -c $(SRC_DIR)/UserManager.cpp -o $(BUILD_DIR)/UserManager.o
 
 $(BUILD_DIR)/HotelManager.o: $(HotelManagerSensitivityList)
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/HotelManager.cpp -o $(BUILD_DIR)/HotelManager.o
