@@ -26,6 +26,16 @@ public:
 
     bool idsMatches(const std::string &hotelId) const;
 
+    const City &getCity() const
+    {
+        return city;
+    }
+
+    City &getCity()
+    {
+        return city;
+    }
+
 private:
     std::string hotelId;
     std::string hotelName;

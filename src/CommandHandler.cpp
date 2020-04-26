@@ -43,6 +43,9 @@ void CommandHandler::runCommand(const RequestType &&request)
             interface.runGetWalletCommand(request);
         else if (request.getRequestUrl()[0] == HOTELS_GET && request.getMethod() == RequestType::Methods::GET)
             interface.runGetHotelsCommand(request);
+        else if (request.getRequestUrl()[0] == "filters" && request.getMethod() == RequestType::Methods::POST)
+            interface.runAddFilterCommand(request);
+
         else
             throw new NotFoundException();
     }

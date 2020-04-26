@@ -16,8 +16,8 @@ Hotel::Hotel(const std::string &hotelId, std::string hotelName, int hotelRating,
 void Hotel::print() const
 {
     std::string hotel_description;
-    hotel_description += "id: " + hotelId + ENTER;
-    hotel_description += "name: " + hotelName + ENTER;
+    hotel_description += hotelId + ENTER;
+    hotel_description += hotelName + ENTER;
     hotel_description += "star: " + std::to_string(hotelRating) + ENTER;
     hotel_description += "overview: " + hotel_overview + ENTER;
     hotel_description += "amenities: " + getAmenities() + ENTER;

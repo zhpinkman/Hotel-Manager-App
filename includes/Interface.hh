@@ -71,9 +71,15 @@ public:
     {
         const auto &params = request.getRequestParams();
         if (params.find("id") != params.end())
-            utrip.getHotels(request.getParam("id"))->printBriefly();
+            utrip.getHotel(request.getParam("id"))->print();
         else
             for (const auto &hotel : utrip.getHotels())
-                hotel.second->printBriefly();
+                hotel->printBriefly();
+    }
+
+    void runAddFilterCommand(const RequestType &request)
+    {
+        utrip.addFilter(request.getRequestParams());
+        printSuccessMessage();
     }
 };

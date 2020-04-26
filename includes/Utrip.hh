@@ -3,6 +3,9 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <utility>
+#include <algorithm>
+#include <unordered_map>
 
 #include "UserManager.hh"
 #include "User.hh"
@@ -11,6 +14,7 @@
 #include "Tools.hh"
 #include "Constants.hh"
 #include "HotelManager.hh"
+#include "Filter.hh"
 
 class HotelManager;
 
@@ -18,9 +22,15 @@ class Utrip
 {
     UserManager userManager;
     HotelManager hotelManager;
+    Filter::HotelFilterManager hotelFilterManager;
 
 public:
     Utrip() = default;
+
+    void importHotels(const RAW_DATA_LIST &rawHotelsData)
+    {
+        hotelManager = HotelManager(rawHotelsData);
+    }
 
     void signup(const User &user)
     {
@@ -64,13 +74,24 @@ public:
         return userManager.getBalanceHistory(count);
     }
 
-    const HotelManager::HotelList &getHotels() const
+    Filter::HotelList getHotels() const
     {
-        return hotelManager.getHotels();
+        if (!userManager.isUserLoggedIn())
+            throw new PermissionDeniedException();
+
+        Filter::HotelList hotelsResultSet;
+        const auto &hotelsData = hotelManager.getHotels();
+        std::transform(hotelsData.begin(), hotelsData.end(), std::back_inserter(hotelsResultSet),
+                       [](std::pair<std::string, Hotel *> inputPair) { return inputPair.second; });
+
+        return hotelFilterManager.filter(std::forward<Filter::HotelList>(hotelsResultSet));
     }
 
-    const Hotel *const getHotels(const std::string &id) const
+    const Hotel *const getHotel(const std::string &id) const
     {
+        if (!userManager.isUserLoggedIn())
+            throw new PermissionDeniedException();
+
         const auto hotel = hotelManager.getHotels(id);
         if (!hotel)
             throw new NotFoundException();
@@ -78,9 +99,13 @@ public:
         return hotel;
     }
 
-    void importHotels(const RAW_DATA_LIST &rawHotelsData)
+    void addFilter(const std::unordered_map<std::string, std::string> &filterObjects)
     {
-        hotelManager = HotelManager(rawHotelsData);
+        if (!userManager.isUserLoggedIn())
+            throw new PermissionDeniedException();
+
+        if (filterObjects.find("city") != filterObjects.end())
+            hotelFilterManager.addFilter<Filter::CityFilter>(filterObjects.at("city"));
     }
 
     ~Utrip() = default;
