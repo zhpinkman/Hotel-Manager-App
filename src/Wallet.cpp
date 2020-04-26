@@ -1,6 +1,6 @@
-#include "../includes/Exception.hpp"
-#include "../includes/Wallet.hpp"
-#include "../includes/constants.hpp"
+#include "../includes/Wallet.hh"
+#include "../includes/Constants.hh"
+#include "../includes/Exception.hh"
 #include <iostream>
 
 using namespace std;

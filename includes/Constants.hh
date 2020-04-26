@@ -1,5 +1,6 @@
-#ifndef _CONSTANTS_H_
-#define _CONSTANTS_H_
+#pragma once
+
+#include <vector>
 
 #define AMENITIES_ARG_INDEX 4
 #define CITY_ARG_INDEX 5
@@ -39,7 +40,6 @@
 #define SPACE ' '
 #define COMMA ','
 
-
 #define AMENITY_SEPARATOR '|'
 
 #define CREDIT "credit"
@@ -48,8 +48,10 @@ typedef std::vector<std::vector<std::string>> RAW_DATA_LIST;
 typedef std::vector<std::string> RAW_DATA;
 typedef std::vector<std::string> Amenities;
 
-struct City {
-    City(const std::string _city, const double _latitude, const double _longitude) {
+struct City
+{
+    City(const std::string _city, const double _latitude, const double _longitude)
+    {
         cityName = _city;
         latitude = _latitude;
         longitude = _longitude;
@@ -58,5 +60,3 @@ struct City {
     double latitude;
     double longitude;
 };
-
-#endif

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Exception.hpp"
+#include "Exception.hh"
 
 #include <cstdlib>
 #include <sstream>
@@ -10,10 +10,8 @@
 
 template <typename InvalidFormatExceptionType,
           typename InvalidParamAccessExceptionType>
-struct Request
-{
-  enum class Methods
-  {
+struct Request {
+  enum class Methods {
     GET,
     POST,
   };
@@ -22,8 +20,7 @@ struct Request
   using UrlType = std::vector<std::string>;
 
   template <char Delimiter = ' '>
-  static std::vector<std::string> splitString(const std::string input)
-  {
+  static std::vector<std::string> splitString(const std::string input) {
     std::vector<std::string> parsedRequest;
     std::stringstream ss(input);
     std::string str;
@@ -41,8 +38,7 @@ private:
 public:
   Request() = delete;
 
-  Request(const std::string &rawRequest)
-  {
+  Request(const std::string &rawRequest) {
     const auto parsedRequest = splitString(rawRequest);
 
     if (!parsedRequest.size())
@@ -58,12 +54,11 @@ public:
       throw new BadRequestException();
 
     std::size_t i = MethodIndex + 1;
-    for (; parsedRequest[i] != "?"; ++i)
+    for (; i < parsedRequest.size() && parsedRequest[i] != "?"; ++i)
       url.push_back(parsedRequest[i]);
 
     ++i;
-    while (i < parsedRequest.size())
-    {
+    while (i < parsedRequest.size()) {
       params.emplace(parsedRequest[i], parsedRequest[i + 1]);
       i += 2;
     }
@@ -79,8 +74,7 @@ public:
 
   ParamsMap &getRequestParams() { return params; }
 
-  const std::string &getParam(const std::string &paramKey) const
-  {
+  const std::string &getParam(const std::string &paramKey) const {
     if (params.find(paramKey) == params.end())
       throw new InvalidFormatExceptionType();
 

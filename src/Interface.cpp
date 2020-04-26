@@ -2,16 +2,18 @@
 // Created by zhivar on 4/17/20.
 //
 
+#include "../includes/Interface.hh"
+#include "../includes/Utrip.hh"
 #include <iostream>
-#include "../includes/Interface.h"
-#include "../includes/Utrip.h"
 
-// void Interface::runSignupCommand(const std::string &email, const std::string &username, const std::string &password)
+// void Interface::runSignupCommand(const std::string &email, const std::string
+// &username, const std::string &password)
 // {
 //     utrip.signup(email, username, password);
 // }
 
-// void Interface::runLoginCommand(const std::string &email, const std::string &password) {
+// void Interface::runLoginCommand(const std::string &email, const std::string
+// &password) {
 //     utrip.login(email, password);
 // }
 
