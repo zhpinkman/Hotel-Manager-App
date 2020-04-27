@@ -4,6 +4,7 @@
 #include <string>
 #include "Constants.hh"
 #include "Hotel.hh"
+#include "Exception.hh"
 
 class HotelManager
 {
@@ -27,8 +28,15 @@ public:
         return hotels.at(id);
     }
 
-    void
-    getHotelById(const std::string &hotelId);
+    Hotel &getHotels(const std::string &id)
+    {
+        if (hotels.find(id) == hotels.end())
+            throw new NotFoundException();
+
+        return *hotels.at(id);
+    }
+
+    void getHotelById(const std::string &hotelId);
 
 private:
     std::unordered_map<std::string, Hotel *> hotels;

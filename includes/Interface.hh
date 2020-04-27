@@ -82,4 +82,16 @@ public:
         utrip.addFilter(request.getRequestParams());
         printSuccessMessage();
     }
+
+    void runAddCommentCommand(const RequestType &request)
+    {
+        utrip.addComment(request.getParam("hotel"), request.getParam("comment"));
+        printSuccessMessage();
+    }
+
+    void runGetCommentsCommand(const RequestType &request)
+    {
+        for (const auto &comment : utrip.getComments(request.getParam("hotel")))
+            std::cout << comment.getUsername() << ": " << comment.getComment() << std::endl;
+    }
 };

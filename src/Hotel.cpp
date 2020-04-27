@@ -1,9 +1,9 @@
 #include <iostream>
-#include "../includes/Hotel.hh"
-#include "../includes/RoomService.hh"
-#include "../includes/Constants.hh"
+#include "Hotel.hh"
+#include "RoomService.hh"
+#include "Constants.hh"
 
-Hotel::Hotel(const std::string &hotelId, std::string hotelName, int hotelRating, std::string hotelOverview,
+Hotel::Hotel(const std::string &hotelId, std::string hotelName, std::uint8_t hotelRating, std::string hotelOverview,
              Amenities amenities, City city, std::string imageUrl, int numOfStandardRooms, int numOfDeluxeRooms,
              int numOfLuxuryRooms, int numOfPremiumRooms, double standardRoomPrice, double deluxeRoomPrice,
              double luxuryRoomPrice, double premiumRoomPrice) : hotelId(hotelId), hotelName(hotelName),
@@ -13,7 +13,7 @@ Hotel::Hotel(const std::string &hotelId, std::string hotelName, int hotelRating,
     roomService = new RoomService(numOfStandardRooms, numOfDeluxeRooms, numOfLuxuryRooms, numOfPremiumRooms, standardRoomPrice, deluxeRoomPrice, luxuryRoomPrice, premiumRoomPrice);
 }
 
-void Hotel::print() const
+void Hotel::print() const /// TODO : use stringstream
 {
     std::string hotel_description;
     hotel_description += hotelId + ENTER;

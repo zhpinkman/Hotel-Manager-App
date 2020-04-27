@@ -1,15 +1,47 @@
 #pragma once
 
 #include <string>
+#include <cstdint>
 #include <vector>
-#include "Constants.hh"
+#include <array>
 
-class RoomService;
+#include "Constants.hh"
+#include "RoomService.hh"
 
 class Hotel
 {
 public:
-    Hotel(const std::string &hotelId, std::string hotelName, int hotelRating, std::string hotelOverview,
+    class Comment
+    {
+        std::string username;
+        std::string comment;
+
+    public:
+        Comment(const std::string &username, const std::string &comment)
+            : username(username),
+              comment(comment)
+        {
+        }
+
+        const std::string &getUsername() const
+        {
+            return username;
+        }
+
+        const std::string &getComment() const
+        {
+            return comment;
+        }
+    };
+
+    template <std::size_t NumOfRatingFields = 6>
+    class RatingData
+    {
+    };
+
+    using CommentList = std::vector<Comment>;
+
+    Hotel(const std::string &hotelId, std::string hotelName, std::uint8_t hotelRating, std::string hotelOverview,
           Amenities amenities, City city, std::string imageUrl, int numOfStandardRooms,
           int numOfDeluxeRooms, int numOfLuxuryRooms, int numOfPremiumRooms,
           double standardRoomPrice, double deluxeRoomPrice, double luxuryRoomPrice,
@@ -36,13 +68,35 @@ public:
         return city;
     }
 
+    std::uint8_t getStar() const
+    {
+        return hotelRating;
+    }
+
+    const RoomService *const getRoomService() const
+    {
+        return roomService;
+    }
+
+    template <typename... Args>
+    void addComment(const Args &... args)
+    {
+        comments.emplace_back(args...);
+    }
+
+    const CommentList &getComments() const
+    {
+        return comments;
+    }
+
 private:
     std::string hotelId;
     std::string hotelName;
-    int hotelRating;
-    std::string hotel_overview;
+    std::uint8_t hotelRating;
+    std::string hotel_overview; // TODO
     Amenities amenities;
     City city;
-    std::string image_url;
+    std::string image_url; // TODO
     RoomService *roomService;
+    CommentList comments;
 };

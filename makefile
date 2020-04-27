@@ -12,9 +12,7 @@ LIB_OBJECTS = \
 	$(BUILD_DIR)/Wallet.o \
 	$(BUILD_DIR)/RoomService.o \
 	$(BUILD_DIR)/Room.o \
-	$(BUILD_DIR)/Interface.o \
 	$(BUILD_DIR)/CommandHandler.o \
-	$(BUILD_DIR)/Utrip.o \
 	$(BUILD_DIR)/HotelManager.o
 
 OBJECTS = $(LIB_OBJECTS) $(BUILD_DIR)/Main.o
@@ -32,25 +30,12 @@ HotelManagerSensitivityList = \
 	$(INCLUDE_DIR)/Hotel.hh \
 	$(INCLUDE_DIR)/Tools.hh
 
-UtripSensitivityList = \
-	$(SRC_DIR)/Utrip.cpp \
-	$(INCLUDE_DIR)/Utrip.hh \
-	$(INCLUDE_DIR)/Exception.hh \
-	$(INCLUDE_DIR)/Constants.hh \
-	$(INCLUDE_DIR)/Tools.hh
-
-
 ToolsSensitivityList = \
 	$(SRC_DIR)/Tools.cpp \
 	$(INCLUDE_DIR)/Tools.hh \
 	$(INCLUDE_DIR)/Constants.hh \
 	$(INCLUDE_DIR)/Exception.hh
 
-
-InterfaceSensitivityList = \
-    $(SRC_DIR)/Interface.cpp \
-    $(INCLUDE_DIR)/Interface.hh \
-    $(INCLUDE_DIR)/Utrip.hh
 
 CommandHandlerSensitivityList = \
     $(SRC_DIR)/CommandHandler.cpp \
@@ -108,12 +93,6 @@ $(BUILD_DIR)/Main.o: $(MainSensitivityList)
 
 $(BUILD_DIR)/CommandHandler.o: $(CommandHandlerSensitivityList)
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/CommandHandler.cpp -o $(BUILD_DIR)/CommandHandler.o
-
-$(BUILD_DIR)/Interface.o: $(InterfaceSensitivityList)
-	$(CC) $(CFLAGS) -c $(SRC_DIR)/Interface.cpp -o $(BUILD_DIR)/Interface.o
-
-$(BUILD_DIR)/Utrip.o: $(UtripSensitivityList)
-	$(CC) $(CFLAGS) -c $(SRC_DIR)/Utrip.cpp -o $(BUILD_DIR)/Utrip.o
 
 $(BUILD_DIR)/HotelManager.o: $(HotelManagerSensitivityList)
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/HotelManager.cpp -o $(BUILD_DIR)/HotelManager.o

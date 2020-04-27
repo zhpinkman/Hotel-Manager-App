@@ -2,6 +2,7 @@
 
 #include <string>
 #include <utility>
+#include <limits>
 
 #include "Hotel.hh"
 
@@ -42,6 +43,10 @@ struct CityFilter
   std::string cityName;
   bool isInitialized;
 
+  CityFilter() : isInitialized(false)
+  {
+  }
+
   const HotelList filter(const HotelList &&input) const
   {
     if (!isInitialized)
@@ -62,27 +67,102 @@ struct CityFilter
   }
 };
 
-struct StarsFilter : public BasicFilter
+struct StarsFilter
 {
+  std::uint8_t minStar;
+  std::uint8_t maxStar;
+
+  StarsFilter() : minStar(std::numeric_limits<std::uint8_t>::min()),
+                  maxStar(std::numeric_limits<std::uint8_t>::max())
+  {
+  }
+
   const HotelList filter(const HotelList &&input) const
   {
-    return input; /// TODO implement
+    HotelList resultSet;
+    for (const auto &hotel : input)
+      if (hotel->getStar() <= maxStar && hotel->getStar() <= maxStar)
+        resultSet.push_back(hotel);
+
+    return resultSet;
+  }
+
+  void addFilter(const std::string &minStarString,
+                 const std::string &maxStarString)
+  {
+    const auto convertedMinStar = static_cast<std::uint8_t>(stoi(minStarString));
+    const auto convertedMaxStar = static_cast<std::uint8_t>(stoi(maxStarString));
+
+    constexpr std::uint8_t maxPossibleStar = 5;
+    if (convertedMaxStar < convertedMinStar ||
+        convertedMaxStar > maxPossibleStar)
+      throw new BadRequestException();
+
+    minStar = convertedMinStar;
+    maxStar = convertedMaxStar;
   }
 };
 
-struct AveragePriceFilter : public BasicFilter
+struct AveragePriceFilter
 {
+  double minPrice;
+  double maxPrice;
+
+  AveragePriceFilter() : minPrice(std::numeric_limits<double>::min()),
+                         maxPrice(std::numeric_limits<double>::max())
+  {
+  }
+
   const HotelList filter(const HotelList &&input) const
   {
-    return input; /// TODO implement
+    HotelList resultSet;
+    for (const auto &hotel : input)
+      if (hotel->getRoomService()->getRoomsAveragePrice() <= minPrice &&
+          hotel->getRoomService()->getRoomsAveragePrice() <= maxPrice)
+        resultSet.push_back(hotel);
+
+    return resultSet;
+  }
+
+  void addFilter(const std::string &minPriceString,
+                 const std::string &maxPriceString)
+  {
+    const auto convertedMinPrice = static_cast<std::uint8_t>(stoi(minPriceString));
+    const auto convertedMaxPrice = static_cast<std::uint8_t>(stoi(maxPriceString));
+
+    if (convertedMaxPrice < convertedMinPrice)
+      throw new BadRequestException();
+
+    minPrice = convertedMinPrice;
+    maxPrice = convertedMaxPrice;
   }
 };
 
-struct FreeRoomFilter : public BasicFilter
+struct FreeRoomFilter
 {
+  double minPrice;
+  double maxPrice;
+
+  FreeRoomFilter() : minPrice(std::numeric_limits<double>::min()),
+                     maxPrice(std::numeric_limits<double>::max())
+  {
+  }
+
   const HotelList filter(const HotelList &&input) const
   {
-    return input; /// TODO implement
+    // HotelList resultSet;
+    // for (const auto &hotel : input)
+    //   if (hotel->getRoomService()->getRoomsAveragePrice() <= minPrice &&
+    //       hotel->getRoomService()->getRoomsAveragePrice() <= maxPrice)
+    //     resultSet.push_back(hotel);
+
+    // return resultSet;
+    return input;
+  }
+
+  void addFilter(const std::string &minPriceString,
+                 const std::string &maxPriceString)
+  {
   }
 };
 

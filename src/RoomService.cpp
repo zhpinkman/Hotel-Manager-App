@@ -1,39 +1,39 @@
-#include "../includes/RoomService.hh"
-#include "../includes/Room.hh"
+#include "RoomService.hh"
+#include "Room.hh"
 
-RoomService::RoomService(int numOfStandardRooms, int numOfDeluxeRooms, int numOfLuxuryRooms, int numOfPremiumRooms,
-                         int standardRoomPrice, int deluxeRoomPrice, int luxuryRoomPrice,
-                         int premiumRoomPrice)
+RoomService::RoomService(std::size_t numOfStandardRooms, std::size_t numOfDeluxeRooms, std::size_t numOfLuxuryRooms, std::size_t numOfPremiumRooms,
+                         std::size_t standardRoomPrice, std::size_t deluxeRoomPrice, std::size_t luxuryRoomPrice,
+                         std::size_t premiumRoomPrice)
     : standardRoomPrice(standardRoomPrice), deluxeRoomPrice(deluxeRoomPrice), luxuryRoomPrice(luxuryRoomPrice),
       premiumRoomPrice(premiumRoomPrice)
 {
-    for (int i = 0; i < numOfStandardRooms; i++)
+    for (std::size_t i = 0; i < numOfStandardRooms; i++)
     {
         standardRooms.push_back(new Room());
     }
-    for (int i = 0; i < numOfDeluxeRooms; i++)
+    for (std::size_t i = 0; i < numOfDeluxeRooms; i++)
     {
         deluxeRooms.push_back(new Room());
     }
-    for (int i = 0; i < numOfLuxuryRooms; i++)
+    for (std::size_t i = 0; i < numOfLuxuryRooms; i++)
     {
         luxuryRooms.push_back(new Room());
     }
-    for (int i = 0; i < numOfPremiumRooms; i++)
+    for (std::size_t i = 0; i < numOfPremiumRooms; i++)
     {
         premiumRooms.push_back(new Room());
     }
 }
 
-int RoomService::getTotalNumOfRooms()
+std::size_t RoomService::getTotalNumOfRooms() const
 {
     return standardRooms.size() + deluxeRooms.size() + luxuryRooms.size() + premiumRooms.size();
 }
 
-int RoomService::getRoomsAveragePrice()
+std::size_t RoomService::getRoomsAveragePrice() const
 {
-    int totalPrice = 0;
-    int roomTypes = 0;
+    std::size_t totalPrice = 0;
+    std::size_t roomTypes = 0;
     if (standardRooms.size())
     {
         totalPrice += standardRoomPrice;
@@ -54,46 +54,46 @@ int RoomService::getRoomsAveragePrice()
         totalPrice += premiumRoomPrice;
         roomTypes += 1;
     }
-    int averagePrice = totalPrice / roomTypes;
+    std::size_t averagePrice = totalPrice / roomTypes;
     return averagePrice;
 }
 
-int RoomService::getNumOfStandardRooms()
+std::size_t RoomService::getNumOfStandardRooms() const
 {
     return standardRooms.size();
 }
 
-int RoomService::getNumOfDeluxeRooms()
+std::size_t RoomService::getNumOfDeluxeRooms() const
 {
     return deluxeRooms.size();
 }
 
-int RoomService::getNumOfLuxuryRooms()
+std::size_t RoomService::getNumOfLuxuryRooms() const
 {
     return luxuryRooms.size();
 }
 
-int RoomService::getNumOfPremiumRooms()
+std::size_t RoomService::getNumOfPremiumRooms() const
 {
     return premiumRooms.size();
 }
 
-int RoomService::getPriceOfStandardRooms()
+std::size_t RoomService::getPriceOfStandardRooms() const
 {
     return standardRoomPrice;
 }
 
-int RoomService::getPriceOfDeluxeRooms()
+std::size_t RoomService::getPriceOfDeluxeRooms() const
 {
     return deluxeRoomPrice;
 }
 
-int RoomService::getPriceOfLuxuryRooms()
+std::size_t RoomService::getPriceOfLuxuryRooms() const
 {
     return luxuryRoomPrice;
 }
 
-int RoomService::getPriceOfPremiumRooms()
+std::size_t RoomService::getPriceOfPremiumRooms() const
 {
     return premiumRoomPrice;
 }

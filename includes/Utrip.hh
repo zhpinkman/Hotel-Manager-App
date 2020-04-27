@@ -106,6 +106,34 @@ public:
 
         if (filterObjects.find("city") != filterObjects.end())
             hotelFilterManager.addFilter<Filter::CityFilter>(filterObjects.at("city"));
+        else if (filterObjects.find("min_star") != filterObjects.end() &&
+                 filterObjects.find("max_star") != filterObjects.end())
+            hotelFilterManager.addFilter<Filter::StarsFilter>(filterObjects.at("min_star"),
+                                                              filterObjects.at("max_star"));
+        else if (filterObjects.find("min_price") != filterObjects.end() &&
+                 filterObjects.find("max_price") != filterObjects.end())
+            hotelFilterManager.addFilter<Filter::AveragePriceFilter>(filterObjects.at("min_price"),
+                                                                     filterObjects.at("max_price"));
+        else
+            throw new BadRequestException();
+    }
+
+    void addComment(const std::string &hotelId, const std::string &commentContent)
+    {
+        if (!userManager.isUserLoggedIn())
+            throw new PermissionDeniedException();
+
+        const auto &username = userManager.loggedInUser->getUsername();
+        hotelManager.getHotels(hotelId).addComment(username, commentContent);
+    }
+
+    const Hotel::CommentList &getComments(const std::string &hotelId) const
+    {
+        if (!userManager.isUserLoggedIn())
+            throw new PermissionDeniedException();
+
+        const auto &username = userManager.loggedInUser->getUsername();
+        return hotelManager.getHotels(hotelId)->getComments();
     }
 
     ~Utrip() = default;
