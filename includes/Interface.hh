@@ -94,4 +94,36 @@ public:
         for (const auto &comment : utrip.getComments(request.getParam("hotel")))
             std::cout << comment.getUsername() << ": " << comment.getComment() << std::endl;
     }
+
+    void runAddRateCommand(const RequestType &request)
+    {
+        // TODO: store the keys in a member array
+
+        utrip.addRating(request.getParam("hotel"),
+                        std::forward<Hotel::RatingData::DataType>(
+                            {extractFromString<double>(request.getParam("location")),
+                             extractFromString<double>(request.getParam("cleanliness")),
+                             extractFromString<double>(request.getParam("staff")),
+                             extractFromString<double>(request.getParam("facilities")),
+                             extractFromString<double>(request.getParam("value_for_money")),
+                             extractFromString<double>(request.getParam("overall_rating"))}));
+    }
+
+    void runGetRateCommand(const RequestType &request)
+    {
+        const auto rateData = utrip.getRating(request.getParam("hotel"));
+
+        if (!(*rateData.begin()))
+        {
+            std::cout << "No Rating" << std::endl;
+            return;
+        }
+
+        std::cout << "location: " << rateData[0] << std::endl
+                  << "cleanliness: " << rateData[1] << std::endl
+                  << "staff: " << rateData[2] << std::endl
+                  << "facilities: " << rateData[3] << std::endl
+                  << "value_for_money: " << rateData[4] << std::endl
+                  << "overal_rating: " << rateData[5] << std::endl;
+    }
 };

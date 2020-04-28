@@ -46,6 +46,10 @@ void CommandHandler::runCommand(const RequestType &&request)
       interface.runAddCommentCommand(request);
     else if (request.getRequestUrl()[0] == "comments" && request.getMethod() == RequestType::Methods::GET)
       interface.runGetCommentsCommand(request);
+    else if (request.getRequestUrl()[0] == "ratings" && request.getMethod() == RequestType::Methods::GET)
+      interface.runGetRateCommand(request);
+    else if (request.getRequestUrl()[0] == "ratings" && request.getMethod() == RequestType::Methods::POST)
+      interface.runAddRateCommand(request);
 
     else
       throw new NotFoundException();

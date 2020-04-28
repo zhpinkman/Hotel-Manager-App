@@ -1,4 +1,4 @@
-CC = g++
+CC = clang++
 BUILD_DIR = build
 SRC_DIR = src
 INCLUDE_DIR = includes

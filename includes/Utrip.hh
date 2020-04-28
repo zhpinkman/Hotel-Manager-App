@@ -132,8 +132,24 @@ public:
         if (!userManager.isUserLoggedIn())
             throw new PermissionDeniedException();
 
-        const auto &username = userManager.loggedInUser->getUsername();
         return hotelManager.getHotels(hotelId)->getComments();
+    }
+
+    void addRating(const std::string &hotelId, const Hotel::RatingData::DataType rateData)
+    {
+        if (!userManager.isUserLoggedIn())
+            throw new PermissionDeniedException();
+
+        const auto &username = userManager.loggedInUser->getUsername();
+        hotelManager.getHotels(hotelId).addRating(username, rateData);
+    }
+
+    Hotel::RatingData::DataType getRating(const std::string &hotelId)
+    {
+        if (!userManager.isUserLoggedIn())
+            throw new PermissionDeniedException();
+
+        return hotelManager.getHotels(hotelId).getRating();
     }
 
     ~Utrip() = default;
