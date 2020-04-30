@@ -10,17 +10,21 @@
 
 template <typename InvalidFormatExceptionType,
           typename InvalidParamAccessExceptionType>
-struct Request {
-  enum class Methods {
+struct Request
+{
+  enum class Methods
+  {
     GET,
     POST,
+    DELETE,
   };
 
   using ParamsMap = std::unordered_map<std::string, std::string>;
   using UrlType = std::vector<std::string>;
 
   template <char Delimiter = ' '>
-  static std::vector<std::string> splitString(const std::string input) {
+  static std::vector<std::string> splitString(const std::string input)
+  {
     std::vector<std::string> parsedRequest;
     std::stringstream ss(input);
     std::string str;
@@ -38,7 +42,8 @@ private:
 public:
   Request() = delete;
 
-  Request(const std::string &rawRequest) {
+  Request(const std::string &rawRequest)
+  {
     const auto parsedRequest = splitString(rawRequest);
 
     if (!parsedRequest.size())
@@ -58,7 +63,8 @@ public:
       url.push_back(parsedRequest[i]);
 
     ++i;
-    while (i < parsedRequest.size()) {
+    while (i < parsedRequest.size())
+    {
       params.emplace(parsedRequest[i], parsedRequest[i + 1]);
       i += 2;
     }
@@ -74,7 +80,8 @@ public:
 
   ParamsMap &getRequestParams() { return params; }
 
-  const std::string &getParam(const std::string &paramKey) const {
+  const std::string &getParam(const std::string &paramKey) const
+  {
     if (params.find(paramKey) == params.end())
       throw new InvalidFormatExceptionType();
 

@@ -3,10 +3,6 @@
 #include <exception>
 #include <string>
 
-#define NOT_FOUND "Not Found"
-#define BAD_REQUEST "Bad Request"
-#define PERMISSION_DENIED "Permission Denied"
-
 class Exception : public std::exception
 {
 public:
@@ -22,17 +18,29 @@ private:
 class NotFoundException : public Exception
 {
 public:
-  NotFoundException() : Exception(NOT_FOUND) {}
+  NotFoundException() : Exception("Not Found") {}
 };
 
 class BadRequestException : public Exception
 {
 public:
-  BadRequestException() : Exception(BAD_REQUEST) {}
+  BadRequestException() : Exception("Bad Request") {}
 };
 
 class PermissionDeniedException : public Exception
 {
 public:
-  PermissionDeniedException() : Exception(PERMISSION_DENIED) {}
+  PermissionDeniedException() : Exception("Permission Denied") {}
+};
+
+class NotEnoughRoomException : public Exception
+{
+public:
+  NotEnoughRoomException() : Exception("Not Enough Room") {}
+};
+
+class NotEnoughCreditException : public Exception
+{
+public:
+  NotEnoughCreditException() : Exception("Not Enough Credit") {}
 };

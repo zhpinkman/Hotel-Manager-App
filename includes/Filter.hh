@@ -3,6 +3,7 @@
 #include <string>
 #include <utility>
 #include <limits>
+#include <sstream>
 
 #include "Hotel.hh"
 
@@ -26,17 +27,6 @@ struct FilterManager : public Args...
 };
 
 using HotelList = std::vector<Hotel *>;
-
-struct BasicFilter
-{
-  bool isInitialized;
-
-  BasicFilter() : isInitialized(false)
-  {
-  }
-
-  virtual const HotelList filter(const HotelList &&input) const = 0;
-};
 
 struct CityFilter
 {
@@ -117,8 +107,8 @@ struct AveragePriceFilter
   {
     HotelList resultSet;
     for (const auto &hotel : input)
-      if (hotel->getRoomService()->getRoomsAveragePrice() <= minPrice &&
-          hotel->getRoomService()->getRoomsAveragePrice() <= maxPrice)
+      if (hotel->getRoomService().getRoomsAveragePrice() <= minPrice &&
+          hotel->getRoomService().getRoomsAveragePrice() <= maxPrice)
         resultSet.push_back(hotel);
 
     return resultSet;
@@ -140,29 +130,48 @@ struct AveragePriceFilter
 
 struct FreeRoomFilter
 {
-  double minPrice;
-  double maxPrice;
+  bool isInitialized;
+  RoomService::RoomType roomType;
+  std::size_t quantity;
+  std::size_t arrivalTime;
+  std::size_t departureTime;
 
-  FreeRoomFilter() : minPrice(std::numeric_limits<double>::min()),
-                     maxPrice(std::numeric_limits<double>::max())
+  FreeRoomFilter() : isInitialized(false)
   {
   }
 
   const HotelList filter(const HotelList &&input) const
   {
-    // HotelList resultSet;
-    // for (const auto &hotel : input)
-    //   if (hotel->getRoomService()->getRoomsAveragePrice() <= minPrice &&
-    //       hotel->getRoomService()->getRoomsAveragePrice() <= maxPrice)
-    //     resultSet.push_back(hotel);
+    if (!isInitialized)
+      return input;
 
-    // return resultSet;
-    return input;
+    HotelList resultSet;
+    for (const auto &hotel : input)
+      if (hotel->getRoomService().doesFreeRoomExists(roomType, quantity, arrivalTime, departureTime))
+        resultSet.push_back(hotel);
+
+    return resultSet;
   }
 
-  void addFilter(const std::string &minPriceString,
-                 const std::string &maxPriceString)
+  template <typename ReturnValueType>
+  static ReturnValueType extractFromString(const std::string &stringValue)
   {
+    std::stringstream ss(stringValue);
+    ReturnValueType result;
+    ss >> result;
+    return result;
+  }
+
+  void addFilter(const std::string &roomTypeString,
+                 const std::string &quantityString,
+                 const std::string &arrivalTimeString,
+                 const std::string &departureTimeString)
+  {
+    isInitialized = true;
+    roomType = RoomService::convertRoomType(roomTypeString);
+    quantity = extractFromString<std::size_t>(quantityString);
+    arrivalTime = extractFromString<std::size_t>(quantityString);
+    departureTime = extractFromString<std::size_t>(quantityString);
   }
 };
 

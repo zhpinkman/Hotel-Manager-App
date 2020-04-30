@@ -3,14 +3,37 @@
 #include "RoomService.hh"
 #include "Constants.hh"
 
-Hotel::Hotel(const std::string &hotelId, std::string hotelName, std::uint8_t hotelRating, std::string hotelOverview,
-             Amenities amenities, City city, std::string imageUrl, int numOfStandardRooms, int numOfDeluxeRooms,
-             int numOfLuxuryRooms, int numOfPremiumRooms, double standardRoomPrice, double deluxeRoomPrice,
-             double luxuryRoomPrice, double premiumRoomPrice) : hotelId(hotelId), hotelName(hotelName),
-                                                                hotelRating(hotelRating), hotel_overview(hotelOverview),
-                                                                amenities(amenities), city(city), image_url(imageUrl)
+Hotel::Hotel(const std::string &hotelId,
+             std::string hotelName,
+             std::uint8_t hotelRating,
+             std::string hotelOverview,
+             Amenities amenities,
+             City city,
+             std::string imageUrl,
+             int numOfStandardRooms,
+             int numOfDeluxeRooms,
+             int numOfLuxuryRooms,
+             int numOfPremiumRooms,
+             double standardRoomPrice,
+             double deluxeRoomPrice,
+             double luxuryRoomPrice,
+             double premiumRoomPrice)
+    : hotelId(hotelId),
+      hotelName(hotelName),
+      hotelRating(hotelRating),
+      hotel_overview(hotelOverview),
+      amenities(amenities),
+      city(city),
+      image_url(imageUrl),
+      roomService(numOfStandardRooms,
+                  numOfDeluxeRooms,
+                  numOfLuxuryRooms,
+                  numOfPremiumRooms,
+                  standardRoomPrice,
+                  deluxeRoomPrice,
+                  luxuryRoomPrice,
+                  premiumRoomPrice)
 {
-    roomService = new RoomService(numOfStandardRooms, numOfDeluxeRooms, numOfLuxuryRooms, numOfPremiumRooms, standardRoomPrice, deluxeRoomPrice, luxuryRoomPrice, premiumRoomPrice);
 }
 
 void Hotel::print() const /// TODO : use stringstream
@@ -24,14 +47,14 @@ void Hotel::print() const /// TODO : use stringstream
     hotel_description += "city: " + city.cityName + ENTER;
     hotel_description += "latitude: " + std::to_string(city.latitude) + ENTER;
     hotel_description += "logitude: " + std::to_string(city.longitude) + ENTER;
-    hotel_description += "#rooms: " + std::to_string(roomService->getNumOfStandardRooms()) + SPACE +
-                         std::to_string(roomService->getNumOfDeluxeRooms()) + SPACE +
-                         std::to_string(roomService->getNumOfLuxuryRooms()) + SPACE +
-                         std::to_string(roomService->getNumOfPremiumRooms()) + ENTER;
-    hotel_description += "price: " + std::to_string(roomService->getPriceOfStandardRooms()) + SPACE +
-                         std::to_string(roomService->getPriceOfDeluxeRooms()) + SPACE +
-                         std::to_string(roomService->getPriceOfLuxuryRooms()) + SPACE +
-                         std::to_string(roomService->getPriceOfPremiumRooms()) + ENTER;
+    hotel_description += "#rooms: " + std::to_string(roomService.getNumOfStandardRooms()) + SPACE +
+                         std::to_string(roomService.getNumOfDeluxeRooms()) + SPACE +
+                         std::to_string(roomService.getNumOfLuxuryRooms()) + SPACE +
+                         std::to_string(roomService.getNumOfPremiumRooms()) + ENTER;
+    hotel_description += "price: " + std::to_string(roomService.getPriceOfStandardRooms()) + SPACE +
+                         std::to_string(roomService.getPriceOfDeluxeRooms()) + SPACE +
+                         std::to_string(roomService.getPriceOfLuxuryRooms()) + SPACE +
+                         std::to_string(roomService.getPriceOfPremiumRooms()) + ENTER;
     std::cout << hotel_description << std::endl;
 }
 
@@ -53,8 +76,8 @@ void Hotel::printBriefly() const
     hotel_description += hotelName + SPACE;
     hotel_description += std::to_string(hotelRating) + SPACE;
     hotel_description += city.cityName + SPACE;
-    hotel_description += std::to_string(roomService->getTotalNumOfRooms()) + SPACE;
-    hotel_description += std::to_string(roomService->getRoomsAveragePrice()) + SPACE;
+    hotel_description += std::to_string(roomService.getTotalNumOfRooms()) + SPACE;
+    hotel_description += std::to_string(roomService.getRoomsAveragePrice()) + SPACE;
     std::cout << hotel_description << std::endl;
 }
 

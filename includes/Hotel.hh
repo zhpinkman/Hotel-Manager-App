@@ -6,6 +6,7 @@
 #include <array>
 #include <unordered_map>
 #include <algorithm>
+#include <utility>
 
 #include "Constants.hh"
 #include "RoomService.hh"
@@ -97,7 +98,12 @@ public:
         return hotelRating;
     }
 
-    const RoomService *const getRoomService() const
+    const RoomService &getRoomService() const
+    {
+        return roomService;
+    }
+
+    RoomService &getRoomService()
     {
         return roomService;
     }
@@ -139,7 +145,7 @@ private:
     Amenities amenities;
     City city;
     std::string image_url; // TODO
-    RoomService *roomService;
+    RoomService roomService;
     CommentList comments;
     RatesList rates;
 };

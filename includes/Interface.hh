@@ -126,4 +126,39 @@ public:
                   << "value_for_money: " << rateData[4] << std::endl
                   << "overal_rating: " << rateData[5] << std::endl;
     }
+
+    void runSetReserveCommand(const RequestType &request)
+    {
+        utrip.reserve(request.getParam("hotel"),
+                      request.getParam("type"),
+                      extractFromString<std::size_t>(request.getParam("quantity")),
+                      extractFromString<std::size_t>(request.getParam("check_in")),
+                      extractFromString<std::size_t>(request.getParam("check_out")));
+        printSuccessMessage();
+    }
+
+    void runGetReserveCommand(const RequestType &request) const
+    {
+        const auto userReservations = utrip.getReservations();
+        if (!userReservations.size())
+        {
+            std::cout << "Empty" << std::endl;
+            return;
+        }
+
+        for (const auto &reservation : userReservations)
+            std::cout << "id: " << reservation.reservationId
+                      << "hotel: " << reservation.hotelId
+                      << "room: " << RoomService::toString(reservation.roomType)
+                      << "quantity: " << reservation.quantity
+                      << "cost: " << reservation.price
+                      << "check_in: " << reservation.arrivalTime
+                      << "check_out: " << reservation.departureTime << std::endl;
+    }
+
+    void runDeleteReserveCommand(const RequestType &request)
+    {
+        utrip.deleteReservations(extractFromString<std::size_t>(request.getParam("id")));
+        printSuccessMessage();
+    }
 };

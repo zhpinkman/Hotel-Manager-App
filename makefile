@@ -9,9 +9,7 @@ EXECUTABLE_FILE = UTRIP.out
 LIB_OBJECTS = \
 	$(BUILD_DIR)/Hotel.o \
 	$(BUILD_DIR)/Tools.o \
-	$(BUILD_DIR)/Wallet.o \
 	$(BUILD_DIR)/RoomService.o \
-	$(BUILD_DIR)/Room.o \
 	$(BUILD_DIR)/CommandHandler.o \
 	$(BUILD_DIR)/HotelManager.o
 
@@ -49,18 +47,7 @@ CommandHandlerSensitivityList = \
 
 RoomServiceSensitivityList = \
 	$(SRC_DIR)/RoomService.cpp \
-	$(INCLUDE_DIR)/RoomService.hh \
-	$(INCLUDE_DIR)/Room.hh
-
-RoomSensitivityList = \
-	$(SRC_DIR)/Room.cpp \
-	$(INCLUDE_DIR)/Room.hh
-
-WalletSensitivityList = \
-	$(SRC_DIR)/Wallet.cpp \
-	$(INCLUDE_DIR)/Wallet.hh \
-	$(INCLUDE_DIR)/Exception.hh \
-	$(INCLUDE_DIR)/Constants.hh
+	$(INCLUDE_DIR)/RoomService.hh
 
 MainSensitivityList = \
 	$(SRC_DIR)/Main.cpp \
@@ -78,18 +65,11 @@ $(BUILD_DIR)/Hotel.o: $(HotelSensitivityList)
 $(BUILD_DIR)/Tools.o: $(ToolsSensitivityList)
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/Tools.cpp -o $(BUILD_DIR)/Tools.o
 
-$(BUILD_DIR)/Wallet.o: $(WalletSensitivityList)
-	$(CC) $(CFLAGS) -c $(SRC_DIR)/Wallet.cpp -o $(BUILD_DIR)/Wallet.o
-
 $(BUILD_DIR)/RoomService.o: $(RoomServiceSensitivityList)
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/RoomService.cpp -o $(BUILD_DIR)/RoomService.o
 
-$(BUILD_DIR)/Room.o: $(RoomSensitivityList)
-	$(CC) $(CFLAGS) -c $(SRC_DIR)/Room.cpp -o $(BUILD_DIR)/Room.o
-
 $(BUILD_DIR)/Main.o: $(MainSensitivityList)
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/Main.cpp -o $(BUILD_DIR)/Main.o
-
 
 $(BUILD_DIR)/CommandHandler.o: $(CommandHandlerSensitivityList)
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/CommandHandler.cpp -o $(BUILD_DIR)/CommandHandler.o

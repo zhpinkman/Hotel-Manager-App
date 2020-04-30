@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+#include "Exception.hh"
+
 class Reservation;
 
 class User
@@ -13,7 +15,8 @@ public:
           username(username),
           password(password),
           credit(0),
-          balanceHistory({0})
+          balanceHistory({0}),
+          nextUserReserveId(1)
     {
     }
 
@@ -28,7 +31,7 @@ public:
     }
 
     std::string getEmail() const { return email; }
-    std::string getUsername() const { return username; }
+    const std::string &getUsername() const { return username; }
     std::string getPassword() const { return password; }
 
     void addCredit(const double amount)
@@ -50,6 +53,25 @@ public:
         return result;
     }
 
+    double getCredit() const
+    {
+        return credit;
+    }
+
+    void reduceCredit(const double cost)
+    {
+        if (cost > credit)
+            throw new NotEnoughCreditException();
+
+        credit -= cost;
+        balanceHistory.push_back(credit);
+    }
+
+    std::size_t getNextUserReserveId()
+    {
+        return nextUserReserveId++;
+    }
+
 private:
     std::string email;
     std::string username;
@@ -57,4 +79,5 @@ private:
     std::vector<Reservation *> reservations;
     double credit;
     std::vector<double> balanceHistory;
+    std::size_t nextUserReserveId;
 };

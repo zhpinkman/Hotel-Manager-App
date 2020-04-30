@@ -50,6 +50,12 @@ void CommandHandler::runCommand(const RequestType &&request)
       interface.runGetRateCommand(request);
     else if (request.getRequestUrl()[0] == "ratings" && request.getMethod() == RequestType::Methods::POST)
       interface.runAddRateCommand(request);
+    else if (request.getRequestUrl()[0] == "reserves" && request.getMethod() == RequestType::Methods::POST)
+      interface.runSetReserveCommand(request);
+    else if (request.getRequestUrl()[0] == "reserves" && request.getMethod() == RequestType::Methods::GET)
+      interface.runGetReserveCommand(request);
+    else if (request.getRequestUrl()[0] == "reserves" && request.getMethod() == RequestType::Methods::DELETE)
+      interface.runDeleteReserveCommand(request);
 
     else
       throw new NotFoundException();
