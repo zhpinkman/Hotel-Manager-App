@@ -117,3 +117,7 @@ _deps
 *.out
 input
 build/
+
+
+# to ignore the input files I create for testing.
+*.in
