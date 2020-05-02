@@ -107,7 +107,7 @@ struct AveragePriceFilter
   {
     HotelList resultSet;
     for (const auto &hotel : input)
-      if (hotel->getRoomService().getRoomsAveragePrice() <= minPrice &&
+      if (hotel->getRoomService().getRoomsAveragePrice() >= minPrice &&
           hotel->getRoomService().getRoomsAveragePrice() <= maxPrice)
         resultSet.push_back(hotel);
 
