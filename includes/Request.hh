@@ -65,6 +65,9 @@ public:
     ++i;
     while (i < parsedRequest.size())
     {
+      if ((i + 1) >= parsedRequest.size())
+        throw new BadRequestException();
+
       params.emplace(parsedRequest[i], parsedRequest[i + 1]);
       i += 2;
     }

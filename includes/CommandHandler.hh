@@ -24,9 +24,7 @@ public:
 
   void processCommands();
 
-  void processCommand(const std::string &command);
-
-  void runCommand(const RequestType &&request);
+  void runCommand(const std::string &command);
 };
 
 #endif

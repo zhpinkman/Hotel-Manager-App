@@ -16,18 +16,14 @@ void CommandHandler::processCommands()
   std::string command;
 
   while (std::getline(std::cin, command, '\n'))
-    processCommand(command);
+    runCommand(command);
 }
 
-void CommandHandler::processCommand(const std::string &command)
-{
-  runCommand(RequestType(command));
-}
-
-void CommandHandler::runCommand(const RequestType &&request)
+void CommandHandler::runCommand(const std::string &command)
 {
   try
   {
+    const RequestType request(command);
     if (request.getRequestUrl()[0] == SIGNUP && request.getMethod() == RequestType::Methods::POST)
       interface.runSignupCommand(request);
     else if (request.getRequestUrl()[0] == LOGIN && request.getMethod() == RequestType::Methods::POST)
