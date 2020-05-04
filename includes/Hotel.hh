@@ -10,6 +10,7 @@
 
 #include "Constants.hh"
 #include "RoomService.hh"
+#include "City.hh"
 
 #define NumOfRatingFields std::size_t(6)
 

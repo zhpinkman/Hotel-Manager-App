@@ -2,6 +2,7 @@
 #include "Hotel.hh"
 #include "RoomService.hh"
 #include "Constants.hh"
+#include "City.hh"
 
 Hotel::Hotel(const std::string &hotelId,
              std::string hotelName,

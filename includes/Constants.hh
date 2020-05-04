@@ -21,7 +21,6 @@
 #define PRICE_OF_PREMIUM_ROOMS_ARG_INDEX 16
 
 #define OK "OK"
-#define BAD_REQUEST "Bad Request"
 #define ENTER '\n'
 #define SUCCESS true
 #define FAILED false
@@ -32,31 +31,11 @@
 #define ADMIN_PASSWORD "admin"
 #define ADMIN_EMAIL "admin@gmail.com"
 
-#define SIGNUP "signup"
-#define LOGIN "login"
-#define LOGOUT "logout"
-#define WALLET "wallet"
-#define HOTELS_GET "hotels"
 #define SPACE ' '
 #define COMMA ','
 
 #define AMENITY_SEPARATOR '|'
 
-#define CREDIT "credit"
-
 typedef std::vector<std::vector<std::string>> RAW_DATA_LIST;
 typedef std::vector<std::string> RAW_DATA;
 typedef std::vector<std::string> Amenities;
-
-struct City
-{
-    City(const std::string _city, const double _latitude, const double _longitude)
-    {
-        cityName = _city;
-        latitude = _latitude;
-        longitude = _longitude;
-    }
-    std::string cityName;
-    double latitude;
-    double longitude;
-};

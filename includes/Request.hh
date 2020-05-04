@@ -55,6 +55,8 @@ public:
       method = Methods::GET;
     else if (parsedRequest[MethodIndex] == "POST")
       method = Methods::POST;
+    else if (parsedRequest[MethodIndex] == "DELETE")
+      method = Methods::DELETE;
     else
       throw new BadRequestException();
 

@@ -73,8 +73,14 @@ public:
         if (params.find("id") != params.end())
             utrip.getHotel(request.getParam("id"))->print();
         else
-            for (const auto &hotel : utrip.getHotels())
+        {
+            auto hotels = utrip.getHotels();
+            std::sort(hotels.begin(), hotels.end(),
+                      [](const Hotel *first, const Hotel *second) { return first->getId() < second->getId(); });
+
+            for (const auto &hotel : hotels)
                 hotel->printBriefly();
+        }
     }
 
     void runAddFilterCommand(const RequestType &request)
@@ -97,8 +103,6 @@ public:
 
     void runAddRateCommand(const RequestType &request)
     {
-        // TODO: store the keys in a member array
-
         utrip.addRating(request.getParam("hotel"),
                         std::forward<Hotel::RatingData::DataType>(
                             {extractFromString<double>(request.getParam("location")),
@@ -159,6 +163,12 @@ public:
     void runDeleteReserveCommand(const RequestType &request)
     {
         utrip.deleteReservations(extractFromString<std::size_t>(request.getParam("id")));
+        printSuccessMessage();
+    }
+
+    void runResetFilterCommand(const RequestType &)
+    {
+        utrip.resetFilters();
         printSuccessMessage();
     }
 };

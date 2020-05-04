@@ -60,6 +60,14 @@ public:
         userManager.logout();
     }
 
+    void resetFilters()
+    {
+        if (!userManager.isUserLoggedIn())
+            throw new PermissionDeniedException();
+
+        hotelFilterManager = Filter::HotelFilterManager();
+    }
+
     void addCreditToWallet(const double amount)
     {
         if (!userManager.isUserLoggedIn())
