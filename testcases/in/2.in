@@ -1,0 +1,2 @@
+POST signup ? email test@gmail.com username test password test
+POST login ? email test@gmail.com password test
