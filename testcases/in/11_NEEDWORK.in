@@ -1,0 +1,4 @@
+POST signup ? email test@gmail.com username test password test
+POST reserves ? hotel ba7b9e7b9073e745d38122d74045be00 type premium quantity 1 check_in 21 check_out 26
+POST wallet ? amount 52000
+POST reserves ? hotel ba7b9e7b9073e745d38122d74045be00 type premium quantity 1 check_in 21 check_out 26
