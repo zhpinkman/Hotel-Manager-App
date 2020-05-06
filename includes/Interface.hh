@@ -165,7 +165,7 @@ public:
                       << "hotel: " << reservation.hotelId << " "
                       << "room: " << RoomService::toString(reservation.roomType) << " "
                       << "quantity: " << reservation.quantity << " "
-                      << "cost: " << reservation.price << " "
+                      << "cost: " << static_cast<std::size_t>(reservation.price) << " "
                       << "check_in: " << reservation.arrivalTime << " "
                       << "check_out: " << reservation.departureTime << std::endl;
     }
