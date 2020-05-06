@@ -55,7 +55,7 @@ void Hotel::print() const /// TODO : use stringstream
     hotel_description += "price: " + std::to_string(roomService.getPriceOfStandardRooms()) + SPACE +
                          std::to_string(roomService.getPriceOfDeluxeRooms()) + SPACE +
                          std::to_string(roomService.getPriceOfLuxuryRooms()) + SPACE +
-                         std::to_string(roomService.getPriceOfPremiumRooms()) + ENTER;
+                         std::to_string(roomService.getPriceOfPremiumRooms());
     std::cout << hotel_description << std::endl;
 }
 
