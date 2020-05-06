@@ -20,7 +20,7 @@ public:
         return hotels;
     }
 
-    const Hotel *const getHotels(const std::string &id) const
+    const Hotel *const getHotel(const std::string &id) const
     {
         if (hotels.find(id) == hotels.end())
             return nullptr;

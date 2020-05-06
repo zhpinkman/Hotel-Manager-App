@@ -1,7 +1,8 @@
 #pragma once
 
 #include <string>
-#include <vector>
+#include <iomanip>
+#include <sstream>
 
 #include "Utrip.hh"
 #include "Request.hh"
@@ -99,8 +100,12 @@ public:
 
     void runGetCommentsCommand(const RequestType &request)
     {
-        for (const auto &comment : utrip.getComments(request.getParam("hotel")))
-            std::cout << comment.getUsername() << ": " << comment.getComment() << std::endl;
+        const auto comments = utrip.getComments(request.getParam("hotel"));
+        if (!comments.size())
+            return;
+
+        for (long int i = (comments.size() - 1); i >= 0; --i)
+            std::cout << comments[i].getUsername() << ": " << comments[i].getComment() << std::endl;
     }
 
     void runAddRateCommand(const RequestType &request)
@@ -125,7 +130,8 @@ public:
             return;
         }
 
-        std::cout << "location: " << rateData[0] << std::endl
+        std::cout << std::fixed << std::setprecision(2)
+                  << "location: " << rateData[0] << std::endl
                   << "cleanliness: " << rateData[1] << std::endl
                   << "staff: " << rateData[2] << std::endl
                   << "facilities: " << rateData[3] << std::endl
