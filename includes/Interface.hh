@@ -153,12 +153,12 @@ public:
         }
 
         for (const auto &reservation : userReservations)
-            std::cout << "id: " << reservation.reservationId
-                      << "hotel: " << reservation.hotelId
-                      << "room: " << RoomService::toString(reservation.roomType)
-                      << "quantity: " << reservation.quantity
-                      << "cost: " << reservation.price
-                      << "check_in: " << reservation.arrivalTime
+            std::cout << "id: " << reservation.reservationId << " "
+                      << "hotel: " << reservation.hotelId << " "
+                      << "room: " << RoomService::toString(reservation.roomType) << " "
+                      << "quantity: " << reservation.quantity << " "
+                      << "cost: " << reservation.price << " "
+                      << "check_in: " << reservation.arrivalTime << " "
                       << "check_out: " << reservation.departureTime << std::endl;
     }
 
