@@ -137,6 +137,8 @@ public:
                   << "facilities: " << rateData[3] << std::endl
                   << "value_for_money: " << rateData[4] << std::endl
                   << "overal_rating: " << rateData[5] << std::endl;
+
+        std::cout.unsetf(std::ios_base::fixed);
     }
 
     void runSetReserveCommand(const RequestType &request)
