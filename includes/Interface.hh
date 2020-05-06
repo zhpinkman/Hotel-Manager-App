@@ -78,6 +78,8 @@ public:
             std::sort(hotels.begin(), hotels.end(),
                       [](const Hotel *first, const Hotel *second) { return first->getId() < second->getId(); });
 
+            if (!hotels.size())
+                std::cout << "Empty" << std::endl;
             for (const auto &hotel : hotels)
                 hotel->printBriefly();
         }

@@ -24,7 +24,7 @@ std::size_t RoomService::getTotalNumOfRooms() const
     return numOfStandardRooms + numOfDeluxeRooms + numOfLuxuryRooms + numOfPremiumRooms;
 }
 
-std::size_t RoomService::getRoomsAveragePrice() const
+double RoomService::getRoomsAveragePrice() const
 {
     std::size_t totalPrice = 0;
     std::size_t roomTypes = 0;
@@ -50,8 +50,10 @@ std::size_t RoomService::getRoomsAveragePrice() const
         roomTypes += 1;
     }
 
-    std::size_t averagePrice = totalPrice / roomTypes;
-    return averagePrice;
+    if (!roomTypes)
+        throw new std::runtime_error("No Room Types?");
+
+    return totalPrice / roomTypes;
 }
 
 std::size_t RoomService::getNumOfStandardRooms() const
