@@ -118,6 +118,7 @@ public:
                              extractFromString<double>(request.getParam("facilities")),
                              extractFromString<double>(request.getParam("value_for_money")),
                              extractFromString<double>(request.getParam("overall_rating"))}));
+        printSuccessMessage();
     }
 
     void runGetRateCommand(const RequestType &request)
