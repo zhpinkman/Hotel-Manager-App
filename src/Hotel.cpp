@@ -82,9 +82,11 @@ void Hotel::printBriefly() const
     std::cout << hotelId << " "
               << starRating << " "
               << city.cityName << " "
-              << std::to_string(roomService.getTotalNumOfRooms()) << " "
-              << std::to_string(static_cast<std::size_t>(roomService.getRoomsAveragePrice())) << " "
+              << roomService.getTotalNumOfRooms() << " ";
+    std::cout << std::fixed << std::setprecision(2);
+    std::cout << roomService.getRoomsAveragePrice() << " "
               << std::endl;
+    std::cout.unsetf(std::ios_base::fixed);
 }
 
 bool Hotel::idsMatches(const std::string &_hotelId) const

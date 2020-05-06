@@ -51,11 +51,11 @@ double RoomService::getRoomsAveragePrice() const
     }
 
     double averagePrice;
-    if(roomTypes != 0){
+    if (roomTypes != 0)
         averagePrice = totalPrice / roomTypes;
-    }else{
+    else
         averagePrice = 0;
-    }
+
     return averagePrice;
 }
 
