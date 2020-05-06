@@ -151,8 +151,8 @@ public:
     std::size_t numOfOccupiedRooms = 0;
     for (const auto &reservation : reservations)
       if ((reservation.roomType == roomType) &&
-          ((reservation.departureTime < arrivalTime) ||
-           (reservation.arrivalTime > departureTime)))
+          ((reservation.departureTime > arrivalTime) ||
+           (reservation.arrivalTime < departureTime)))
         numOfOccupiedRooms += reservation.quantity;
 
     std::size_t totalNumOfDesiredRooms = 0;

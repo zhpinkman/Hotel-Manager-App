@@ -78,7 +78,7 @@ void Hotel::printBriefly() const
     hotel_description += std::to_string(hotelRating) + SPACE;
     hotel_description += city.cityName + SPACE;
     hotel_description += std::to_string(roomService.getTotalNumOfRooms()) + SPACE;
-    hotel_description += std::to_string(roomService.getRoomsAveragePrice()) + SPACE;
+    hotel_description += std::to_string(static_cast<std::size_t>(roomService.getRoomsAveragePrice())) + SPACE;
     std::cout << hotel_description << std::endl;
 }
 
