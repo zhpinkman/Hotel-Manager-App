@@ -89,6 +89,26 @@ public:
         return hotelId;
     };
 
+    std::string getHotelName() const 
+    {
+        return hotelName;
+    }
+
+    std::string getCityName() const 
+    {
+        return city.cityName;
+    }
+
+    int getNumOfStandardRooms() const { return roomService.getNumOfStandardRooms(); }
+    int getNumOfDeluxeRooms() const { return roomService.getNumOfDeluxeRooms(); }
+    int getNumOfLuxuryRooms() const { return roomService.getNumOfLuxuryRooms(); }
+    int getNumOfPremiumRooms() const { return roomService.getNumOfPremiumRooms(); }
+
+    double getStandardRoomPrice() const { return roomService.getPriceOfStandardRooms(); }
+    double getDeluxeRoomPrice() const { return roomService.getPriceOfDeluxeRooms(); }
+    double getLuxuryRoomPrice() const { return roomService.getPriceOfLuxuryRooms(); }
+    double getPremiumRoomPrice() const { return roomService.getPriceOfPremiumRooms(); }
+
     void printBriefly() const;
 
     bool idsMatches(const std::string &hotelId) const;
