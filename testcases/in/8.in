@@ -1,0 +1,5 @@
+POST signup ? email test@gmail.com username test password test
+POST filters ? type premium quantity 99 check_in 21 check_out 26
+GET hotels
+POST filters ? type deluxe quantity 100000000 check_in 21 check_out 26
+GET hotels

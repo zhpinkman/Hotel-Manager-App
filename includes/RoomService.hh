@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <cstdlib>
+#include <stdexcept>
 
 #include "Exception.hh"
 
@@ -75,7 +76,7 @@ public:
               std::size_t premiumRoomPrice);
 
   std::size_t getTotalNumOfRooms() const;
-  std::size_t getRoomsAveragePrice() const;
+  double getRoomsAveragePrice() const;
 
   std::size_t getNumOfStandardRooms() const;
   std::size_t getNumOfDeluxeRooms() const;
@@ -107,13 +108,13 @@ public:
   static RoomType convertRoomType(const std::string &roomTypeName)
   {
     if (roomTypeName == "standard")
-        return RoomService::RoomType::STANDARD;
+      return RoomService::RoomType::STANDARD;
     else if (roomTypeName == "deluxe")
-        return RoomService::RoomType::DELUXE;
+      return RoomService::RoomType::DELUXE;
     else if (roomTypeName == "luxury")
-        return RoomService::RoomType::LUXURY;
+      return RoomService::RoomType::LUXURY;
     else if (roomTypeName == "premium")
-        return RoomService::RoomType::PREMIUM;
+      return RoomService::RoomType::PREMIUM;
 
     throw new BadRequestException();
   }
@@ -150,8 +151,8 @@ public:
     std::size_t numOfOccupiedRooms = 0;
     for (const auto &reservation : reservations)
       if ((reservation.roomType == roomType) &&
-          ((reservation.departureTime < arrivalTime) ||
-           (reservation.arrivalTime > departureTime)))
+          ((reservation.departureTime > arrivalTime) ||
+           (reservation.arrivalTime < departureTime)))
         numOfOccupiedRooms += reservation.quantity;
 
     std::size_t totalNumOfDesiredRooms = 0;
@@ -171,7 +172,7 @@ public:
       break;
     }
 
-    return (totalNumOfDesiredRooms - numOfPremiumRooms) >= quantity;
+    return (totalNumOfDesiredRooms - numOfOccupiedRooms) >= quantity;
   }
 
   void reserve(const std::size_t reservationId,

@@ -1,0 +1,3 @@
+POST signup ? email test@gmail.com username test password test
+POST filters ? min_price 13 max_price 17
+GET hotels

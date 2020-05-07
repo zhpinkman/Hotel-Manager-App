@@ -1,0 +1,7 @@
+POST signup ? email test@gmail.com username test password test
+POST reserves ? hotel 60ac1903f046575659e673d05595e452 type standard quantity 1 check_in 21 check_out 26
+POST wallet ? amount 52000
+POST reserves ? hotel 60ac1903f046575659e673d05595e452 type standard quantity 1 check_in 21 check_out 26
+POST reserves ? hotel 60ac1903f046575659e673d05595e452 type standard quantity 1 check_in 21 check_out 26
+POST filters ? type standard quantity 1 check_in 21 check_out 26
+GET hotels

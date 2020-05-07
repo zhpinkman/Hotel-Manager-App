@@ -16,32 +16,30 @@ void CommandHandler::processCommands()
   std::string command;
 
   while (std::getline(std::cin, command, '\n'))
-    processCommand(command);
+    runCommand(command);
 }
 
-void CommandHandler::processCommand(const std::string &command)
-{
-  runCommand(RequestType(command));
-}
-
-void CommandHandler::runCommand(const RequestType &&request)
+void CommandHandler::runCommand(const std::string &command)
 {
   try
   {
-    if (request.getRequestUrl()[0] == SIGNUP && request.getMethod() == RequestType::Methods::POST)
+    const RequestType request(command);
+    if (request.getRequestUrl()[0] == "signup" && request.getMethod() == RequestType::Methods::POST)
       interface.runSignupCommand(request);
-    else if (request.getRequestUrl()[0] == LOGIN && request.getMethod() == RequestType::Methods::POST)
+    else if (request.getRequestUrl()[0] == "login" && request.getMethod() == RequestType::Methods::POST)
       interface.runLoginCommand(request);
-    else if (request.getRequestUrl()[0] == LOGOUT && request.getMethod() == RequestType::Methods::POST)
+    else if (request.getRequestUrl()[0] == "logout" && request.getMethod() == RequestType::Methods::POST)
       interface.runLogoutCommand(request);
-    else if (request.getRequestUrl()[0] == WALLET && request.getMethod() == RequestType::Methods::POST)
+    else if (request.getRequestUrl()[0] == "wallet" && request.getMethod() == RequestType::Methods::POST)
       interface.runAddWalletCommand(request);
-    else if (request.getRequestUrl()[0] == WALLET && request.getMethod() == RequestType::Methods::GET)
+    else if (request.getRequestUrl()[0] == "wallet" && request.getMethod() == RequestType::Methods::GET)
       interface.runGetWalletCommand(request);
-    else if (request.getRequestUrl()[0] == HOTELS_GET && request.getMethod() == RequestType::Methods::GET)
+    else if (request.getRequestUrl()[0] == "hotels" && request.getMethod() == RequestType::Methods::GET)
       interface.runGetHotelsCommand(request);
     else if (request.getRequestUrl()[0] == "filters" && request.getMethod() == RequestType::Methods::POST)
       interface.runAddFilterCommand(request);
+    else if (request.getRequestUrl()[0] == "filters" && request.getMethod() == RequestType::Methods::DELETE)
+      interface.runResetFilterCommand(request);
     else if (request.getRequestUrl()[0] == "comments" && request.getMethod() == RequestType::Methods::POST)
       interface.runAddCommentCommand(request);
     else if (request.getRequestUrl()[0] == "comments" && request.getMethod() == RequestType::Methods::GET)

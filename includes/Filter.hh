@@ -71,7 +71,7 @@ struct StarsFilter
   {
     HotelList resultSet;
     for (const auto &hotel : input)
-      if (hotel->getStar() <= maxStar && hotel->getStar() <= maxStar)
+      if (hotel->getStar() <= maxStar && hotel->getStar() >= minStar)
         resultSet.push_back(hotel);
 
     return resultSet;
@@ -117,8 +117,8 @@ struct AveragePriceFilter
   void addFilter(const std::string &minPriceString,
                  const std::string &maxPriceString)
   {
-    const auto convertedMinPrice = static_cast<std::uint8_t>(stoi(minPriceString));
-    const auto convertedMaxPrice = static_cast<std::uint8_t>(stoi(maxPriceString));
+    const auto convertedMinPrice = static_cast<std::size_t>(stoi(minPriceString));
+    const auto convertedMaxPrice = static_cast<std::size_t>(stoi(maxPriceString));
 
     if (convertedMaxPrice < convertedMinPrice)
       throw new BadRequestException();

@@ -10,6 +10,7 @@
 
 #include "Constants.hh"
 #include "RoomService.hh"
+#include "City.hh"
 
 #define NumOfRatingFields std::size_t(6)
 
@@ -66,10 +67,19 @@ public:
     using CommentList = std::vector<Comment>;
     using RatesList = std::unordered_map<std::string, RatingData>;
 
-    Hotel(const std::string &hotelId, std::string hotelName, std::uint8_t hotelRating, std::string hotelOverview,
-          Amenities amenities, City city, std::string imageUrl, int numOfStandardRooms,
-          int numOfDeluxeRooms, int numOfLuxuryRooms, int numOfPremiumRooms,
-          double standardRoomPrice, double deluxeRoomPrice, double luxuryRoomPrice,
+    Hotel(const std::string &hotelId,
+          std::string hotelName,
+          std::size_t hotelRating,
+          std::string hotelOverview,
+          Amenities amenities, City city,
+          std::string imageUrl,
+          int numOfStandardRooms,
+          int numOfDeluxeRooms,
+          int numOfLuxuryRooms,
+          int numOfPremiumRooms,
+          double standardRoomPrice,
+          double deluxeRoomPrice,
+          double luxuryRoomPrice,
           double premiumRoomPrice);
     void print() const;
     std::string getAmenities() const;
@@ -95,7 +105,7 @@ public:
 
     std::uint8_t getStar() const
     {
-        return hotelRating;
+        return starRating;
     }
 
     const RoomService &getRoomService() const
@@ -140,7 +150,7 @@ public:
 private:
     std::string hotelId;
     std::string hotelName;
-    std::uint8_t hotelRating;
+    std::size_t starRating;
     std::string hotel_overview; // TODO
     Amenities amenities;
     City city;

@@ -1,0 +1,2 @@
+POST signup ? email test@gmail.com username test password test
+GET hotels

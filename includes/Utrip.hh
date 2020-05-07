@@ -60,6 +60,14 @@ public:
         userManager.logout();
     }
 
+    void resetFilters()
+    {
+        if (!userManager.isUserLoggedIn())
+            throw new PermissionDeniedException();
+
+        hotelFilterManager = Filter::HotelFilterManager();
+    }
+
     void addCreditToWallet(const double amount)
     {
         if (!userManager.isUserLoggedIn())
@@ -95,7 +103,7 @@ public:
         if (!userManager.isUserLoggedIn())
             throw new PermissionDeniedException();
 
-        const auto hotel = hotelManager.getHotels(id);
+        const auto hotel = hotelManager.getHotel(id);
         if (!hotel)
             throw new NotFoundException();
 
@@ -143,7 +151,7 @@ public:
         if (!userManager.isUserLoggedIn())
             throw new PermissionDeniedException();
 
-        return hotelManager.getHotels(hotelId)->getComments();
+        return hotelManager.getHotel(hotelId)->getComments();
     }
 
     void addRating(const std::string &hotelId, const Hotel::RatingData::DataType rateData)

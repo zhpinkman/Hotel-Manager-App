@@ -1,7 +1,8 @@
 #pragma once
 
 #include <string>
-#include <vector>
+#include <iomanip>
+#include <sstream>
 
 #include "Utrip.hh"
 #include "Request.hh"
@@ -73,8 +74,16 @@ public:
         if (params.find("id") != params.end())
             utrip.getHotel(request.getParam("id"))->print();
         else
-            for (const auto &hotel : utrip.getHotels())
+        {
+            auto hotels = utrip.getHotels();
+            std::sort(hotels.begin(), hotels.end(),
+                      [](const Hotel *first, const Hotel *second) { return first->getId() < second->getId(); });
+
+            if (!hotels.size())
+                std::cout << "Empty" << std::endl;
+            for (const auto &hotel : hotels)
                 hotel->printBriefly();
+        }
     }
 
     void runAddFilterCommand(const RequestType &request)
@@ -91,14 +100,16 @@ public:
 
     void runGetCommentsCommand(const RequestType &request)
     {
-        for (const auto &comment : utrip.getComments(request.getParam("hotel")))
-            std::cout << comment.getUsername() << ": " << comment.getComment() << std::endl;
+        const auto comments = utrip.getComments(request.getParam("hotel"));
+        if (!comments.size())
+            return;
+
+        for (long int i = (comments.size() - 1); i >= 0; --i)
+            std::cout << comments[i].getUsername() << ": " << comments[i].getComment() << std::endl;
     }
 
     void runAddRateCommand(const RequestType &request)
     {
-        // TODO: store the keys in a member array
-
         utrip.addRating(request.getParam("hotel"),
                         std::forward<Hotel::RatingData::DataType>(
                             {extractFromString<double>(request.getParam("location")),
@@ -107,6 +118,7 @@ public:
                              extractFromString<double>(request.getParam("facilities")),
                              extractFromString<double>(request.getParam("value_for_money")),
                              extractFromString<double>(request.getParam("overall_rating"))}));
+        printSuccessMessage();
     }
 
     void runGetRateCommand(const RequestType &request)
@@ -119,12 +131,15 @@ public:
             return;
         }
 
-        std::cout << "location: " << rateData[0] << std::endl
+        std::cout << std::fixed << std::setprecision(2)
+                  << "location: " << rateData[0] << std::endl
                   << "cleanliness: " << rateData[1] << std::endl
                   << "staff: " << rateData[2] << std::endl
                   << "facilities: " << rateData[3] << std::endl
                   << "value_for_money: " << rateData[4] << std::endl
                   << "overal_rating: " << rateData[5] << std::endl;
+
+        std::cout.unsetf(std::ios_base::fixed);
     }
 
     void runSetReserveCommand(const RequestType &request)
@@ -147,18 +162,24 @@ public:
         }
 
         for (const auto &reservation : userReservations)
-            std::cout << "id: " << reservation.reservationId
-                      << "hotel: " << reservation.hotelId
-                      << "room: " << RoomService::toString(reservation.roomType)
-                      << "quantity: " << reservation.quantity
-                      << "cost: " << reservation.price
-                      << "check_in: " << reservation.arrivalTime
+            std::cout << "id: " << reservation.reservationId << " "
+                      << "hotel: " << reservation.hotelId << " "
+                      << "room: " << RoomService::toString(reservation.roomType) << " "
+                      << "quantity: " << reservation.quantity << " "
+                      << "cost: " << static_cast<std::size_t>(reservation.price) << " "
+                      << "check_in: " << reservation.arrivalTime << " "
                       << "check_out: " << reservation.departureTime << std::endl;
     }
 
     void runDeleteReserveCommand(const RequestType &request)
     {
         utrip.deleteReservations(extractFromString<std::size_t>(request.getParam("id")));
+        printSuccessMessage();
+    }
+
+    void runResetFilterCommand(const RequestType &)
+    {
+        utrip.resetFilters();
         printSuccessMessage();
     }
 };

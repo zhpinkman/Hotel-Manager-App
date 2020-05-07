@@ -1,0 +1,6 @@
+POST wallet ? amount 100
+POST signup ? email test@gmail.com username test password test
+POST wallet ? amount 100
+GET wallet ? count 4
+POST wallet ? amount 13
+GET wallet ? count 2

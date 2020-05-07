@@ -1,0 +1,5 @@
+POST signup ? email test@gmail.com username test password test
+POST filters ? city Udaipur
+GET hotels
+POST filters ? min_star 5 max_star 5
+GET hotels

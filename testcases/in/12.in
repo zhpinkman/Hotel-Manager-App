@@ -1,0 +1,4 @@
+POST signup ? email test@gmail.com username test password test
+GET comments ? hotel ba7b9e7b9073e745d38122d74045be00
+POST comments ? hotel ba7b9e7b9073e745d38122d74045be00 comment Great
+GET comments ? hotel ba7b9e7b9073e745d38122d74045be00

@@ -55,6 +55,8 @@ public:
       method = Methods::GET;
     else if (parsedRequest[MethodIndex] == "POST")
       method = Methods::POST;
+    else if (parsedRequest[MethodIndex] == "DELETE")
+      method = Methods::DELETE;
     else
       throw new BadRequestException();
 
@@ -65,6 +67,9 @@ public:
     ++i;
     while (i < parsedRequest.size())
     {
+      if ((i + 1) >= parsedRequest.size())
+        throw new BadRequestException();
+
       params.emplace(parsedRequest[i], parsedRequest[i + 1]);
       i += 2;
     }
