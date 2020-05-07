@@ -80,6 +80,7 @@ std::string Hotel::getAmenities() const
 void Hotel::printBriefly() const
 {
     std::cout << hotelId << " "
+              << hotelName << " "
               << starRating << " "
               << city.cityName << " "
               << roomService.getTotalNumOfRooms() << " ";
