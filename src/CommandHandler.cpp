@@ -54,6 +54,8 @@ void CommandHandler::runCommand(const std::string &command)
       interface.runGetReserveCommand(request);
     else if (request.getRequestUrl()[0] == "reserves" && request.getMethod() == RequestType::Methods::DELETE)
       interface.runDeleteReserveCommand(request);
+    else if (request.getRequestUrl()[0] == "sort" && request.getMethod() == RequestType::Methods::POST)
+      interface.runSortCommand(request);
 
     else
       throw new NotFoundException();

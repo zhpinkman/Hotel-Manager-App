@@ -180,4 +180,10 @@ public:
         utrip.resetFilters();
         printSuccessMessage();
     }
+
+    void runSortCommand(const RequestType& request) 
+    {
+        utrip.setSortSettings(request.getParam("property"), request.getParam("order"));
+        printSuccessMessage();
+    }
 };

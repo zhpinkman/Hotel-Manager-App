@@ -6,6 +6,7 @@
 #include <utility>
 #include <algorithm>
 #include <unordered_map>
+#include <exception>
 
 #include "UserManager.hh"
 #include "User.hh"
@@ -16,6 +17,7 @@
 #include "HotelManager.hh"
 #include "Filter.hh"
 #include "RoomService.hh"
+#include "Sort.hh"
 
 class HotelManager;
 
@@ -24,6 +26,7 @@ class Utrip
     UserManager userManager;
     HotelManager hotelManager;
     Filter::HotelFilterManager hotelFilterManager;
+    HotelSortManager hotelSortManager;
 
 public:
     Utrip() = default;
@@ -95,7 +98,13 @@ public:
         std::transform(hotelsData.begin(), hotelsData.end(), std::back_inserter(hotelsResultSet),
                        [](std::pair<std::string, Hotel *> inputPair) { return inputPair.second; });
 
-        return hotelFilterManager.filter(std::forward<Filter::HotelList>(hotelsResultSet));
+        std::vector<Hotel*> filteredHotels =
+            hotelFilterManager.filter(std::forward<Filter::HotelList>(hotelsResultSet));
+
+        std::vector<Hotel*> sortedHotels = 
+            hotelSortManager.sort(filteredHotels);
+
+        return sortedHotels;
     }
 
     const Hotel *const getHotel(const std::string &id) const
@@ -135,6 +144,17 @@ public:
                                                                  filterObjects.at("check_out"));
         else
             throw new BadRequestException();
+    }
+
+    void setSortSettings(std::string property, std::string order) {
+        try {
+            hotelSortManager.setParameters(
+                strToSortableHotelProperty(property),
+                strToSortOrder(order)
+            );
+        } catch (std::invalid_argument err) {
+            throw new BadRequestException();
+        }
     }
 
     void addComment(const std::string &hotelId, const std::string &commentContent)
