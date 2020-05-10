@@ -30,7 +30,7 @@ using HotelList = std::vector<Hotel *>;
 
 struct CityFilter
 {
-  std::string cityName;
+  std::string city;
   bool isInitialized;
 
   CityFilter() : isInitialized(false)
@@ -44,16 +44,16 @@ struct CityFilter
 
     HotelList resultSet;
     for (const auto &hotel : input)
-      if (hotel->getCity().cityName == cityName)
+      if (hotel->getCity() == city)
         resultSet.push_back(hotel);
 
     return resultSet;
   }
 
-  void addFilter(const std::string &ExpectedCityName)
+  void addFilter(const std::string &ExpectedCity)
   {
     isInitialized = true;
-    cityName = ExpectedCityName;
+    city = ExpectedCity;
   }
 };
 

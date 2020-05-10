@@ -5,14 +5,14 @@
 #include "Hotel.hh"
 #include "RoomService.hh"
 #include "Constants.hh"
-#include "City.hh"
 
 Hotel::Hotel(const std::string &hotelId,
              std::string hotelName,
              std::size_t starRating,
              std::string hotelOverview,
              Amenities amenities,
-             City city,
+             std::string city,
+             Location location,
              std::string imageUrl,
              int numOfStandardRooms,
              int numOfDeluxeRooms,
@@ -28,6 +28,7 @@ Hotel::Hotel(const std::string &hotelId,
       hotel_overview(hotelOverview),
       amenities(amenities),
       city(city),
+      location(location),
       image_url(imageUrl),
       roomService(numOfStandardRooms,
                   numOfDeluxeRooms,
@@ -47,10 +48,10 @@ void Hotel::print() const
               << "star: " << starRating << std::endl
               << "overview: " << hotel_overview << std::endl
               << "amenities: " << getAmenities() << std::endl
-              << "city: " << city.cityName << std::endl;
+              << "city: " << city << std::endl;
     std::cout << std::fixed << std::setprecision(2);
-    std::cout << "latitude: " << city.latitude << std::endl
-              << "logitude: " << city.longitude << std::endl;
+    std::cout << "latitude: " << location.latitude << std::endl
+              << "logitude: " << location.longitude << std::endl;
 
     std::cout.unsetf(std::ios_base::fixed);
 
@@ -82,7 +83,7 @@ void Hotel::printBriefly() const
     std::cout << hotelId << " "
               << hotelName << " "
               << starRating << " "
-              << city.cityName << " "
+              << city << " "
               << roomService.getTotalNumOfRooms() << " ";
     std::cout << std::fixed << std::setprecision(2);
     std::cout << roomService.getRoomsAveragePrice() << " "

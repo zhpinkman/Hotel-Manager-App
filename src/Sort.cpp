@@ -21,7 +21,7 @@ bool HotelComparator::operator()(const Hotel* hotel1, const Hotel* hotel2) const
 	if (property == SortableHotelProperty::STAR_RATING) 
 		return hotel1->getStar() < hotel2->getStar();
 	if (property == SortableHotelProperty::CITY) 
-		return hotel1->getCity().cityName < hotel2->getCity().cityName;
+		return hotel1->getCity() < hotel2->getCity();
 	if (property == SortableHotelProperty::STANDARD_ROOM_PRICE) 
 		return hotel1->getStandardRoomPrice() < hotel2->getStandardRoomPrice();
 	if (property == SortableHotelProperty::DELUXE_ROOM_PRICE) 

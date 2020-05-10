@@ -10,7 +10,7 @@
 
 #include "Constants.hh"
 #include "RoomService.hh"
-#include "City.hh"
+#include "Location.hh"
 
 #define NumOfRatingFields std::size_t(6)
 
@@ -71,7 +71,9 @@ public:
           std::string hotelName,
           std::size_t hotelRating,
           std::string hotelOverview,
-          Amenities amenities, City city,
+          Amenities amenities,
+          std::string city,
+          Location location,
           std::string imageUrl,
           int numOfStandardRooms,
           int numOfDeluxeRooms,
@@ -94,9 +96,9 @@ public:
         return hotelName;
     }
 
-    std::string getCityName() const 
+    std::string getCity() const 
     {
-        return city.cityName;
+        return city;
     }
 
     int getNumOfStandardRooms() const { return roomService.getNumOfStandardRooms(); }
@@ -112,16 +114,6 @@ public:
     void printBriefly() const;
 
     bool idsMatches(const std::string &hotelId) const;
-
-    const City &getCity() const
-    {
-        return city;
-    }
-
-    City &getCity()
-    {
-        return city;
-    }
 
     std::uint8_t getStar() const
     {
@@ -173,7 +165,8 @@ private:
     std::size_t starRating;
     std::string hotel_overview; // TODO
     Amenities amenities;
-    City city;
+    std::string city;
+    Location location;
     std::string image_url; // TODO
     RoomService roomService;
     CommentList comments;
