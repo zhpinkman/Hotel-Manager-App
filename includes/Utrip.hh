@@ -268,7 +268,7 @@ public:
     }
 
 
-    
+    ~Utrip() = default;
 
 private:
     // returns a tuple with the mean as its first element and the standard deviation
@@ -285,5 +285,4 @@ private:
             Tools::standardDeviation(reservedRoomPrices));
     }
 
-    ~Utrip() = default;
 };
