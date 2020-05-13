@@ -12,6 +12,9 @@ public:
   parse_csv_file(std::ifstream &file);
   static std::vector<std::string> split_by_char(std::string word,
                                                 char separator);
+  static double mean(std::vector<double> data);
+  static double variance(std::vector<double> data);
+  static double standardDeviation(std::vector<double> data);
 };
 
 #endif

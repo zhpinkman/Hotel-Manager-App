@@ -267,5 +267,23 @@ public:
                 }
     }
 
+
+    
+
+private:
+    // returns a tuple with the mean as its first element and the standard deviation
+    // as its second element.
+    std::pair<double,double> calculateReservationPriceStatistics() {
+        std::vector<double> reservedRoomPrices;
+        for (RoomService::ReservationType reservation: this->getReservations()) {
+            double unitPrice = reservation.price / reservation.quantity;
+            for (int i = 0; i < reservation.quantity; i++)
+                reservedRoomPrices.push_back(unitPrice);
+        }
+
+        return std::pair<double, double>(Tools::mean(reservedRoomPrices),
+            Tools::standardDeviation(reservedRoomPrices));
+    }
+
     ~Utrip() = default;
 };
