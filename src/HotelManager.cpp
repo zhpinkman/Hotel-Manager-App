@@ -1,7 +1,7 @@
 #include "HotelManager.hh"
 #include "Constants.hh"
 #include "Hotel.hh"
-#include "Tools.hh"
+#include "Utility.hh"
 #include "Location.hh"
 #include <iostream>
 
@@ -16,7 +16,7 @@ HotelManager::HotelManager(const RAW_DATA_LIST &hotelsRawData)
 
 Hotel *HotelManager::constructHotelFromHotelRawData(const RAW_DATA hotelRawData)
 {
-    Amenities amenities = Tools::split_by_char(hotelRawData[AMENITIES_ARG_INDEX], AMENITY_SEPARATOR);
+    Amenities amenities = utility::split_by_char(hotelRawData[AMENITIES_ARG_INDEX], AMENITY_SEPARATOR);
 
     return new Hotel(hotelRawData[HOTEL_ID_ARG_INDEX],
                      hotelRawData[HOTEL_NAME_ARG_INDEX],

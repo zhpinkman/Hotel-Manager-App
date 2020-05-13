@@ -12,7 +12,7 @@
 #include "User.hh"
 #include "Hotel.hh"
 #include "Exception.hh"
-#include "Tools.hh"
+#include "Utility.hh"
 #include "Constants.hh"
 #include "HotelManager.hh"
 #include "Filter.hh"
@@ -281,8 +281,8 @@ private:
                 reservedRoomPrices.push_back(unitPrice);
         }
 
-        return std::pair<double, double>(Tools::mean(reservedRoomPrices),
-            Tools::standardDeviation(reservedRoomPrices));
+        return std::pair<double, double>(utility::mean(reservedRoomPrices),
+            utility::standardDeviation(reservedRoomPrices));
     }
 
 };

@@ -1,4 +1,4 @@
-#include "../includes/Tools.hh"
+#include "../includes/Utility.hh"
 #include "../includes/Exception.hh"
 #include "../includes/Constants.hh"
 #include <random>
@@ -8,7 +8,7 @@
 
 using namespace std;
 
-vector<string> Tools::split_by_char(string word, char separator)
+vector<string> utility::split_by_char(string word, char separator)
 {
   vector<string> result;
   stringstream ss(word);
@@ -20,7 +20,7 @@ vector<string> Tools::split_by_char(string word, char separator)
   return result;
 }
 
-ifstream Tools::open_csv_file(string filePath)
+ifstream utility::open_csv_file(string filePath)
 {
   ifstream file(filePath);
   if (file.fail())
@@ -28,7 +28,7 @@ ifstream Tools::open_csv_file(string filePath)
   return file;
 }
 
-vector<vector<string>> Tools::parse_csv_file(ifstream &file)
+vector<vector<string>> utility::parse_csv_file(ifstream &file)
 {
   string line;
   vector<vector<string>> result;
@@ -43,18 +43,18 @@ vector<vector<string>> Tools::parse_csv_file(ifstream &file)
 }
 
 
-double Tools::mean(vector<double> data) {
+double utility::mean(vector<double> data) {
   double sum = std::accumulate(data.begin(), data.end(), 0);
   return sum / data.size();
 }
 
-double Tools::variance(std::vector<double> data) {
+double utility::variance(std::vector<double> data) {
   vector<double> squares;
   std::transform(data.begin(), data.end(), std::back_inserter(squares), [](double x){return x*x;});
-  return Tools::mean(squares) - Tools::mean(data);
+  return mean(squares) - mean(data);
 }
 
 
-double Tools::standardDeviation(vector<double> data) {
-  return sqrt(Tools::variance(data));
+double utility::standardDeviation(vector<double> data) {
+  return sqrt(variance(data));
 }

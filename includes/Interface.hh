@@ -24,8 +24,8 @@ class Interface
 public:
     Interface(const std::string &hotelsFilePath)
     {
-        const std::ifstream &hotelsFile = Tools::open_csv_file(hotelsFilePath);
-        RAW_DATA_LIST rawHotelsData = Tools::parse_csv_file(const_cast<std::ifstream &>(hotelsFile));
+        const std::ifstream &hotelsFile = utility::open_csv_file(hotelsFilePath);
+        RAW_DATA_LIST rawHotelsData = utility::parse_csv_file(const_cast<std::ifstream &>(hotelsFile));
         utrip.importHotels(rawHotelsData);
     }
 

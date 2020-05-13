@@ -26,11 +26,11 @@ HotelManagerSensitivityList = \
 	$(INCLUDE_DIR)/HotelManager.hh \
 	$(INCLUDE_DIR)/Constants.hh \
 	$(INCLUDE_DIR)/Hotel.hh \
-	$(INCLUDE_DIR)/Tools.hh
+	$(INCLUDE_DIR)/Utility.hh
 
 ToolsSensitivityList = \
 	$(SRC_DIR)/Tools.cpp \
-	$(INCLUDE_DIR)/Tools.hh \
+	$(INCLUDE_DIR)/Utility.hh \
 	$(INCLUDE_DIR)/Constants.hh \
 	$(INCLUDE_DIR)/Exception.hh
 
@@ -39,7 +39,7 @@ CommandHandlerSensitivityList = \
     $(SRC_DIR)/CommandHandler.cpp \
     $(INCLUDE_DIR)/CommandHandler.hh \
     $(INCLUDE_DIR)/Constants.hh \
-    $(INCLUDE_DIR)/Tools.hh \
+    $(INCLUDE_DIR)/Utility.hh \
     $(INCLUDE_DIR)/Exception.hh \
     $(INCLUDE_DIR)/Interface.hh \
     $(INCLUDE_DIR)/Request.hh
