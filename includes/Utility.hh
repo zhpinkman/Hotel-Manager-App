@@ -1,6 +1,7 @@
 #pragma once
 
 #include <fstream>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -12,5 +13,14 @@ namespace utility {
   double mean(std::vector<double> data);
   double variance(std::vector<double> data);
   double standardDeviation(std::vector<double> data);
+
+  template <typename ReturnValueType>
+  static ReturnValueType extractFromString(const std::string &stringValue)
+  {
+    std::stringstream ss(stringValue);
+    ReturnValueType result;
+    ss >> result;
+    return result;
+  }
 };
 

@@ -1,5 +1,7 @@
 #include "Utrip.hh"
+#include "Utility.hh"
 
+using namespace utility;
 
 void Utrip::importHotels(const RAW_DATA_LIST &rawHotelsData)
 {
@@ -13,7 +15,7 @@ void Utrip::signup(const User &user)
 
     userManager.signup(user);
     userManager.login(user);
-    hotelFilterManager = Filter::HotelFilterManager();
+    hotelFilterManager = HotelFilterManager();
 }
 
 void Utrip::login(const User &user)
@@ -22,7 +24,7 @@ void Utrip::login(const User &user)
         throw new BadRequestException();
 
     userManager.login(user);
-    hotelFilterManager = Filter::HotelFilterManager();
+    hotelFilterManager = HotelFilterManager();
 }
 
 void Utrip::logout()
@@ -38,7 +40,7 @@ void Utrip::resetFilters()
     if (!userManager.isUserLoggedIn())
         throw new PermissionDeniedException();
 
-    hotelFilterManager = Filter::HotelFilterManager();
+    hotelFilterManager = HotelFilterManager();
 }
 
 void Utrip::addCreditToWallet(const double amount)
@@ -58,18 +60,18 @@ std::vector<double> Utrip::reportBalanceHistory(const std::size_t count) const
     return userManager.getBalanceHistory(count);
 }
 
-Filter::HotelList Utrip::getHotels() const
+std::vector<Hotel*> Utrip::getHotels() const
 {
     if (!userManager.isUserLoggedIn())
         throw new PermissionDeniedException();
 
-    Filter::HotelList hotelsResultSet;
+    std::vector<Hotel*> hotelsResultSet;
     const auto &hotelsData = hotelManager.getHotels();
     std::transform(hotelsData.begin(), hotelsData.end(), std::back_inserter(hotelsResultSet),
                    [](std::pair<std::string, Hotel *> inputPair) { return inputPair.second; });
 
     std::vector<Hotel*> filteredHotels =
-        hotelFilterManager.filter(std::forward<Filter::HotelList>(hotelsResultSet));
+        hotelFilterManager.filter(std::forward<std::vector<Hotel*>>(hotelsResultSet));
 
     std::vector<Hotel*> sortedHotels = 
         hotelSortManager.sort(filteredHotels);
@@ -95,23 +97,35 @@ void Utrip::addFilter(const std::unordered_map<std::string, std::string> &filter
         throw new PermissionDeniedException();
 
     if (filterObjects.find("city") != filterObjects.end())
-        hotelFilterManager.addFilter<Filter::CityFilter>(filterObjects.at("city"));
+        hotelFilterManager.addFilter(new CityFilter(
+            filterObjects.at("city")
+        ));
+
     else if (filterObjects.find("min_star") != filterObjects.end() &&
              filterObjects.find("max_star") != filterObjects.end())
-        hotelFilterManager.addFilter<Filter::StarsFilter>(filterObjects.at("min_star"),
-                                                          filterObjects.at("max_star"));
+        hotelFilterManager.addFilter(new StarRatingFilter(
+            extractFromString<uint>(filterObjects.at("min_star")),
+            extractFromString<uint>(filterObjects.at("max_star"))
+        ));
+
     else if (filterObjects.find("min_price") != filterObjects.end() &&
              filterObjects.find("max_price") != filterObjects.end())
-        hotelFilterManager.addFilter<Filter::AveragePriceFilter>(filterObjects.at("min_price"),
-                                                                 filterObjects.at("max_price"));
+        hotelFilterManager.addFilter(new AveragePriceFilter(
+            extractFromString<double>(filterObjects.at("min_price")), 
+            extractFromString<double>(filterObjects.at("max_price"))
+        ));
+
     else if (filterObjects.find("type") != filterObjects.end() &&
              filterObjects.find("quantity") != filterObjects.end() &&
              filterObjects.find("check_in") != filterObjects.end() &&
              filterObjects.find("check_out") != filterObjects.end())
-        hotelFilterManager.addFilter<Filter::FreeRoomFilter>(filterObjects.at("type"),
-                                                             filterObjects.at("quantity"),
-                                                             filterObjects.at("check_in"),
-                                                             filterObjects.at("check_out"));
+        hotelFilterManager.addFilter(new FreeRoomFilter(
+            RoomService::convertRoomType(filterObjects.at("type")),
+            extractFromString<std::size_t>(filterObjects.at("quantity")),
+            extractFromString<std::size_t>(filterObjects.at("check_in")),
+            extractFromString<std::size_t>(filterObjects.at("check_out"))
+        ));
+
     else
         throw new BadRequestException();
 }
@@ -119,7 +133,7 @@ void Utrip::addFilter(const std::unordered_map<std::string, std::string> &filter
 void Utrip::setSortSettings(std::string property, std::string order) {
     if (!userManager.isUserLoggedIn())
         throw new PermissionDeniedException();
-    
+
     try {
         hotelSortManager.setParameters(
             strToSortableHotelProperty(property),

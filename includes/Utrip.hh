@@ -25,7 +25,7 @@ class Utrip
 {
     UserManager userManager;
     HotelManager hotelManager;
-    Filter::HotelFilterManager hotelFilterManager;
+    HotelFilterManager hotelFilterManager;
     HotelSortManager hotelSortManager;
 
 public:
@@ -39,11 +39,11 @@ public:
     void addCreditToWallet(const double amount);
 
     std::vector<double> reportBalanceHistory(const std::size_t count) const;
-    Filter::HotelList getHotels() const;
+    std::vector<Hotel*> getHotels() const;
     const Hotel *const getHotel(const std::string &id) const;
     const Hotel::CommentList &getComments(const std::string &hotelId) const;
     RoomService::ReservationSet getReservations() const;
-    
+
     void addFilter(const std::unordered_map<std::string, std::string> &filterObjects);
     void setSortSettings(std::string property, std::string order);
     void addComment(const std::string &hotelId, const std::string &commentContent);
