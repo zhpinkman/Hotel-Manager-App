@@ -117,6 +117,9 @@ void Utrip::addFilter(const std::unordered_map<std::string, std::string> &filter
 }
 
 void Utrip::setSortSettings(std::string property, std::string order) {
+    if (!userManager.isUserLoggedIn())
+        throw new PermissionDeniedException();
+    
     try {
         hotelSortManager.setParameters(
             strToSortableHotelProperty(property),
