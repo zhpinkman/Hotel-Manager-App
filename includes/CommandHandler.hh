@@ -1,5 +1,4 @@
-#ifndef __COMMANDHANDLER_H__
-#define __COMMANDHANDLER_H__
+#pragma once
 
 #define HOTESL_GET_ARG_SIZE 2
 
@@ -26,5 +25,3 @@ public:
 
   void runCommand(const std::string &command);
 };
-
-#endif
