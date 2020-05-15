@@ -51,7 +51,7 @@ double utility::mean(vector<double> data) {
 double utility::variance(std::vector<double> data) {
   vector<double> squares;
   std::transform(data.begin(), data.end(), std::back_inserter(squares), [](double x){return x*x;});
-  return mean(squares) - mean(data);
+  return mean(squares) - pow(mean(data), 2);
 }
 
 
