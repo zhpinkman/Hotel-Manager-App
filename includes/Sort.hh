@@ -22,8 +22,8 @@ SortableHotelProperty strToSortableHotelProperty(std::string str);
 
 class HotelSortManager {
 public:
-	HotelSortManager(SortableHotelProperty _property, SortOrder _sortOrder) :
-		property(_property), sortOrder(_sortOrder) {}
+	HotelSortManager(SortableHotelProperty property, SortOrder sortOrder) :
+		property(property), sortOrder(sortOrder) {}
 	// the default behaviour is to sort ascending based on hotel id:
 	HotelSortManager(): property(ID), sortOrder(ASCENDING) {}
 	void setParameters(SortableHotelProperty _property, SortOrder _sortOrder) {
@@ -39,8 +39,16 @@ private:
 
 class HotelComparator {
 public:
-	HotelComparator(SortableHotelProperty _property) : property(_property) {}
+	HotelComparator(SortableHotelProperty property, SortOrder sortOrder) :
+	 property(property), sortOrder(sortOrder) {}
 	bool operator()(const Hotel* hotel1, const Hotel* hotel2) const;
 private:
+	template <typename Property> bool compare(Property p1, Property p2) const {
+		if (sortOrder == ASCENDING)
+			return p1 < p2;
+		else if (sortOrder == DESCENDING)
+			return p1 > p2;
+	}
 	SortableHotelProperty property;
+	SortOrder sortOrder;
 };
