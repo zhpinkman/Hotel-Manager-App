@@ -2,6 +2,7 @@
 #include "Utility.hh"
 
 using namespace utility;
+using namespace std;
 
 void Utrip::importHotels(const RAW_DATA_LIST &rawHotelsData)
 {
@@ -15,7 +16,7 @@ void Utrip::signup(const User &user)
 
     userManager.signup(user);
     userManager.login(user);
-    hotelFilterManager = HotelFilterManager();
+    hotelFilterManager = HotelFilterManager(this);
 }
 
 void Utrip::login(const User &user)
@@ -24,7 +25,7 @@ void Utrip::login(const User &user)
         throw new BadRequestException();
 
     userManager.login(user);
-    hotelFilterManager = HotelFilterManager();
+    hotelFilterManager = HotelFilterManager(this);
 }
 
 void Utrip::logout()
@@ -40,7 +41,7 @@ void Utrip::resetFilters()
     if (!userManager.isUserLoggedIn())
         throw new PermissionDeniedException();
 
-    hotelFilterManager = HotelFilterManager();
+    hotelFilterManager = HotelFilterManager(this);
 }
 
 void Utrip::addCreditToWallet(const double amount)
@@ -258,8 +259,8 @@ void Utrip::deleteReservations(const std::size_t reservationId)
 
 // returns a tuple with the mean as its first element and the standard deviation
 // as its second element.
-std::pair<double,double> Utrip::calculateReservationPriceStatistics() {
-    std::vector<double> reservedRoomPrices;
+pair<double,double> Utrip::calculateReservationPriceStatistics() const {
+    vector<double> reservedRoomPrices;
     for (RoomService::ReservationType reservation: this->getReservations()) {
         double unitPrice = reservation.price / reservation.quantity;
         for (int i = 0; i < reservation.quantity; i++)
@@ -270,3 +271,6 @@ std::pair<double,double> Utrip::calculateReservationPriceStatistics() {
         utility::standardDeviation(reservedRoomPrices));
 }
 
+bool Utrip::isEligibleForHistoryBasedPriceFilter() const {
+    return (this->getReservations().size() >= 10);
+}

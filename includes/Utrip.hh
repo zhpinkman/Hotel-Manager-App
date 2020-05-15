@@ -29,7 +29,7 @@ class Utrip
     HotelSortManager hotelSortManager;
 
 public:
-    Utrip() = default;
+    Utrip() : hotelFilterManager(this) {}
 
     void importHotels(const RAW_DATA_LIST &rawHotelsData);
     void signup(const User &user);
@@ -55,10 +55,11 @@ public:
                  const std::size_t arrivalTime,
                  const std::size_t departureTime);
     void deleteReservations(const std::size_t reservationId);
-    ~Utrip() = default;
+    bool isEligibleForHistoryBasedPriceFilter() const;
 
-private:
     // returns a tuple with the mean as its first element and the standard deviation
     // as its second element.
-    std::pair<double,double> calculateReservationPriceStatistics();
+    std::pair<double,double> calculateReservationPriceStatistics() const;
+
+    ~Utrip() = default;
 };

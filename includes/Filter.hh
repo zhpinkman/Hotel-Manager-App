@@ -50,11 +50,23 @@ private:
 };
 
 
+class Utrip;
+
 class HotelFilterManager {
 public:
+  HotelFilterManager(Utrip* utrip);
   void addFilter(Filter* filter);
   std::vector<Hotel*> filter(std::vector<Hotel*> hotels) const;
   ~HotelFilterManager();
 private:
+  std::vector<Hotel*> filterByHistoryBasedPriceFilter(std::vector<Hotel*> hotels) const;
+
+  template <typename T> bool hasFilterOfType() const {
+    return std::find_if(filters.begin(), filters.end(),
+      [](Filter* filter){return dynamic_cast<T*>(filter)!=nullptr;}
+      ) != filters.end();
+  }
+
   std::vector<Filter*> filters;
+  Utrip* utrip;
 };

@@ -1,5 +1,7 @@
-#include <typeinfo>
 #include "Filter.hh"
+#include "Utrip.hh"
+#include <iostream>
+#include <typeinfo>
 
 using namespace std;
 
@@ -61,8 +63,22 @@ std::vector<Hotel*> HotelFilterManager::filter(std::vector<Hotel*> hotels) const
 	std::vector<Hotel*> result = hotels;
 	for (Filter* filter: filters)
 		result = filter->apply(result);
+
+	if (utrip->isEligibleForHistoryBasedPriceFilter() &&
+		!this->hasFilterOfType<AveragePriceFilter>())
+		result = this->filterByHistoryBasedPriceFilter(result);
+
 	return result;
 }
+
+std::vector<Hotel*> HotelFilterManager::filterByHistoryBasedPriceFilter(std::vector<Hotel*> hotels) const {
+	double mean, standardDeviation;
+	std::tie(mean, standardDeviation) = utrip->calculateReservationPriceStatistics();
+	cout<<"history price manager: "<<mean<<" "<<standardDeviation<<" "<<mean - 2*standardDeviation<<" "<<mean + 2*standardDeviation<<endl;
+	return AveragePriceFilter(mean - 2*standardDeviation, mean + 2*standardDeviation).apply(hotels);
+}
+
+HotelFilterManager::HotelFilterManager(Utrip* utrip) : utrip(utrip) {}
 
 HotelFilterManager::~HotelFilterManager() {
 	for (Filter* filter: filters)
