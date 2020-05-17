@@ -6,6 +6,7 @@
 
 #include "Utrip.hh"
 #include "Request.hh"
+#include "Exception.hh"
 
 template <typename RequestType>
 class Interface
@@ -185,5 +186,19 @@ public:
     {
         utrip.setSortSettings(request.getParam("property"), request.getParam("order"));
         printSuccessMessage();
+    }
+
+    void runSettingsCommand(const RequestType& request)
+    {
+        // This request may contain any number of "keys", this is why if a key doesn't exist, 
+        // nothing needs to be done (empty exception handler).
+
+        try {
+            utrip.setReadAverageRatingsFromFile(
+                utility::extractFromString<bool>(
+                request.getParam("average_ratings_from_file"))
+            );
+        } catch (KeyDoesNotExistException ex) {} 
+
     }
 };

@@ -27,9 +27,11 @@ class Utrip
     HotelManager hotelManager;
     HotelFilterManager hotelFilterManager;
     HotelSortManager hotelSortManager;
+    bool read_average_ratings_from_file;
+    std::string average_ratings_filename;
 
 public:
-    Utrip() : hotelFilterManager(this) {}
+    Utrip();
 
     void importHotels(const RAW_DATA_LIST &rawHotelsData);
     void signup(const User &user);
@@ -60,6 +62,12 @@ public:
     // returns a tuple with the mean as its first element and the standard deviation
     // as its second element.
     std::pair<double,double> calculateReservationPriceStatistics() const;
+
+    bool getReadAverageRatingsFromFile() const;
+    void setReadAverageRatingsFromFile(bool val);
+
+    std::string getAverageRatingsFilename() const;
+    void setAverageRatingsFilename(std::string filename);
 
     ~Utrip() = default;
 };

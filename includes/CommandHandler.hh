@@ -11,7 +11,7 @@
 
 class CommandHandler
 {
-  using RequestType = Request<BadRequestException, BadRequestException>;
+  using RequestType = Request<KeyDoesNotExistException, BadRequestException>;
   Interface<RequestType> interface;
 
 public:

@@ -4,6 +4,8 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <iostream>
+#include <type_traits>
 
 namespace utility {
   std::ifstream open_csv_file(std::string filePath);
@@ -15,12 +17,15 @@ namespace utility {
   double standardDeviation(std::vector<double> data);
 
   template <typename ReturnValueType>
-  static ReturnValueType extractFromString(const std::string &stringValue)
+  ReturnValueType extractFromString(const std::string &stringValue)
   {
     std::stringstream ss(stringValue);
     ReturnValueType result;
     ss >> result;
     return result;
   }
+
+  // for the specific case of booleans:
+  template<> bool extractFromString<bool>(const std::string& stringValue);
 };
 

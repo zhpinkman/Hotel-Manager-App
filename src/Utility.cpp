@@ -58,3 +58,8 @@ double utility::variance(std::vector<double> data) {
 double utility::standardDeviation(vector<double> data) {
   return sqrt(variance(data));
 }
+
+template<> bool utility::extractFromString<bool>(const std::string& stringValue) {
+  return stringValue == "true";
+}
+

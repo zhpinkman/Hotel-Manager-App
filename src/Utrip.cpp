@@ -4,6 +4,10 @@
 using namespace utility;
 using namespace std;
 
+Utrip::Utrip(): hotelFilterManager(this),
+ read_average_ratings_from_file(false), 
+ average_ratings_filename("ratings.csv") {}
+
 void Utrip::importHotels(const RAW_DATA_LIST &rawHotelsData)
 {
     hotelManager = HotelManager(rawHotelsData);
@@ -273,4 +277,21 @@ pair<double,double> Utrip::calculateReservationPriceStatistics() const {
 
 bool Utrip::isEligibleForHistoryBasedPriceFilter() const {
     return (this->getReservations().size() >= 10);
+}
+
+
+bool Utrip::getReadAverageRatingsFromFile() const {
+    return read_average_ratings_from_file;
+}
+
+void Utrip::setReadAverageRatingsFromFile(bool val) {
+    read_average_ratings_from_file = val;
+}
+
+std::string Utrip::getAverageRatingsFilename() const {
+    return average_ratings_filename;
+}
+
+void Utrip::setAverageRatingsFilename(string filename) {
+    average_ratings_filename = filename;
 }
