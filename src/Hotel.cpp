@@ -84,9 +84,10 @@ void Hotel::printBriefly() const
               << hotelName << " "
               << starRating << " "
               << city << " "
-              << roomService.getTotalNumOfRooms() << " ";
-    std::cout << std::fixed << std::setprecision(2);
-    std::cout << roomService.getRoomsAveragePrice() << " "
+              << roomService.getTotalNumOfRooms() << " "
+              << std::fixed << std::setprecision(2) << " "
+              << roomService.getRoomsAveragePrice() << " "
+              << averageRatings.getRating("overall") << " "
               << std::endl;
     std::cout.unsetf(std::ios_base::fixed);
 }
