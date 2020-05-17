@@ -24,8 +24,9 @@ void CommandHandler::runCommand(const std::string &command)
   try
   {
     const RequestType request(command);
-    
-    if (request.getMethod() == RequestType::Methods::GET) {
+
+    if (request.getMethod() == RequestType::Methods::GET)
+    {
       if (request.getRequestUrl()[0] == "wallet")
         interface.runGetWalletCommand(request);
       else if (request.getRequestUrl()[0] == "hotels")
@@ -38,7 +39,8 @@ void CommandHandler::runCommand(const std::string &command)
         interface.runGetReserveCommand(request);
     }
 
-    else if (request.getMethod() == RequestType::Methods::POST) {
+    else if (request.getMethod() == RequestType::Methods::POST)
+    {
       if (request.getRequestUrl()[0] == "signup")
         interface.runSignupCommand(request);
       else if (request.getRequestUrl()[0] == "login")
@@ -57,9 +59,12 @@ void CommandHandler::runCommand(const std::string &command)
         interface.runSetReserveCommand(request);
       else if (request.getRequestUrl()[0] == "sort")
         interface.runSortCommand(request);
+      else if (request.getRequestUrl()[0] == "settings")
+        interface.runSettingsCommand(request);
     }
 
-    else if (request.getMethod() == RequestType::Methods::DELETE) {
+    else if (request.getMethod() == RequestType::Methods::DELETE)
+    {
       if (request.getRequestUrl()[0] == "filters")
         interface.runResetFilterCommand(request);
       else if (request.getRequestUrl()[0] == "reserves")
