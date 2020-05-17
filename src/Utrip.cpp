@@ -193,7 +193,7 @@ HotelRatings Utrip::getRating(const std::string &hotelId)
     if (!userManager.isUserLoggedIn())
         throw new PermissionDeniedException();
 
-    return hotelManager.getHotels(hotelId).getAverageRating();
+    return hotelManager.getHotels(hotelId).getAverageRatings();
 }
 
 void Utrip::reserve(const std::string &hotelId,

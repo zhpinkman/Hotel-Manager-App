@@ -46,7 +46,7 @@ void HotelManager::importRatings(const RAW_DATA_LIST ratingsData)
     for (int i = 1; i < ratingsData.size(); i++) 
     {   
         string hotelId = ratingsData[i][0];
-        hotels[hotelId]->setAverageRating(HotelRatings(
+        hotels[hotelId]->setAverageRatings(HotelRatings(
             extractFromString<double>(ratingsData[i][1]),
             extractFromString<double>(ratingsData[i][2]),
             extractFromString<double>(ratingsData[i][3]),

@@ -124,14 +124,14 @@ public:
         rates[username] = addedRate;
     }
 
-    void setAverageRating(HotelRatings averageRating)
+    void setAverageRatings(HotelRatings averageRatings)
     {
-        this->averageRating = averageRating;
+        this->averageRatings = averageRatings;
     }
 
-    HotelRatings getAverageRating() const
+    HotelRatings getAverageRatings() const
     {
-        return averageRating;
+        return averageRatings;
     }
 
 private:
@@ -146,5 +146,5 @@ private:
     RoomService roomService;
     CommentList comments;
     RatesList rates;
-    HotelRatings averageRating;
+    HotelRatings averageRatings;
 };
