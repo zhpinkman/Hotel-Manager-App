@@ -4,13 +4,26 @@
 using namespace utility;
 using namespace std;
 
-Utrip::Utrip(): hotelFilterManager(this),
- read_average_ratings_from_file(false), 
- average_ratings_filename("ratings.csv") {}
+Utrip::Utrip(): hotelFilterManager(this) {}
 
-void Utrip::importHotels(const RAW_DATA_LIST &rawHotelsData)
-{
+void Utrip::importHotels(std::string filename) {
+    const std::ifstream &hotelsFile = utility::open_csv_file(filename);
+    RAW_DATA_LIST rawHotelsData = utility::parse_csv_file(const_cast<std::ifstream &>(hotelsFile));
+    importHotels(rawHotelsData);
+}
+
+void Utrip::importHotels(const RAW_DATA_LIST &rawHotelsData) {
     hotelManager = HotelManager(rawHotelsData);
+}
+
+void Utrip::importRatings(std::string filename) {
+    const std::ifstream &ratingsFile = utility::open_csv_file(filename);
+    RAW_DATA_LIST rawRatingsData = utility::parse_csv_file(const_cast<std::ifstream &>(ratingsFile));
+    importRatings(rawRatingsData);
+}
+
+void Utrip::importRatings(const RAW_DATA_LIST &rawRatingsData) {
+    hotelManager.importRatings(rawRatingsData);
 }
 
 void Utrip::signup(const User &user)
@@ -166,7 +179,7 @@ const Hotel::CommentList& Utrip::getComments(const std::string &hotelId) const
     return hotelManager.getHotel(hotelId)->getComments();
 }
 
-void Utrip::addRating(const std::string &hotelId, const Hotel::RatingData::DataType rateData)
+void Utrip::addRating(const std::string &hotelId, const HotelRatings rateData)
 {
     if (!userManager.isUserLoggedIn())
         throw new PermissionDeniedException();
@@ -175,12 +188,12 @@ void Utrip::addRating(const std::string &hotelId, const Hotel::RatingData::DataT
     hotelManager.getHotels(hotelId).addRating(username, rateData);
 }
 
-Hotel::RatingData::DataType Utrip::getRating(const std::string &hotelId)
+HotelRatings Utrip::getRating(const std::string &hotelId)
 {
     if (!userManager.isUserLoggedIn())
         throw new PermissionDeniedException();
 
-    return hotelManager.getHotels(hotelId).getRating();
+    return hotelManager.getHotels(hotelId).getAverageRating();
 }
 
 void Utrip::reserve(const std::string &hotelId,
@@ -280,18 +293,3 @@ bool Utrip::isEligibleForHistoryBasedPriceFilter() const {
 }
 
 
-bool Utrip::getReadAverageRatingsFromFile() const {
-    return read_average_ratings_from_file;
-}
-
-void Utrip::setReadAverageRatingsFromFile(bool val) {
-    read_average_ratings_from_file = val;
-}
-
-std::string Utrip::getAverageRatingsFilename() const {
-    return average_ratings_filename;
-}
-
-void Utrip::setAverageRatingsFilename(string filename) {
-    average_ratings_filename = filename;
-}

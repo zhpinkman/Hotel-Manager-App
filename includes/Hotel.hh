@@ -11,6 +11,7 @@
 #include "Constants.hh"
 #include "RoomService.hh"
 #include "Location.hh"
+#include "HotelRatings.hh"
 
 #define NumOfRatingFields std::size_t(6)
 
@@ -40,32 +41,9 @@ public:
         }
     };
 
-    struct RatingData
-    {
-        using DataType = std::array<double, NumOfRatingFields>;
-
-        RatingData() : ratesData()
-        {
-            for (auto data : ratesData)
-                data = 0;
-        }
-
-        const DataType &getRatingData() const
-        {
-            return ratesData;
-        }
-
-        DataType &getRatingData()
-        {
-            return ratesData;
-        }
-
-    private:
-        DataType ratesData;
-    };
 
     using CommentList = std::vector<Comment>;
-    using RatesList = std::unordered_map<std::string, RatingData>;
+    using RatesList = std::unordered_map<std::string, HotelRatings>;
 
     Hotel(const std::string &hotelId,
           std::string hotelName,
@@ -141,21 +119,18 @@ public:
         return comments;
     }
 
-    void addRating(const std::string &username, const RatingData::DataType &addedRate)
+    void addRating(const std::string &username, const HotelRatings &addedRate)
     {
-        std::copy(addedRate.begin(), addedRate.end(), rates[username].getRatingData().begin());
+        rates[username] = addedRate;
     }
 
-    RatingData::DataType getRating() const
+    void setAverageRating(HotelRatings averageRating)
     {
-        RatingData::DataType averageRating;
-        for (auto &data : averageRating)
-            data = 0;
+        this->averageRating = averageRating;
+    }
 
-        for (const auto &rate : rates)
-            for (std::size_t i = 0; i < NumOfRatingFields; ++i)
-                averageRating[i] += rate.second.getRatingData()[i];
-
+    HotelRatings getAverageRating() const
+    {
         return averageRating;
     }
 
@@ -171,4 +146,5 @@ private:
     RoomService roomService;
     CommentList comments;
     RatesList rates;
+    HotelRatings averageRating;
 };

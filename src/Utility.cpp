@@ -63,3 +63,7 @@ template<> bool utility::extractFromString<bool>(const std::string& stringValue)
   return stringValue == "true";
 }
 
+
+void importRatings(const RAW_DATA_LIST &rawRatingsData) {
+  
+}

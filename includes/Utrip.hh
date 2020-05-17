@@ -18,6 +18,7 @@
 #include "Filter.hh"
 #include "RoomService.hh"
 #include "Sort.hh"
+#include "HotelRatings.hh"
 
 class HotelManager;
 
@@ -27,13 +28,14 @@ class Utrip
     HotelManager hotelManager;
     HotelFilterManager hotelFilterManager;
     HotelSortManager hotelSortManager;
-    bool read_average_ratings_from_file;
-    std::string average_ratings_filename;
 
 public:
     Utrip();
 
+    void importHotels(std::string filename);
     void importHotels(const RAW_DATA_LIST &rawHotelsData);
+    void importRatings(std::string filename);
+    void importRatings(const RAW_DATA_LIST &rawRatingsData);
     void signup(const User &user);
     void login(const User &user);
     void logout();
@@ -49,8 +51,8 @@ public:
     void addFilter(const std::unordered_map<std::string, std::string> &filterObjects);
     void setSortSettings(std::string property, std::string order);
     void addComment(const std::string &hotelId, const std::string &commentContent);
-    void addRating(const std::string &hotelId, const Hotel::RatingData::DataType rateData);
-    Hotel::RatingData::DataType getRating(const std::string &hotelId);
+    void addRating(const std::string &hotelId, const HotelRatings rateData);
+    HotelRatings getRating(const std::string &hotelId);
     void reserve(const std::string &hotelId,
                  const std::string &roomType,
                  const std::size_t quantity,
@@ -63,11 +65,7 @@ public:
     // as its second element.
     std::pair<double,double> calculateReservationPriceStatistics() const;
 
-    bool getReadAverageRatingsFromFile() const;
-    void setReadAverageRatingsFromFile(bool val);
 
-    std::string getAverageRatingsFilename() const;
-    void setAverageRatingsFilename(std::string filename);
 
     ~Utrip() = default;
 };

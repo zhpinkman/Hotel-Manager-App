@@ -1,0 +1,2 @@
+#include "RatingsManager.hh"
+

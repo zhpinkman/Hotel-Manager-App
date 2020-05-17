@@ -15,9 +15,8 @@ class CommandHandler
   Interface<RequestType> interface;
 
 public:
-  CommandHandler(const std::string &pathToCSVFile) : interface(pathToCSVFile)
-  {
-  }
+  CommandHandler(const std::string &hotelsFileName, const std::string &ratingsFileName) :
+   interface(hotelsFileName, ratingsFileName) {}
 
   void start();
 

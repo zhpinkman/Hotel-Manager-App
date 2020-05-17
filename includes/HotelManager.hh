@@ -14,6 +14,7 @@ public:
     HotelManager() = default;
     HotelManager(const RAW_DATA_LIST &hotelsRawData);
     Hotel *constructHotelFromHotelRawData(const RAW_DATA hotelRawData);
+    void importRatings(const RAW_DATA_LIST ratingsData);
 
     const HotelList &getHotels() const
     {
@@ -39,5 +40,5 @@ public:
     void getHotelById(const std::string &hotelId);
 
 private:
-    std::unordered_map<std::string, Hotel *> hotels;
+    HotelList hotels;
 };

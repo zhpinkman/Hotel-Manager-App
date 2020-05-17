@@ -5,6 +5,9 @@
 #include "Location.hh"
 #include <iostream>
 
+using namespace std;
+using namespace utility;
+
 HotelManager::HotelManager(const RAW_DATA_LIST &hotelsRawData)
 {
     for (size_t i = 1; i < hotelsRawData.size(); i++)
@@ -35,4 +38,21 @@ Hotel *HotelManager::constructHotelFromHotelRawData(const RAW_DATA hotelRawData)
                      std::stoi(hotelRawData[PRICE_OF_DELUXE_ROOMS_ARG_INDEX]),
                      std::stoi(hotelRawData[PRICE_OF_LUXURY_ROOMS_ARG_INDEX]),
                      std::stoi(hotelRawData[PRICE_OF_PREMIUM_ROOMS_ARG_INDEX]));
+}
+
+
+void HotelManager::importRatings(const RAW_DATA_LIST ratingsData) 
+{
+    for (int i = 1; i < ratingsData.size(); i++) 
+    {   
+        string hotelId = ratingsData[i][0];
+        hotels[hotelId]->setAverageRating(HotelRatings(
+            extractFromString<double>(ratingsData[i][1]),
+            extractFromString<double>(ratingsData[i][2]),
+            extractFromString<double>(ratingsData[i][3]),
+            extractFromString<double>(ratingsData[i][4]),
+            extractFromString<double>(ratingsData[i][5]),
+            extractFromString<double>(ratingsData[i][6])
+        ));
+    }   
 }

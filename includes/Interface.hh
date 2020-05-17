@@ -23,11 +23,10 @@ class Interface
     }
 
 public:
-    Interface(const std::string &hotelsFilePath)
+    Interface(const std::string &hotelsFilePath, const std::string ratingsFilePath)
     {
-        const std::ifstream &hotelsFile = utility::open_csv_file(hotelsFilePath);
-        RAW_DATA_LIST rawHotelsData = utility::parse_csv_file(const_cast<std::ifstream &>(hotelsFile));
-        utrip.importHotels(rawHotelsData);
+        utrip.importHotels(hotelsFilePath);
+        utrip.importRatings(ratingsFilePath);
     }
 
     void printSuccessMessage() { std::cout << "OK" << std::endl; }
@@ -110,33 +109,35 @@ public:
     void runAddRateCommand(const RequestType &request)
     {
         utrip.addRating(request.getParam("hotel"),
-                        std::forward<Hotel::RatingData::DataType>(
-                            {extractFromString<double>(request.getParam("location")),
-                             extractFromString<double>(request.getParam("cleanliness")),
-                             extractFromString<double>(request.getParam("staff")),
-                             extractFromString<double>(request.getParam("facilities")),
-                             extractFromString<double>(request.getParam("value_for_money")),
-                             extractFromString<double>(request.getParam("overall_rating"))}));
+            HotelRatings(
+                extractFromString<double>(request.getParam("location")),
+                extractFromString<double>(request.getParam("cleanliness")),
+                extractFromString<double>(request.getParam("staff")),
+                extractFromString<double>(request.getParam("facilities")),
+                extractFromString<double>(request.getParam("value_for_money")),
+                extractFromString<double>(request.getParam("overall_rating"))
+            )
+        );
         printSuccessMessage();
     }
 
     void runGetRateCommand(const RequestType &request)
     {
-        const auto rateData = utrip.getRating(request.getParam("hotel"));
+        const auto ratings = utrip.getRating(request.getParam("hotel"));
 
-        if (!(*rateData.begin()))
+        if (!ratings.isInitialized())
         {
             std::cout << "No Rating" << std::endl;
             return;
         }
 
         std::cout << std::fixed << std::setprecision(2)
-                  << "location: " << rateData[0] << std::endl
-                  << "cleanliness: " << rateData[1] << std::endl
-                  << "staff: " << rateData[2] << std::endl
-                  << "facilities: " << rateData[3] << std::endl
-                  << "value_for_money: " << rateData[4] << std::endl
-                  << "overal_rating: " << rateData[5] << std::endl;
+                  << "location: " << ratings.getRating("location") << std::endl
+                  << "cleanliness: " << ratings.getRating("cleanliness") << std::endl
+                  << "staff: " << ratings.getRating("staff") << std::endl
+                  << "facilities: " << ratings.getRating("facilities") << std::endl
+                  << "value_for_money: " << ratings.getRating("value_for_money") << std::endl
+                  << "overal_rating: " << ratings.getRating("overall") << std::endl;
 
         std::cout.unsetf(std::ios_base::fixed);
     }
@@ -188,17 +189,9 @@ public:
         printSuccessMessage();
     }
 
-    void runSettingsCommand(const RequestType& request)
+    void runSettingsCommand(const RequestType& request) //TODO: see if this needs to be removed
     {
         // This request may contain any number of "keys", this is why if a key doesn't exist, 
         // nothing needs to be done (empty exception handler).
-
-        try {
-            utrip.setReadAverageRatingsFromFile(
-                utility::extractFromString<bool>(
-                request.getParam("average_ratings_from_file"))
-            );
-        } catch (KeyDoesNotExistException ex) {} 
-
     }
 };

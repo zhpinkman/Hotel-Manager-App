@@ -119,9 +119,12 @@ input
 build/
 
 
-# Added by Ahmad:
+# ======== Added by Ahmad ==========:
 # to ignore the input files I create for testing.
 *.in
 
 # to ignore python utility scripts:
 *.py
+
+# to ignore the lock files:
+.~lock*
