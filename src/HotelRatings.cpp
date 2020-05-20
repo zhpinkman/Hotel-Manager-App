@@ -1,51 +1,58 @@
 #include "HotelRatings.hh"
+#include "Utility.hh"
+
 #include <exception>
 #include <string>
 #include <algorithm>
+#include <iostream>
+#include <typeinfo>
 
 using namespace std;
 
-double HotelRatings::uninitialized = -1;
+// ======================== HotelRatings ==========================: 
+
 std::vector<std::string> HotelRatings::categories = {"location", "cleanliness",
 	"staff", "facilities", "value_for_money", "overall"};
 
-HotelRatings::HotelRatings() {
-	for (string category : categories)
-		ratings[category] = uninitialized;
-}
+HotelRatings::HotelRatings() : ratings(categories) {}
 
 HotelRatings::HotelRatings(double location, double cleanliness, double staff,
- double facilities, double value_for_money, double overall) {
-	ratings["location"] = location;
-	ratings["cleanliness"] = cleanliness;
-	ratings["staff"] = staff;
-	ratings["facilities"] = facilities;
-	ratings["value_for_money"] = value_for_money;
-	ratings["overall"] = overall;
+ double facilities, double value_for_money, double overall) 
+ 	: ratings(categories) 
+{
+	ratings.set("location", location);
+	ratings.set("cleanliness", cleanliness);
+	ratings.set("staff", staff);
+	ratings.set("facilities", facilities);
+	ratings.set("value_for_money", value_for_money);
+	ratings.set("overall", overall);
 }
 
-double HotelRatings::getRating(string category) const {
-	if (ratings.find(category) != ratings.end()) {
-		if (ratings.at(category) != uninitialized)
-			return ratings.at(category);
-		else 
-			throw logic_error("getRating: requesting access to uninitialized category:" + category);
-	}
-	throw invalid_argument("getRating: Invalid category:" + category);
-}
+double HotelRatings::getRating(string category) const {return ratings.get(category);}
 
-void HotelRatings::setRating(string category, double value) {
-	if (ratings.find(category) != ratings.end()) {
-		if (value >= 1 && value <= 5) 
-			ratings[category] = value;
-		else 
-			throw invalid_argument("setRating: Invalid value:" + to_string(value));
-	} else 
-		throw invalid_argument("setRating: Invalid category:" + category);
-}
+void HotelRatings::setRating(string category, double value) {ratings.set(category, value);}
+
+bool HotelRatings::isInitialized() const {return ratings.isInitialized();}
 
 
-bool HotelRatings::isInitialized() const {
-    return std::all_of(categories.begin(), categories.end(),
-		[this](string category){return ratings.at(category)!=uninitialized;});
+// ======================== HotelRatingWeights ==========================: 
+
+std::vector<std::string> HotelRatingWeights::categories = {"location", "cleanliness",
+	"staff", "facilities", "value_for_money"};
+
+HotelRatingWeights::HotelRatingWeights() : weights(categories) {}
+
+HotelRatingWeights::HotelRatingWeights(double location, double cleanliness, double staff,
+	double facilities, double value_for_money) 
+	: weights(categories) 
+{
+	weights.set("location", location);
+	weights.set("cleanliness", cleanliness);
+	weights.set("staff", staff);
+	weights.set("facilities", facilities);
+	weights.set("value_for_money", value_for_money);
 }
+
+double HotelRatingWeights::getWeight(string category) const {return weights.get(category);}
+void HotelRatingWeights::setWeight(string category, double value) {weights.set(category, value);}
+bool HotelRatingWeights::isInitialized() const {return weights.isInitialized();}

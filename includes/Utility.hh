@@ -8,6 +8,7 @@
 #include <exception>
 #include <algorithm>
 #include <iomanip>
+#include <unordered_map>
 
 namespace utility {
   std::ifstream open_csv_file(std::string filePath);
@@ -89,4 +90,57 @@ namespace utility {
     ss<<vec.back()<<"]";
     return ss.str();
   }
+
+  template <typename T>
+  std::string toString(T value) 
+  {
+    std::stringstream ss;
+    ss<<value;
+    return ss.str();
+  }
+
+
+  template <typename Key, typename T>
+  class MapWithConstantKeys 
+  {
+  public:
+      MapWithConstantKeys(std::vector<Key> keys) 
+          : keys(keys), _isInitialized(keys.size(), false) {}
+
+      const T& get(Key key) const
+      {
+          if (std::find(keys.begin(), keys.end(), key) != keys.end())
+          {
+              int index = std::distance(keys.begin(), std::find(keys.begin(), keys.end(), key));
+              if (_isInitialized[index])
+                  return content.at(key);
+              else 
+                  throw std::logic_error("MapWithConstantKeys::get: requesting access to uninitialized cell: " + utility::toString(key));
+          } else
+              throw std::invalid_argument("MapWithConstantKeys::get: key doesn't exist: " + utility::toString(key));
+      }
+
+      void set(Key key, T value) 
+      {
+          if (std::find(keys.begin(), keys.end(), key) != keys.end())
+          {
+              content[key] = value;
+              int index = std::distance(keys.begin(), std::find(keys.begin(), keys.end(), key));
+              _isInitialized[index] = true;
+          } else
+              throw std::invalid_argument("MapWithConstantKeys::set: key doesn't exist: " + utility::toString(key));
+      }
+
+      bool isInitialized() const
+      {
+          return std::all_of(_isInitialized.begin(), _isInitialized.end(),
+          [](bool initialized){return initialized;});
+      }
+
+  private:
+      std::vector<Key> keys;
+      std::vector<bool> _isInitialized;
+      std::unordered_map<Key, T> content;
+  };
+
 };

@@ -1,10 +1,13 @@
 #pragma once
 
+#include "Utility.hh"
+
 #include <vector>
 #include <string>
 #include <unordered_map>
 
-class HotelRatings {
+class HotelRatings
+{
 public:
 	HotelRatings();
     HotelRatings(double location, double cleanliness, double staff,
@@ -14,8 +17,24 @@ public:
     bool isInitialized() const;
 
     static std::vector<std::string> categories;
-    
+
 private:
-    std::unordered_map<std::string, double> ratings;
-    static double uninitialized;
+    utility::MapWithConstantKeys<std::string, double> ratings;
+};
+
+
+class HotelRatingWeights
+{
+public:
+    HotelRatingWeights();
+    HotelRatingWeights(double location, double cleanliness, double staff,
+        double facilities, double value_for_money);
+    double getWeight(std::string category) const;
+    void setWeight(std::string category, double value);
+    bool isInitialized() const;
+
+    static std::vector<std::string> categories;
+
+private:
+    utility::MapWithConstantKeys<std::string, double> weights;
 };
