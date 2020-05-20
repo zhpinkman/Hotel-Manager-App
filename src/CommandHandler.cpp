@@ -59,8 +59,6 @@ void CommandHandler::runCommand(const std::string &command)
         interface.runSetReserveCommand(request);
       else if (request.getRequestUrl()[0] == "sort")
         interface.runSortCommand(request);
-      else if (request.getRequestUrl()[0] == "settings")
-        interface.runSettingsCommand(request);
     }
 
     else if (request.getMethod() == RequestType::Methods::DELETE)

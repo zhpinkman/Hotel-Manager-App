@@ -188,10 +188,4 @@ public:
         utrip.setSortSettings(request.getParam("property"), request.getParam("order"));
         printSuccessMessage();
     }
-
-    void runSettingsCommand(const RequestType& request) //TODO: see if this needs to be removed
-    {
-        // This request may contain any number of "keys", this is why if a key doesn't exist, 
-        // nothing needs to be done (empty exception handler).
-    }
 };
