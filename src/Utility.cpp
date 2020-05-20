@@ -1,10 +1,12 @@
-#include "../includes/Utility.hh"
-#include "../includes/Exception.hh"
-#include "../includes/Constants.hh"
+#include "Utility.hh"
+#include "Exception.hh"
+#include "Constants.hh"
 #include <random>
 #include <sstream>
 #include <algorithm>
 #include <cmath>
+#include <random>
+#include <iostream>
 
 using namespace std;
 
@@ -43,27 +45,61 @@ vector<vector<string>> utility::parse_csv_file(ifstream &file)
 }
 
 
-double utility::mean(vector<double> data) {
+double utility::mean(vector<double> data)
+{
   double sum = std::accumulate(data.begin(), data.end(), 0);
   return sum / data.size();
 }
 
-double utility::variance(std::vector<double> data) {
+double utility::variance(std::vector<double> data)
+{
   vector<double> squares;
   std::transform(data.begin(), data.end(), std::back_inserter(squares), [](double x){return x*x;});
   return mean(squares) - pow(mean(data), 2);
 }
 
 
-double utility::standardDeviation(vector<double> data) {
+double utility::standardDeviation(vector<double> data)
+{
   return sqrt(variance(data));
 }
 
-template<> bool utility::extractFromString<bool>(const std::string& stringValue) {
-  return stringValue == "true";
+double utility::sum(std::vector<double> data)
+{
+  // it is important that the third argument be 0. (double), not 0 (int). because
+  // the sum operation is performed w.r.t to the type of this argument, and this means
+  // casting everything to integer if 0 is passed.
+  return std::accumulate(data.begin(), data.end(), 0.);
 }
 
+double utility::weightedSum(vector<double> data, vector<double> weights)
+{
+  if (data.size() != weights.size())
+    throw invalid_argument("weightedSum: data and weights do not have the same size.");
+  double sum = 0;
+  for (int i = 0; i < data.size(); i++) 
+    sum += data[i] * weights[i];
+  return sum;
+}
 
-void importRatings(const RAW_DATA_LIST &rawRatingsData) {
-  
+double utility::weightedAverage(vector<double> data, vector<double> weights) 
+{
+  // cout<<"weighted avg: "<<vec2str(data)<<" "<<vec2str(weights)<<endl;
+  // cout<<"numerator: "<<weightedSum(data, weights)<<" denominator: "<<utility::sum(weights)<<endl;
+  return weightedSum(data, weights) / utility::sum(weights);
+}
+
+vector<double> utility::randomUniform(double lowerBound, double upperBound, uint sampleSize) {
+  vector<double> result;
+  std::uniform_real_distribution<double> distribution(lowerBound, upperBound);
+  std::default_random_engine generator;
+  for (uint i = 0; i < sampleSize; i++) {
+    result.push_back(distribution(generator));
+  }
+  return result;
+}
+
+template<> bool utility::extractFromString<bool>(const std::string& stringValue)
+{
+  return stringValue == "true";
 }
