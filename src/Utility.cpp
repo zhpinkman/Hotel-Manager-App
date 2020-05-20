@@ -84,8 +84,6 @@ double utility::weightedSum(vector<double> data, vector<double> weights)
 
 double utility::weightedAverage(vector<double> data, vector<double> weights) 
 {
-  // cout<<"weighted avg: "<<vec2str(data)<<" "<<vec2str(weights)<<endl;
-  // cout<<"numerator: "<<weightedSum(data, weights)<<" denominator: "<<utility::sum(weights)<<endl;
   return weightedSum(data, weights) / utility::sum(weights);
 }
 

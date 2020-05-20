@@ -28,29 +28,14 @@ vector<double> RatingCategoryWeightEstimator::estimate(vector<vector<double>> ra
     vector<double> overallRatings;
     splitRatings(ratingsList, individualRatingsList, overallRatings);
 
-    // cout<<"individ ratings:"<<endl;
-    // for (vector<double> v: individualRatingsList)
-    //     cout<<utility::vec2str(v)<<endl;
-    // for (double d: overallRatings)
-    //     cout<<d<<endl;
-
     vector<double> estimatedWeights = {3.85, 1.2, 3.94, 1.47, 4.8}; //randomUniform(1., 5., 5); 
-    // vector<double> estimatedWeights = {3., 1., 1., 2., 3.};
-
-    // cout<<"initial weights:"<<vec2str(estimatedWeights)<<endl;
 
     for (int epoch = 0; epoch < this->nEpochs; epoch++) {
         vector<double> derivativeSums(individualRatingsList[0].size(),0.);
-        // cout<<"derivatives list:"<<endl;
         for (int i = 0; i < individualRatingsList.size(); i++) {
-            auto w = weightDerivatives(individualRatingsList[i], estimatedWeights, overallRatings[i]);
-            // cout<<"w:"<<vec2str(w)<<endl;
-
             derivativeSums = vectorSum(derivativeSums,
                 weightDerivatives(individualRatingsList[i], estimatedWeights, overallRatings[i]));
-            // cout<<"derivative sums:"<<vec2str(derivativeSums)<<endl;
         }
-        // cout<<endl;
         estimatedWeights = vectorDifference(estimatedWeights, vectorScale(derivativeSums, this->learningRate));
         estimatedWeights = vectorClamp(estimatedWeights, 1., 5.);
     }
@@ -67,13 +52,7 @@ double RatingCategoryWeightEstimator::guessOverallRating(std::vector<double> rat
 }
 
 double RatingCategoryWeightEstimator::errorFunction(vector<double> ratings, vector<double> currentWeights, double overallRating) const {
-    double a = guessOverallRating(ratings, currentWeights);
-    double b = a-overallRating;
-    double c = pow(b, 2.);
-    // cout<<"a: "<<a<<endl;
-    // cout<<"b: "<<b<<endl;
-    // cout<<"c: "<<c<<endl;
-    return c;
+    return pow(guessOverallRating(ratings, currentWeights) - overallRating, 2.);
 }
 
 void RatingCategoryWeightEstimator::splitRatings(std::vector<std::vector<double>> ratingsList,
@@ -96,16 +75,10 @@ vector<double> RatingCategoryWeightEstimator::weightDerivatives(vector<double> i
 double RatingCategoryWeightEstimator::weightDerivative(vector<double> individualRatings, vector<double> weights,
     double overallRating, int targetWeightIndex) const {
     
-    // cout<<"entered w deriv: "<<vec2str(individualRatings)<<" "<<vec2str(weights)<<" "<<overallRating<<" "<<targetWeightIndex<<endl;
     double y1 = errorFunction(individualRatings, weights, overallRating);
-    // cout<<"y1: "<<y1<<endl;
     weights[targetWeightIndex] += epsilon;
     double y2 = errorFunction(individualRatings, weights, overallRating);
-    // cout<<"y2: "<<y2<<endl;
-    double result = (y2 - y1) / epsilon;
-    // cout<<"result: "<<result<<endl;
-    // cout<<"end"<<endl;
-    return result;
+    return (y2 - y1) / epsilon;
 }
 
 
