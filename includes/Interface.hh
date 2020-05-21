@@ -63,6 +63,7 @@ public:
 
     void runGetWalletCommand(const RequestType &request)
     {
+        std::cout << std::fixed;
         const auto balanceHistory = utrip.reportBalanceHistory(extractFromString<double>(request.getParam("count")));
         for (const auto &balanceHistoryLine : balanceHistory)
             std::cout << balanceHistoryLine << std::endl;
