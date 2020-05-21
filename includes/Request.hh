@@ -92,4 +92,25 @@ public:
 
     return params.at(paramKey);
   }
+
+  bool containsParams(std::vector<std::string> paramKeys) const
+  {
+    for (std::string paramKey: paramKeys)
+      if (params.find(paramKey) == params.end())
+        return false;
+    return true;
+  }
+
+  bool containsNoMoreParamsThan(std::vector<std::string> paramKeys) const
+  {
+    for (std::pair<std::string, std::string> element: params)
+      if (std::find(paramKeys.begin(), paramKeys.end(), element.first) == paramKeys.end())
+        return false;
+    return true;
+  }
+
+  bool containsExactly(std::vector<std::string> paramKeys) const
+  {
+    return containsParams(paramKeys) && containsNoMoreParamsThan(paramKeys);
+  }
 };

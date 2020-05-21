@@ -37,6 +37,8 @@ void CommandHandler::runCommand(const std::string &command)
         interface.runGetRateCommand(request);
       else if (request.getRequestUrl()[0] == "reserves")
         interface.runGetReserveCommand(request);
+      else if (request.getRequestUrl()[0] == "manual_weights")
+        interface.runGetManualWeightsCommand(request);
     }
 
     else if (request.getMethod() == RequestType::Methods::POST)
@@ -59,6 +61,8 @@ void CommandHandler::runCommand(const std::string &command)
         interface.runSetReserveCommand(request);
       else if (request.getRequestUrl()[0] == "sort")
         interface.runSortCommand(request);
+      else if (request.getRequestUrl()[0] == "manual_weights")
+        interface.runSetManualWeightsCommand(request);
     }
 
     else if (request.getMethod() == RequestType::Methods::DELETE)

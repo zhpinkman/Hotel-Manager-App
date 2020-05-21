@@ -7,20 +7,13 @@
 #include "Utrip.hh"
 #include "Request.hh"
 #include "Exception.hh"
+#include "HotelRatings.hh"
+#include "Utility.hh"
 
 template <typename RequestType>
 class Interface
 {
     Utrip utrip;
-
-    template <typename ReturnValueType>
-    static ReturnValueType extractFromString(const std::string &stringValue)
-    {
-        std::stringstream ss(stringValue);
-        ReturnValueType result;
-        ss >> result;
-        return result;
-    }
 
 public:
     Interface(const std::string &hotelsFilePath, const std::string ratingsFilePath)
@@ -57,13 +50,13 @@ public:
 
     void runAddWalletCommand(const RequestType &request)
     {
-        utrip.addCreditToWallet(extractFromString<double>(request.getParam("amount")));
+        utrip.addCreditToWallet(utility::extractFromString<double>(request.getParam("amount")));
         printSuccessMessage();
     }
 
     void runGetWalletCommand(const RequestType &request)
     {
-        const auto balanceHistory = utrip.reportBalanceHistory(extractFromString<double>(request.getParam("count")));
+        const auto balanceHistory = utrip.reportBalanceHistory(utility::extractFromString<double>(request.getParam("count")));
         for (const auto &balanceHistoryLine : balanceHistory)
             std::cout << balanceHistoryLine << std::endl;
     }
@@ -110,12 +103,12 @@ public:
     {
         utrip.addRating(request.getParam("hotel"),
             HotelRatings(
-                extractFromString<double>(request.getParam("location")),
-                extractFromString<double>(request.getParam("cleanliness")),
-                extractFromString<double>(request.getParam("staff")),
-                extractFromString<double>(request.getParam("facilities")),
-                extractFromString<double>(request.getParam("value_for_money")),
-                extractFromString<double>(request.getParam("overall_rating"))
+                utility::extractFromString<double>(request.getParam("location")),
+                utility::extractFromString<double>(request.getParam("cleanliness")),
+                utility::extractFromString<double>(request.getParam("staff")),
+                utility::extractFromString<double>(request.getParam("facilities")),
+                utility::extractFromString<double>(request.getParam("value_for_money")),
+                utility::extractFromString<double>(request.getParam("overall_rating"))
             )
         );
         printSuccessMessage();
@@ -146,9 +139,9 @@ public:
     {
         utrip.reserve(request.getParam("hotel"),
                       request.getParam("type"),
-                      extractFromString<std::size_t>(request.getParam("quantity")),
-                      extractFromString<std::size_t>(request.getParam("check_in")),
-                      extractFromString<std::size_t>(request.getParam("check_out")));
+                      utility::extractFromString<std::size_t>(request.getParam("quantity")),
+                      utility::extractFromString<std::size_t>(request.getParam("check_in")),
+                      utility::extractFromString<std::size_t>(request.getParam("check_out")));
         printSuccessMessage();
     }
 
@@ -173,7 +166,7 @@ public:
 
     void runDeleteReserveCommand(const RequestType &request)
     {
-        utrip.deleteReservations(extractFromString<std::size_t>(request.getParam("id")));
+        utrip.deleteReservations(utility::extractFromString<std::size_t>(request.getParam("id")));
         printSuccessMessage();
     }
 
@@ -186,6 +179,43 @@ public:
     void runSortCommand(const RequestType& request) 
     {
         utrip.setSortSettings(request.getParam("property"), request.getParam("order"));
+        printSuccessMessage();
+    }
+
+    void runGetManualWeightsCommand(const RequestType& request) 
+    {
+        bool manualWightsAreActive = utrip.getWeightsAreManual();
+        HotelRatingWeights weights = utrip.getManualWeights();
+        std::cout<<"active "<<(manualWightsAreActive ? "true " : "false");
+        if (manualWightsAreActive)
+        {
+            for (std::string category: HotelRatingWeights::categories)
+                std::cout<<category<<" "<<weights.getWeight(category)<<" ";
+        }
+        std::cout<<std::endl;
+    }
+
+    void runSetManualWeightsCommand(const RequestType& request) 
+    {   
+        double isActive = utility::extractFromString<bool>(request.getParam("active"));
+        if (isActive) {
+            std::vector<std::string> allKeywords = utility::vectorCat({"active"}, HotelRatingWeights::categories);
+            if (request.containsExactly(allKeywords)) {
+                utrip.activateManualWeights(HotelRatingWeights(
+                    utility::extractFromString<double>(request.getParam("location")),
+                    utility::extractFromString<double>(request.getParam("cleanliness")),
+                    utility::extractFromString<double>(request.getParam("staff")),
+                    utility::extractFromString<double>(request.getParam("facilities")),
+                    utility::extractFromString<double>(request.getParam("value_for_money"))
+                ));
+            } else 
+                throw new BadRequestException();
+        } else {
+            if (request.containsExactly({"active"})) {
+                utrip.deactivateManualWeights();
+            } else 
+                throw new BadRequestException();
+        }
         printSuccessMessage();
     }
 };

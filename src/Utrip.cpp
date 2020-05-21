@@ -4,7 +4,7 @@
 using namespace utility;
 using namespace std;
 
-Utrip::Utrip(): hotelFilterManager(this) {}
+Utrip::Utrip(): hotelFilterManager(this), _weightsAreManual(false) {}
 
 void Utrip::importHotels(std::string filename) {
     const std::ifstream &hotelsFile = utility::open_csv_file(filename);
@@ -292,4 +292,23 @@ bool Utrip::isEligibleForHistoryBasedPriceFilter() const {
     return (this->getReservations().size() >= 10);
 }
 
+void Utrip::activateManualWeights(const HotelRatingWeights& manualWeights) 
+{
+    _weightsAreManual = true;
+    this->manualWeights = manualWeights;
+}
 
+void Utrip::deactivateManualWeights() 
+{
+    _weightsAreManual = false;
+}
+
+HotelRatingWeights Utrip::getManualWeights() const
+{
+    return manualWeights;
+}
+
+bool Utrip::getWeightsAreManual() const 
+{
+    return _weightsAreManual;
+}

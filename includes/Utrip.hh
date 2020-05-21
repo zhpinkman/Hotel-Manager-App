@@ -28,6 +28,8 @@ class Utrip
     HotelManager hotelManager;
     HotelFilterManager hotelFilterManager;
     HotelSortManager hotelSortManager;
+    HotelRatingWeights manualWeights;
+    bool _weightsAreManual;
 
 public:
     Utrip();
@@ -47,6 +49,9 @@ public:
     const Hotel *const getHotel(const std::string &id) const;
     const Hotel::CommentList &getComments(const std::string &hotelId) const;
     RoomService::ReservationSet getReservations() const;
+    bool isEligibleForHistoryBasedPriceFilter() const;
+    HotelRatingWeights getManualWeights() const;
+    bool getWeightsAreManual() const;
 
     void addFilter(const std::unordered_map<std::string, std::string> &filterObjects);
     void setSortSettings(std::string property, std::string order);
@@ -59,7 +64,8 @@ public:
                  const std::size_t arrivalTime,
                  const std::size_t departureTime);
     void deleteReservations(const std::size_t reservationId);
-    bool isEligibleForHistoryBasedPriceFilter() const;
+    void activateManualWeights(const HotelRatingWeights& manualWeights);
+    void deactivateManualWeights();
 
     // returns a tuple with the mean as its first element and the standard deviation
     // as its second element.

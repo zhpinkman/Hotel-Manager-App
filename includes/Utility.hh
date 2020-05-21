@@ -15,15 +15,26 @@ namespace utility {
   std::vector<std::vector<std::string>>
   parse_csv_file(std::ifstream &file);
   std::vector<std::string> split_by_char(std::string word, char separator);
+
   double mean(std::vector<double> data);
   double variance(std::vector<double> data);
   double standardDeviation(std::vector<double> data);
-
   double sum(std::vector<double> data);
   double weightedSum(std::vector<double> data, std::vector<double> weights);
   double weightedAverage(std::vector<double> data, std::vector<double> weights);
 
   std::vector<double> randomUniform(double lowerBound, double upperBound, uint sampleSize);
+
+  std::string trim(std::string s);
+
+  template <typename T>
+  std::vector<T> vectorCat(std::vector<T> v1, std::vector<T> v2)
+  {
+    std::vector<T> result;
+    result.insert(result.end(), v1.begin(), v1.end());
+    result.insert(result.end(), v2.begin(), v2.end());
+    return result;
+  }
 
   template <typename T>
   std::vector<T> vectorSum(std::vector<T> v1, std::vector<T> v2)
@@ -69,7 +80,7 @@ namespace utility {
   }
 
   template <typename ReturnValueType>
-  ReturnValueType extractFromString(const std::string &stringValue)
+  ReturnValueType extractFromString(const std::string& stringValue)
   {
     std::stringstream ss(stringValue);
     ReturnValueType result;

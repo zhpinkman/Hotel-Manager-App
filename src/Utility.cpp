@@ -99,5 +99,13 @@ vector<double> utility::randomUniform(double lowerBound, double upperBound, uint
 
 template<> bool utility::extractFromString<bool>(const std::string& stringValue)
 {
-  return stringValue == "true";
+  return trim(stringValue) == "true";
+}
+
+string utility::trim(string s) {
+  int start = s.find_first_not_of(" \n\t");
+  if (start == string::npos)
+    return "";
+  int end = s.find_last_not_of(" \n\t");
+  return s.substr(start, end-start+1);
 }

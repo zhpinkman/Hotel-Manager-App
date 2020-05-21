@@ -45,3 +45,13 @@ int main(int argc, char const *argv[]) {
 //   }
 //   cout<<endl;
 // }
+
+
+// #include "Utility.hh"
+// using namespace std;
+
+// int main() {
+//   string s = "        \t \n \t ab\n ds";
+//   string s1 = utility::trim(s);
+//   cout<<"\""<<s1<<"\""<<endl;
+// }
