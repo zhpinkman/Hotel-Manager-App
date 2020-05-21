@@ -151,16 +151,16 @@ value_for_money: 1.00
 overal_rating: 4.77
 Not Enough Credit
 OK
-OK
+s1
 Not Enough Room
-OK
+p1
 id: 2 hotel: 60ac1903f046575659e673d05595e452 room: premium quantity: 1 cost: 400 check_in: 21 check_out: 26
 id: 1 hotel: 60ac1903f046575659e673d05595e452 room: standard quantity: 1 cost: 200 check_in: 21 check_out: 26
 OK
 id: 2 hotel: 60ac1903f046575659e673d05595e452 room: premium quantity: 1 cost: 400 check_in: 21 check_out: 26
-519500.00
-519400.00
-519800.00
-520000.00
-0.00
+519500
+519400
+519800
+520000
+0
 OK

@@ -66,7 +66,7 @@ public:
         std::cout << std::fixed;
         const auto balanceHistory = utrip.reportBalanceHistory(extractFromString<double>(request.getParam("count")));
         for (const auto &balanceHistoryLine : balanceHistory)
-            std::cout << balanceHistoryLine << std::endl;
+            std::cout << (int)balanceHistoryLine << std::endl;
     }
 
     void runGetHotelsCommand(const RequestType &request)
@@ -150,7 +150,8 @@ public:
                       extractFromString<std::size_t>(request.getParam("quantity")),
                       extractFromString<std::size_t>(request.getParam("check_in")),
                       extractFromString<std::size_t>(request.getParam("check_out")));
-        printSuccessMessage();
+        // printSuccessMessage();
+        std::cout << "----------" << std::endl;
     }
 
     void runGetReserveCommand(const RequestType &request) const
