@@ -7,17 +7,12 @@
 using namespace std;
 using namespace utility;
 
-CategoryToWeightMap RatingCategoryWeightEstimator::estimate(vector<HotelRatings> ratings) 
+HotelRatingWeights RatingCategoryWeightEstimator::estimate(vector<HotelRatings> ratings) 
 {
     vector<double> rawResult = estimate(unwrapRatingsList(ratings));
-    CategoryToWeightMap result;
-    /* 
-     * the -1 in the following line, is because the "overall" category has no weights
-     * associated with it, and it is guaranteed to always be the last category in 
-     * HotelRatings::categories.
-     */
-    for (int i = 0; i < HotelRatings::categories.size()-1; i++) { 
-        result[HotelRatings::categories[i]] = rawResult[i];
+    HotelRatingWeights result;
+    for (int i = 0; i < HotelRatingWeights::categories.size(); i++) { 
+        result.setWeight(HotelRatingWeights::categories[i], rawResult[i]);
     }
     return result;
 }
@@ -28,7 +23,7 @@ vector<double> RatingCategoryWeightEstimator::estimate(vector<vector<double>> ra
     vector<double> overallRatings;
     splitRatings(ratingsList, individualRatingsList, overallRatings);
 
-    vector<double> estimatedWeights = {3.85, 1.2, 3.94, 1.47, 4.8}; //randomUniform(1., 5., 5); 
+    vector<double> estimatedWeights = randomUniform(1., 5., 5);
 
     for (int epoch = 0; epoch < this->nEpochs; epoch++) {
         vector<double> derivativeSums(individualRatingsList[0].size(),0.);

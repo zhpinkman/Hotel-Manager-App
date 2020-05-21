@@ -2,11 +2,10 @@
 
 #include "HotelRatings.hh"
 
-using CategoryToWeightMap = std::unordered_map<std::string, double>;
 
 class RatingCategoryWeightEstimator {
 public:
-    CategoryToWeightMap estimate(std::vector<HotelRatings> ratings);
+    HotelRatingWeights estimate(std::vector<HotelRatings> ratings);
     RatingCategoryWeightEstimator();
 
 private:
