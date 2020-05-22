@@ -10,9 +10,12 @@
 
 #include "Constants.hh"
 #include "RoomService.hh"
-#include "City.hh"
+#include "Location.hh"
+#include "HotelRatings.hh"
 
 #define NumOfRatingFields std::size_t(6)
+
+class User;
 
 class Hotel
 {
@@ -40,38 +43,17 @@ public:
         }
     };
 
-    struct RatingData
-    {
-        using DataType = std::array<double, NumOfRatingFields>;
-
-        RatingData() : ratesData()
-        {
-            for (auto data : ratesData)
-                data = 0;
-        }
-
-        const DataType &getRatingData() const
-        {
-            return ratesData;
-        }
-
-        DataType &getRatingData()
-        {
-            return ratesData;
-        }
-
-    private:
-        DataType ratesData;
-    };
 
     using CommentList = std::vector<Comment>;
-    using RatesList = std::unordered_map<std::string, RatingData>;
+    using RatesList = std::unordered_map<std::string, HotelRatings>;
 
     Hotel(const std::string &hotelId,
           std::string hotelName,
           std::size_t hotelRating,
           std::string hotelOverview,
-          Amenities amenities, City city,
+          Amenities amenities,
+          std::string city,
+          Location location,
           std::string imageUrl,
           int numOfStandardRooms,
           int numOfDeluxeRooms,
@@ -84,68 +66,43 @@ public:
     void print() const;
     std::string getAmenities() const;
 
-    std::string getId() const
-    {
-        return hotelId;
-    };
+    std::string getId() const { return hotelId; }
+
+    std::string getHotelName() const { return hotelName; }
+
+    std::string getCity() const { return city; }
+
+    int getNumOfStandardRooms() const { return roomService.getNumOfStandardRooms(); }
+    int getNumOfDeluxeRooms() const { return roomService.getNumOfDeluxeRooms(); }
+    int getNumOfLuxuryRooms() const { return roomService.getNumOfLuxuryRooms(); }
+    int getNumOfPremiumRooms() const { return roomService.getNumOfPremiumRooms(); }
+
+    double getStandardRoomPrice() const { return roomService.getPriceOfStandardRooms(); }
+    double getDeluxeRoomPrice() const { return roomService.getPriceOfDeluxeRooms(); }
+    double getLuxuryRoomPrice() const { return roomService.getPriceOfLuxuryRooms(); }
+    double getPremiumRoomPrice() const { return roomService.getPriceOfPremiumRooms(); }
 
     void printBriefly() const;
 
     bool idsMatches(const std::string &hotelId) const;
 
-    const City &getCity() const
-    {
-        return city;
-    }
+    std::uint8_t getStar() const { return starRating; }
 
-    City &getCity()
-    {
-        return city;
-    }
-
-    std::uint8_t getStar() const
-    {
-        return starRating;
-    }
-
-    const RoomService &getRoomService() const
-    {
-        return roomService;
-    }
-
-    RoomService &getRoomService()
-    {
-        return roomService;
-    }
+    const RoomService &getRoomService() const { return roomService; }
+    RoomService &getRoomService() { return roomService; }
 
     template <typename... Args>
-    void addComment(const Args &... args)
-    {
-        comments.emplace_back(args...);
-    }
+    void addComment(const Args &... args) { comments.emplace_back(args...); }
 
-    const CommentList &getComments() const
-    {
-        return comments;
-    }
+    const CommentList &getComments() const { return comments; }
 
-    void addRating(const std::string &username, const RatingData::DataType &addedRate)
-    {
-        std::copy(addedRate.begin(), addedRate.end(), rates[username].getRatingData().begin());
-    }
+    void addRating(User* user, const HotelRatings &addedRate);
+    const RatesList& getRatings() const { return rates; }
 
-    RatingData::DataType getRating() const
-    {
-        RatingData::DataType averageRating;
-        for (auto &data : averageRating)
-            data = 0;
+    void setAverageRatings(HotelRatings averageRatings) { this->averageRatings = averageRatings; }
+    HotelRatings getAverageRatings() const { return averageRatings; }
 
-        for (const auto &rate : rates)
-            for (std::size_t i = 0; i < NumOfRatingFields; ++i)
-                averageRating[i] += rate.second.getRatingData()[i];
-
-        return averageRating;
-    }
+    double getPersonalRatingOfUser(User* user) const;
 
 private:
     std::string hotelId;
@@ -153,9 +110,11 @@ private:
     std::size_t starRating;
     std::string hotel_overview; // TODO
     Amenities amenities;
-    City city;
+    std::string city;
+    Location location;
     std::string image_url; // TODO
     RoomService roomService;
     CommentList comments;
     RatesList rates;
+    HotelRatings averageRatings;
 };

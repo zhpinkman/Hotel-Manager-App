@@ -7,6 +7,8 @@
 
 #include <iostream> // TODO
 
+class Utrip;
+
 struct UserManager
 {
     User *loggedInUser; // TODO: It could be replaced with std::optional in C++17

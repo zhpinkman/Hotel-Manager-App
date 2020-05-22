@@ -1,5 +1,4 @@
-#ifndef __COMMANDHANDLER_H__
-#define __COMMANDHANDLER_H__
+#pragma once
 
 #define HOTESL_GET_ARG_SIZE 2
 
@@ -16,9 +15,8 @@ class CommandHandler
   Interface<RequestType> interface;
 
 public:
-  CommandHandler(const std::string &pathToCSVFile) : interface(pathToCSVFile)
-  {
-  }
+  CommandHandler(const std::string &hotelsFileName, const std::string &ratingsFileName) :
+   interface(hotelsFileName, ratingsFileName) {}
 
   void start();
 
@@ -26,5 +24,3 @@ public:
 
   void runCommand(const std::string &command);
 };
-
-#endif
