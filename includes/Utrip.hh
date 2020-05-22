@@ -55,6 +55,10 @@ public:
     HotelRatings getRating(const std::string &hotelId);
     bool isEligibleForHistoryBasedPriceFilter() const;
     User* getLoggedInUser();
+    const User* getLoggedInUser() const;
+    bool getWeightsAreManual() const;
+    HotelRatingWeights getManualWeights() const;
+    HotelRatingWeights getEstimatedWeights();
 
     void addFilter(const std::unordered_map<std::string, std::string> &filterObjects);
     void setSortSettings(std::string property, std::string order);
@@ -66,6 +70,8 @@ public:
                  const std::size_t arrivalTime,
                  const std::size_t departureTime);
     void deleteReservations(const std::size_t reservationId);
+    void activateManualWeights(HotelRatingWeights weights);
+    void deactivateManualWeights();
 
 
     // returns a tuple with the mean as its first element and the standard deviation

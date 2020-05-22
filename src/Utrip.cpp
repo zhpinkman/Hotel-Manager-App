@@ -303,3 +303,46 @@ bool Utrip::isEligibleForHistoryBasedPriceFilter() const {
 }
 
 User* Utrip::getLoggedInUser() { return userManager.loggedInUser; }
+
+const User* Utrip::getLoggedInUser() const { return userManager.loggedInUser; }
+
+bool Utrip::getWeightsAreManual() const
+{
+    if (!userManager.isUserLoggedIn())
+        throw new PermissionDeniedException();
+
+    return getLoggedInUser()->getWeightsAreManual();
+}
+
+HotelRatingWeights Utrip::getManualWeights() const
+{
+    if (!userManager.isUserLoggedIn())
+        throw new PermissionDeniedException();
+
+    return getLoggedInUser()->getManualWeights();
+
+}
+HotelRatingWeights Utrip::getEstimatedWeights()
+{
+    if (!userManager.isUserLoggedIn())
+        throw new PermissionDeniedException();
+
+    return getLoggedInUser()->getEstimatedWeights();
+}
+
+
+void Utrip::activateManualWeights(HotelRatingWeights weights)
+{
+    if (!userManager.isUserLoggedIn())
+        throw new PermissionDeniedException(); 
+
+    getLoggedInUser()->activateManualWeights(weights);
+}
+
+void Utrip::deactivateManualWeights() 
+{
+    if (!userManager.isUserLoggedIn())
+        throw new PermissionDeniedException(); 
+
+    getLoggedInUser()->deactivateManualWeights();
+}

@@ -184,8 +184,8 @@ public:
 
     void runGetManualWeightsCommand(const RequestType& request) 
     {
-        bool manualWightsAreActive = Utrip::instance()->getLoggedInUser()->getWeightsAreManual();
-        HotelRatingWeights weights = Utrip::instance()->getLoggedInUser()->getManualWeights();
+        bool manualWightsAreActive = Utrip::instance()->getWeightsAreManual();
+        HotelRatingWeights weights = Utrip::instance()->getManualWeights();
         std::cout<<"active "<<(manualWightsAreActive ? "true " : "false");
         if (manualWightsAreActive)
         {
@@ -198,13 +198,12 @@ public:
     }
 
     void runSetManualWeightsCommand(const RequestType& request) 
-    {   
-        std::cout<<"started manual weights"<<std::endl;
+    {
         double isActive = utility::extractFromString<bool>(request.getParam("active"));
         if (isActive) {
             std::vector<std::string> allKeywords = utility::vectorCat({"active"}, HotelRatingWeights::categories);
             if (request.containsExactly(allKeywords)) {
-                Utrip::instance()->getLoggedInUser()->activateManualWeights(HotelRatingWeights(
+                Utrip::instance()->activateManualWeights(HotelRatingWeights(
                     utility::extractFromString<double>(request.getParam("location")),
                     utility::extractFromString<double>(request.getParam("cleanliness")),
                     utility::extractFromString<double>(request.getParam("staff")),
@@ -215,7 +214,7 @@ public:
                 throw new BadRequestException();
         } else {
             if (request.containsExactly({"active"}))
-                Utrip::instance()->getLoggedInUser()->deactivateManualWeights();
+                Utrip::instance()->deactivateManualWeights();
             else 
                 throw new BadRequestException();
         }
@@ -224,7 +223,7 @@ public:
 
     void runGetEstimatedWeightsCommand(const RequestType& request)
     {
-        HotelRatingWeights weights = Utrip::instance()->getLoggedInUser()->getEstimatedWeights();
+        HotelRatingWeights weights = Utrip::instance()->getEstimatedWeights();
         std::cout<<std::fixed<<std::setprecision(2);
         for (std::string category: HotelRatingWeights::categories)
             std::cout<<category<<" "<<weights.getWeight(category)<<" ";
