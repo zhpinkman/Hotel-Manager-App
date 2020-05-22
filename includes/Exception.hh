@@ -51,3 +51,10 @@ public:
   NotEnoughCreditException() : Exception("Not Enough Credit") {}
 };
 
+class NoRatingException : public Exception
+{
+public:
+  NoRatingException() : Exception("No Ratings") {}
+};
+
+

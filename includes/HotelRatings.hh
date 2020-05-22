@@ -6,6 +6,8 @@
 #include <string>
 #include <unordered_map>
 
+class HotelRatingWeights;
+
 class HotelRatings
 {
 public:
@@ -14,14 +16,15 @@ public:
     	double facilities, double value_for_money, double overall);
     double getRating(std::string category) const;
     void setRating(std::string category, double value);
+    double estimateOverallRatingUsingWeights(const HotelRatingWeights& weights);
     bool isInitialized() const;
 
     static std::vector<std::string> categories;
 
+    std::string toString() const;
 private:
     utility::MapWithConstantKeys<std::string, double> ratings;
 };
-
 
 class HotelRatingWeights
 {
@@ -35,6 +38,7 @@ public:
 
     static std::vector<std::string> categories;
 
+    std::string toString() const;
 private:
     utility::MapWithConstantKeys<std::string, double> weights;
 };

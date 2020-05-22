@@ -39,6 +39,8 @@ void CommandHandler::runCommand(const std::string &command)
         interface.runGetReserveCommand(request);
       else if (request.getRequestUrl()[0] == "manual_weights")
         interface.runGetManualWeightsCommand(request);
+      else 
+        throw new NotFoundException();
     }
 
     else if (request.getMethod() == RequestType::Methods::POST)
@@ -63,6 +65,8 @@ void CommandHandler::runCommand(const std::string &command)
         interface.runSortCommand(request);
       else if (request.getRequestUrl()[0] == "manual_weights")
         interface.runSetManualWeightsCommand(request);
+      else 
+        throw new NotFoundException();
     }
 
     else if (request.getMethod() == RequestType::Methods::DELETE)
@@ -71,10 +75,10 @@ void CommandHandler::runCommand(const std::string &command)
         interface.runResetFilterCommand(request);
       else if (request.getRequestUrl()[0] == "reserves")
         interface.runDeleteReserveCommand(request);
+      else 
+        throw new NotFoundException();
     }
 
-    else
-      throw new NotFoundException();
   }
   catch (Exception *exception)
   {

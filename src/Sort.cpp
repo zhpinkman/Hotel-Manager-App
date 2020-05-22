@@ -1,10 +1,13 @@
 #include "Sort.hh"
+#include "Utrip.hh"
 #include <exception>
 #include <map>
+#include <iostream>
 
 using namespace std;
 
-vector<Hotel*> HotelSortManager::sort(vector<Hotel*> hotels) const {
+vector<Hotel*> HotelSortManager::sort(vector<Hotel*> hotels) const
+{
 	vector<Hotel*> result = hotels;
 	// the list is first 'sort'ed based on IDs, then 'stable_sort'ed based on the specified property. this way,
 	// if two hotels are equal in their specified property, they will be sorted based on ID.
@@ -35,11 +38,18 @@ bool HotelComparator::operator()(const Hotel* hotel1, const Hotel* hotel2) const
 		return compare(hotel1->getRoomService().getRoomsAveragePrice(), hotel2->getRoomService().getRoomsAveragePrice());
 	if (property == SortableHotelProperty::RATING_OVERALL) 
 		return compare(hotel1->getAverageRatings().getRating("overall"), hotel2->getAverageRatings().getRating("overall"));
+	if (property == SortableHotelProperty::RATING_PERSONAL)
+	{
+		User* user = Utrip::instance()->getLoggedInUser();
+		return  compare(hotel1->getPersonalRatingOfUser(user), hotel2->getPersonalRatingOfUser(user));
+	}
+	
 	throw logic_error("invalid HotelComparator state: unexpected property value: " + to_string(property));
 }
 
 
-SortOrder strToSortOrder(std::string str) {
+SortOrder strToSortOrder(std::string str)
+{
   map<string, SortOrder> strToEnum;
   strToEnum["ascending"] = SortOrder::ASCENDING;
   strToEnum["descending"] = SortOrder::DESCENDING;
@@ -48,7 +58,8 @@ SortOrder strToSortOrder(std::string str) {
   throw invalid_argument("Cannot convert string: " + str + " to SortOrder.");
 }
 
-SortableHotelProperty strToSortableHotelProperty(string str) {
+SortableHotelProperty strToSortableHotelProperty(string str)
+{
   map<string, SortableHotelProperty> strToEnum;
   strToEnum["id"] = SortableHotelProperty::ID;
   strToEnum["name"] = SortableHotelProperty::NAME;
@@ -60,6 +71,7 @@ SortableHotelProperty strToSortableHotelProperty(string str) {
   strToEnum["premium_room_price"] = SortableHotelProperty::PREMIUM_ROOM_PRICE;
   strToEnum["average_room_price"] = SortableHotelProperty::AVERAGE_ROOM_PRICE;
   strToEnum["rating_overall"] = SortableHotelProperty::RATING_OVERALL;
+  strToEnum["rating_personal"] = SortableHotelProperty::RATING_PERSONAL;
   if (strToEnum.find(str) != strToEnum.end())
   	return strToEnum[str];
   throw invalid_argument("Cannot convert string: " + str + " to SortableHotelProperty.");

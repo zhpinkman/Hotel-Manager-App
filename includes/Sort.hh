@@ -14,12 +14,12 @@ enum SortableHotelProperty {
     LUXURY_ROOM_PRICE,
     PREMIUM_ROOM_PRICE,
     AVERAGE_ROOM_PRICE,
-    RATING_OVERALL
+    RATING_OVERALL,
+	RATING_PERSONAL
 };
 
 SortOrder strToSortOrder(std::string str);
 SortableHotelProperty strToSortableHotelProperty(std::string str);
-
 
 class HotelSortManager {
 public:

@@ -5,15 +5,21 @@
 #include "Hotel.hh"
 #include "RoomService.hh"
 #include "Constants.hh"
+#include "User.hh"
+#include "RatingCategoryWeightEstimator.hh"
+#include "Utrip.hh"
+#include "Utility.hh"
 
-Hotel::Hotel(const std::string &hotelId,
-             std::string hotelName,
-             std::size_t starRating,
-             std::string hotelOverview,
+using namespace std;
+
+Hotel::Hotel(const string &hotelId,
+             string hotelName,
+             size_t starRating,
+             string hotelOverview,
              Amenities amenities,
-             std::string city,
+             string city,
              Location location,
-             std::string imageUrl,
+             string imageUrl,
              int numOfStandardRooms,
              int numOfDeluxeRooms,
              int numOfLuxuryRooms,
@@ -43,34 +49,34 @@ Hotel::Hotel(const std::string &hotelId,
 
 void Hotel::print() const
 {
-    std::cout << hotelId << std::endl
-              << hotelName << std::endl
-              << "star: " << starRating << std::endl
-              << "overview: " << hotel_overview << std::endl
-              << "amenities: " << getAmenities() << std::endl
-              << "city: " << city << std::endl;
-    std::cout << std::fixed << std::setprecision(2);
-    std::cout << "latitude: " << location.latitude << std::endl
-              << "logitude: " << location.longitude << std::endl;
+    cout << hotelId << endl
+              << hotelName << endl
+              << "star: " << starRating << endl
+              << "overview: " << hotel_overview << endl
+              << "amenities: " << getAmenities() << endl
+              << "city: " << city << endl;
+    cout << fixed << setprecision(2);
+    cout << "latitude: " << location.latitude << endl
+              << "logitude: " << location.longitude << endl;
 
-    std::cout.unsetf(std::ios_base::fixed);
+    cout.unsetf(ios_base::fixed);
 
-    std::cout << "#rooms: "
+    cout << "#rooms: "
               << roomService.getNumOfStandardRooms() << " "
               << roomService.getNumOfDeluxeRooms() << " "
               << roomService.getNumOfLuxuryRooms() << " "
-              << roomService.getNumOfPremiumRooms() << std::endl;
+              << roomService.getNumOfPremiumRooms() << endl;
 
-    std::cout << "price: "
+    cout << "price: "
               << roomService.getPriceOfStandardRooms() << " "
               << roomService.getPriceOfDeluxeRooms() << " "
               << roomService.getPriceOfLuxuryRooms() << " "
-              << roomService.getPriceOfPremiumRooms() << std::endl;
+              << roomService.getPriceOfPremiumRooms() << endl;
 }
 
-std::string Hotel::getAmenities() const
+string Hotel::getAmenities() const
 {
-    std::string amenitiesString;
+    string amenitiesString;
     for (size_t i = 0; i < amenities.size() - 1; i++)
         amenitiesString += amenities[i] + AMENITY_SEPARATOR;
 
@@ -80,19 +86,36 @@ std::string Hotel::getAmenities() const
 
 void Hotel::printBriefly() const
 {
-    std::cout << hotelId << " "
+    cout << hotelId << " "
               << hotelName << " "
               << starRating << " "
               << city << " "
               << roomService.getTotalNumOfRooms() << " "
-              << std::fixed << std::setprecision(2) << " "
+              << fixed << setprecision(2) << " "
               << roomService.getRoomsAveragePrice() << " "
               << averageRatings.getRating("overall") << " "
-              << std::endl;
-    std::cout.unsetf(std::ios_base::fixed);
+              << "-- "<<getPersonalRatingOfUser(Utrip::instance()->getLoggedInUser()) << " " //FOR TESTING PURPOSES ONLY
+              << endl;
+    cout.unsetf(ios_base::fixed);
 }
 
-bool Hotel::idsMatches(const std::string &_hotelId) const
+bool Hotel::idsMatches(const string &_hotelId) const
 {
     return hotelId == _hotelId;
+}
+
+double Hotel::getPersonalRatingOfUser(User* user) const
+{
+    if (rates.find(user->getUsername()) != rates.end()) // if user has already rated this hotel
+        return rates.at(user->getUsername()).getRating("overall");
+    else if (user->getWeightsAreManual()) 
+        return getAverageRatings().estimateOverallRatingUsingWeights(user->getManualWeights());
+    else 
+        return getAverageRatings().estimateOverallRatingUsingWeights(user->getEstimatedWeights());
+}
+
+void Hotel::addRating(User* user, const HotelRatings &addedRate) 
+{
+    rates[user->getUsername()] = addedRate;
+    user->invalidateEstimatedWeights();
 }

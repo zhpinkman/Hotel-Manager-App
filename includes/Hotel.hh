@@ -15,6 +15,8 @@
 
 #define NumOfRatingFields std::size_t(6)
 
+class User;
+
 class Hotel
 {
 public:
@@ -64,20 +66,11 @@ public:
     void print() const;
     std::string getAmenities() const;
 
-    std::string getId() const
-    {
-        return hotelId;
-    };
+    std::string getId() const { return hotelId; }
 
-    std::string getHotelName() const 
-    {
-        return hotelName;
-    }
+    std::string getHotelName() const { return hotelName; }
 
-    std::string getCity() const 
-    {
-        return city;
-    }
+    std::string getCity() const { return city; }
 
     int getNumOfStandardRooms() const { return roomService.getNumOfStandardRooms(); }
     int getNumOfDeluxeRooms() const { return roomService.getNumOfDeluxeRooms(); }
@@ -93,46 +86,23 @@ public:
 
     bool idsMatches(const std::string &hotelId) const;
 
-    std::uint8_t getStar() const
-    {
-        return starRating;
-    }
+    std::uint8_t getStar() const { return starRating; }
 
-    const RoomService &getRoomService() const
-    {
-        return roomService;
-    }
-
-    RoomService &getRoomService()
-    {
-        return roomService;
-    }
+    const RoomService &getRoomService() const { return roomService; }
+    RoomService &getRoomService() { return roomService; }
 
     template <typename... Args>
-    void addComment(const Args &... args)
-    {
-        comments.emplace_back(args...);
-    }
+    void addComment(const Args &... args) { comments.emplace_back(args...); }
 
-    const CommentList &getComments() const
-    {
-        return comments;
-    }
+    const CommentList &getComments() const { return comments; }
 
-    void addRating(const std::string &username, const HotelRatings &addedRate)
-    {
-        rates[username] = addedRate;
-    }
+    void addRating(User* user, const HotelRatings &addedRate);
+    const RatesList& getRatings() const { return rates; }
 
-    void setAverageRatings(HotelRatings averageRatings)
-    {
-        this->averageRatings = averageRatings;
-    }
+    void setAverageRatings(HotelRatings averageRatings) { this->averageRatings = averageRatings; }
+    HotelRatings getAverageRatings() const { return averageRatings; }
 
-    HotelRatings getAverageRatings() const
-    {
-        return averageRatings;
-    }
+    double getPersonalRatingOfUser(User* user) const;
 
 private:
     std::string hotelId;

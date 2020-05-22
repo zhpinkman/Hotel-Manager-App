@@ -35,17 +35,24 @@ int main(int argc, char const *argv[]) {
 //     HotelRatings(4.9, 2.3, 2.9, 4.5, 1.6, 3.72)
 //   };
 
-//   RatingCategoryWeightEstimator estimator;
-//   CategoryToWeightMap result = estimator.estimate(ratingsList);
-//   // for (pair<string, double> elem: result) {
-//     // cout<<elem.first<<" "<<elem.second<<" ";
+//   // output generationg for test cases:
+//   // for (HotelRatings r: ratingsList) 
+//   // {
+//   //   cout<<"POST ratings ? hotel aaa ";
+//   //   for (string c : HotelRatings::categories)
+//   //   {
+//   //     cout<<c<<" "<<r.getRating(c)<<" ";
+//   //   }
+//   //   cout<<endl;
 //   // }
-//   for (string category: {"location", "cleanliness","staff", "facilities", "value_for_money"}) {
-//     cout<<result[category] * (4.9/result["location"])<<" ";
-//   }
-//   cout<<endl;
-// }
 
+//   // RatingCategoryWeightEstimator estimator;
+//   // HotelRatingWeights result = estimator.estimate(ratingsList);
+//   // for (string category: {"location", "cleanliness","staff", "facilities", "value_for_money"}) {
+//   //   cout<<result.getWeight(category) * (4.9/result.getWeight("location"))<<" ";
+//   // }
+//   // cout<<endl;
+// }
 
 // #include "Utility.hh"
 // using namespace std;

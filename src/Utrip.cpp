@@ -1,10 +1,20 @@
 #include "Utrip.hh"
 #include "Utility.hh"
+#include "User.hh"
 
 using namespace utility;
 using namespace std;
 
-Utrip::Utrip(): hotelFilterManager(this), _weightsAreManual(false) {}
+Utrip* Utrip::singleton_instance = nullptr;
+
+Utrip* Utrip::instance()
+{
+    if (singleton_instance == nullptr)
+        singleton_instance = new Utrip;
+    return singleton_instance;
+}
+
+Utrip::Utrip(): hotelFilterManager(this) {}
 
 void Utrip::importHotels(std::string filename) {
     const std::ifstream &hotelsFile = utility::open_csv_file(filename);
@@ -97,6 +107,8 @@ std::vector<Hotel*> Utrip::getHotels() const
     return sortedHotels;
 }
 
+HotelManager::HotelList Utrip::getAllHotels() const { return hotelManager.getHotels(); }
+
 const Hotel *const Utrip::getHotel(const std::string &id) const
 {
     if (!userManager.isUserLoggedIn())
@@ -183,9 +195,7 @@ void Utrip::addRating(const std::string &hotelId, const HotelRatings rateData)
 {
     if (!userManager.isUserLoggedIn())
         throw new PermissionDeniedException();
-
-    const auto &username = userManager.loggedInUser->getUsername();
-    hotelManager.getHotels(hotelId).addRating(username, rateData);
+    hotelManager.getHotels(hotelId).addRating(userManager.loggedInUser, rateData);
 }
 
 HotelRatings Utrip::getRating(const std::string &hotelId)
@@ -292,23 +302,4 @@ bool Utrip::isEligibleForHistoryBasedPriceFilter() const {
     return (this->getReservations().size() >= 10);
 }
 
-void Utrip::activateManualWeights(const HotelRatingWeights& manualWeights) 
-{
-    _weightsAreManual = true;
-    this->manualWeights = manualWeights;
-}
-
-void Utrip::deactivateManualWeights() 
-{
-    _weightsAreManual = false;
-}
-
-HotelRatingWeights Utrip::getManualWeights() const
-{
-    return manualWeights;
-}
-
-bool Utrip::getWeightsAreManual() const 
-{
-    return _weightsAreManual;
-}
+User* Utrip::getLoggedInUser() { return userManager.loggedInUser; }

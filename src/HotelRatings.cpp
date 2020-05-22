@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <iostream>
 #include <typeinfo>
+#include <sstream>
 
 using namespace std;
 
@@ -32,8 +33,28 @@ double HotelRatings::getRating(string category) const {return ratings.get(catego
 
 void HotelRatings::setRating(string category, double value) {ratings.set(category, value);}
 
+double HotelRatings::estimateOverallRatingUsingWeights(const HotelRatingWeights& _weights) 
+{
+	vector<double> individualRatings, weights;
+	for (string category : HotelRatingWeights::categories)
+	{
+		individualRatings.push_back(this->getRating(category));
+		weights.push_back(_weights.getWeight(category));
+	}
+	return utility::weightedAverage(individualRatings, weights);
+}
+
 bool HotelRatings::isInitialized() const {return ratings.isInitialized();}
 
+std::string HotelRatings::toString() const 
+{
+	stringstream ss;
+	for (string category: categories)
+		ss<<category<<": "<<getRating(category)<<" ";
+	string result = ss.str();
+	result.pop_back(); // remove the extra space at the end.
+	return result;
+}
 
 // ======================== HotelRatingWeights ==========================: 
 
@@ -56,3 +77,13 @@ HotelRatingWeights::HotelRatingWeights(double location, double cleanliness, doub
 double HotelRatingWeights::getWeight(string category) const {return weights.get(category);}
 void HotelRatingWeights::setWeight(string category, double value) {weights.set(category, value);}
 bool HotelRatingWeights::isInitialized() const {return weights.isInitialized();}
+
+std::string HotelRatingWeights::toString() const 
+{
+	stringstream ss;
+	for (string category: categories)
+		ss<<category<<": "<<getWeight(category)<<" ";
+	string result = ss.str();
+	result.pop_back(); // remove the extra space at the end.
+	return result;
+}

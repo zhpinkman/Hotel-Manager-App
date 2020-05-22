@@ -3,6 +3,7 @@
 #include <string>
 #include <iomanip>
 #include <sstream>
+#include <iostream>
 
 #include "Utrip.hh"
 #include "Request.hh"
@@ -13,13 +14,11 @@
 template <typename RequestType>
 class Interface
 {
-    Utrip utrip;
-
 public:
     Interface(const std::string &hotelsFilePath, const std::string ratingsFilePath)
     {
-        utrip.importHotels(hotelsFilePath);
-        utrip.importRatings(ratingsFilePath);
+        Utrip::instance()->importHotels(hotelsFilePath);
+        Utrip::instance()->importRatings(ratingsFilePath);
     }
 
     void printSuccessMessage() { std::cout << "OK" << std::endl; }
@@ -29,7 +28,7 @@ public:
         const User user(request.getParam("email"),
                         request.getParam("username"),
                         request.getParam("password"));
-        utrip.signup(user);
+        Utrip::instance()->signup(user);
         printSuccessMessage();
     }
 
@@ -38,25 +37,26 @@ public:
         const User user(request.getParam("email"),
                         "",
                         request.getParam("password"));
-        utrip.login(user);
+        Utrip::instance()->login(user);
         printSuccessMessage();
     }
 
     void runLogoutCommand(const RequestType &request)
     {
-        utrip.logout();
+        Utrip::instance()->logout();
         printSuccessMessage();
     }
 
     void runAddWalletCommand(const RequestType &request)
     {
-        utrip.addCreditToWallet(utility::extractFromString<double>(request.getParam("amount")));
+        Utrip::instance()->addCreditToWallet(utility::extractFromString<double>(request.getParam("amount")));
         printSuccessMessage();
     }
 
     void runGetWalletCommand(const RequestType &request)
     {
-        const auto balanceHistory = utrip.reportBalanceHistory(utility::extractFromString<double>(request.getParam("count")));
+        const auto balanceHistory = Utrip::instance()->reportBalanceHistory(
+            utility::extractFromString<double>(request.getParam("count")));
         for (const auto &balanceHistoryLine : balanceHistory)
             std::cout << balanceHistoryLine << std::endl;
     }
@@ -65,10 +65,10 @@ public:
     {
         const auto &params = request.getRequestParams();
         if (params.find("id") != params.end())
-            utrip.getHotel(request.getParam("id"))->print();
+            Utrip::instance()->getHotel(request.getParam("id"))->print();
         else
         {
-            auto hotels = utrip.getHotels();
+            auto hotels = Utrip::instance()->getHotels();
 
             if (!hotels.size())
                 std::cout << "Empty" << std::endl;
@@ -79,19 +79,19 @@ public:
 
     void runAddFilterCommand(const RequestType &request)
     {
-        utrip.addFilter(request.getRequestParams());
+        Utrip::instance()->addFilter(request.getRequestParams());
         printSuccessMessage();
     }
 
     void runAddCommentCommand(const RequestType &request)
     {
-        utrip.addComment(request.getParam("hotel"), request.getParam("comment"));
+        Utrip::instance()->addComment(request.getParam("hotel"), request.getParam("comment"));
         printSuccessMessage();
     }
 
     void runGetCommentsCommand(const RequestType &request)
     {
-        const auto comments = utrip.getComments(request.getParam("hotel"));
+        const auto comments = Utrip::instance()->getComments(request.getParam("hotel"));
         if (!comments.size())
             return;
 
@@ -101,7 +101,7 @@ public:
 
     void runAddRateCommand(const RequestType &request)
     {
-        utrip.addRating(request.getParam("hotel"),
+        Utrip::instance()->addRating(request.getParam("hotel"),
             HotelRatings(
                 utility::extractFromString<double>(request.getParam("location")),
                 utility::extractFromString<double>(request.getParam("cleanliness")),
@@ -116,7 +116,7 @@ public:
 
     void runGetRateCommand(const RequestType &request)
     {
-        const auto ratings = utrip.getRating(request.getParam("hotel"));
+        const auto ratings = Utrip::instance()->getRating(request.getParam("hotel"));
 
         if (!ratings.isInitialized())
         {
@@ -137,7 +137,7 @@ public:
 
     void runSetReserveCommand(const RequestType &request)
     {
-        utrip.reserve(request.getParam("hotel"),
+        Utrip::instance()->reserve(request.getParam("hotel"),
                       request.getParam("type"),
                       utility::extractFromString<std::size_t>(request.getParam("quantity")),
                       utility::extractFromString<std::size_t>(request.getParam("check_in")),
@@ -147,7 +147,7 @@ public:
 
     void runGetReserveCommand(const RequestType &request) const
     {
-        const auto userReservations = utrip.getReservations();
+        const auto userReservations = Utrip::instance()->getReservations();
         if (!userReservations.size())
         {
             std::cout << "Empty" << std::endl;
@@ -166,26 +166,26 @@ public:
 
     void runDeleteReserveCommand(const RequestType &request)
     {
-        utrip.deleteReservations(utility::extractFromString<std::size_t>(request.getParam("id")));
+        Utrip::instance()->deleteReservations(utility::extractFromString<std::size_t>(request.getParam("id")));
         printSuccessMessage();
     }
 
     void runResetFilterCommand(const RequestType &)
     {
-        utrip.resetFilters();
+        Utrip::instance()->resetFilters();
         printSuccessMessage();
     }
 
     void runSortCommand(const RequestType& request) 
     {
-        utrip.setSortSettings(request.getParam("property"), request.getParam("order"));
+        Utrip::instance()->setSortSettings(request.getParam("property"), request.getParam("order"));
         printSuccessMessage();
     }
 
     void runGetManualWeightsCommand(const RequestType& request) 
     {
-        bool manualWightsAreActive = utrip.getWeightsAreManual();
-        HotelRatingWeights weights = utrip.getManualWeights();
+        bool manualWightsAreActive = Utrip::instance()->getLoggedInUser()->getWeightsAreManual();
+        HotelRatingWeights weights = Utrip::instance()->getLoggedInUser()->getManualWeights();
         std::cout<<"active "<<(manualWightsAreActive ? "true " : "false");
         if (manualWightsAreActive)
         {
@@ -197,11 +197,12 @@ public:
 
     void runSetManualWeightsCommand(const RequestType& request) 
     {   
+        std::cout<<"started manual weights"<<std::endl;
         double isActive = utility::extractFromString<bool>(request.getParam("active"));
         if (isActive) {
             std::vector<std::string> allKeywords = utility::vectorCat({"active"}, HotelRatingWeights::categories);
             if (request.containsExactly(allKeywords)) {
-                utrip.activateManualWeights(HotelRatingWeights(
+                Utrip::instance()->getLoggedInUser()->activateManualWeights(HotelRatingWeights(
                     utility::extractFromString<double>(request.getParam("location")),
                     utility::extractFromString<double>(request.getParam("cleanliness")),
                     utility::extractFromString<double>(request.getParam("staff")),
@@ -211,9 +212,9 @@ public:
             } else 
                 throw new BadRequestException();
         } else {
-            if (request.containsExactly({"active"})) {
-                utrip.deactivateManualWeights();
-            } else 
+            if (request.containsExactly({"active"}))
+                Utrip::instance()->getLoggedInUser()->deactivateManualWeights();
+            else 
                 throw new BadRequestException();
         }
         printSuccessMessage();

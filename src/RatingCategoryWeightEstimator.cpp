@@ -3,22 +3,29 @@
 
 #include <cmath>
 #include <iostream>
+#include <exception>
 
 using namespace std;
 using namespace utility;
 
 HotelRatingWeights RatingCategoryWeightEstimator::estimate(vector<HotelRatings> ratings) 
 {
+    if (ratings.size() == 0)
+        throw invalid_argument("RatingCategoryWeightEstimator::estimate: ratings cannot be empty.");
+        
     vector<double> rawResult = estimate(unwrapRatingsList(ratings));
     HotelRatingWeights result;
-    for (int i = 0; i < HotelRatingWeights::categories.size(); i++) { 
+    for (int i = 0; i < HotelRatingWeights::categories.size(); i++)
         result.setWeight(HotelRatingWeights::categories[i], rawResult[i]);
-    }
     return result;
 }
 
 vector<double> RatingCategoryWeightEstimator::estimate(vector<vector<double>> ratingsList) 
 {
+    cout<<"main estimate:"<<ratingsList.size()<<endl;
+    for (int i = 0; i < ratingsList.size(); i++) 
+        cout<<vec2str(ratingsList[i])<<endl;
+
     vector<vector<double>> individualRatingsList;
     vector<double> overallRatings;
     splitRatings(ratingsList, individualRatingsList, overallRatings);

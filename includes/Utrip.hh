@@ -9,7 +9,6 @@
 #include <exception>
 
 #include "UserManager.hh"
-#include "User.hh"
 #include "Hotel.hh"
 #include "Exception.hh"
 #include "Utility.hh"
@@ -19,8 +18,9 @@
 #include "RoomService.hh"
 #include "Sort.hh"
 #include "HotelRatings.hh"
+#include "HotelManager.hh"
 
-class HotelManager;
+class User;
 
 class Utrip
 {
@@ -28,10 +28,12 @@ class Utrip
     HotelManager hotelManager;
     HotelFilterManager hotelFilterManager;
     HotelSortManager hotelSortManager;
-    HotelRatingWeights manualWeights;
-    bool _weightsAreManual;
+
+    static Utrip* singleton_instance;
 
 public:
+    static Utrip* instance();
+    
     Utrip();
 
     void importHotels(std::string filename);
@@ -46,32 +48,29 @@ public:
 
     std::vector<double> reportBalanceHistory(const std::size_t count) const;
     std::vector<Hotel*> getHotels() const;
+    HotelManager::HotelList getAllHotels() const;
     const Hotel *const getHotel(const std::string &id) const;
     const Hotel::CommentList &getComments(const std::string &hotelId) const;
     RoomService::ReservationSet getReservations() const;
+    HotelRatings getRating(const std::string &hotelId);
     bool isEligibleForHistoryBasedPriceFilter() const;
-    HotelRatingWeights getManualWeights() const;
-    bool getWeightsAreManual() const;
+    User* getLoggedInUser();
 
     void addFilter(const std::unordered_map<std::string, std::string> &filterObjects);
     void setSortSettings(std::string property, std::string order);
     void addComment(const std::string &hotelId, const std::string &commentContent);
     void addRating(const std::string &hotelId, const HotelRatings rateData);
-    HotelRatings getRating(const std::string &hotelId);
     void reserve(const std::string &hotelId,
                  const std::string &roomType,
                  const std::size_t quantity,
                  const std::size_t arrivalTime,
                  const std::size_t departureTime);
     void deleteReservations(const std::size_t reservationId);
-    void activateManualWeights(const HotelRatingWeights& manualWeights);
-    void deactivateManualWeights();
+
 
     // returns a tuple with the mean as its first element and the standard deviation
     // as its second element.
     std::pair<double,double> calculateReservationPriceStatistics() const;
-
-
 
     ~Utrip() = default;
 };
