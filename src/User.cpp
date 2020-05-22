@@ -3,6 +3,7 @@
 #include "RatingCategoryWeightEstimator.hh"
 
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
@@ -84,9 +85,13 @@ HotelRatingWeights User::getEstimatedWeights()
     else 
     {
         vector<HotelRatings> ratings = this->getRatings();
-        if (ratings.size() == 0)
-            throw new NoRatingException();
+        if (ratings.size() < 5)
+            throw new InsufficientRatingsException();
         estimatedWeights = RatingCategoryWeightEstimator().estimate(ratings);
+        // cout<<"learned weights are: "<<endl;
+        // for (string s: HotelRatingWeights::categories)
+            // cout<<estimatedWeights.getWeight(s) * (4./estimatedWeights.getWeight("location"))<<" ";
+        // cout<<endl;
         estimatedWeightsAreUpToDate = true;
         return estimatedWeights;
     }
