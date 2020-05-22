@@ -86,16 +86,17 @@ string Hotel::getAmenities() const
 
 void Hotel::printBriefly() const
 {
+    cout << fixed << setprecision(2);
     cout << hotelId << " "
-              << hotelName << " "
-              << starRating << " "
-              << city << " "
-              << roomService.getTotalNumOfRooms() << " "
-              << fixed << setprecision(2) << " "
-              << roomService.getRoomsAveragePrice() << " "
-              << averageRatings.getRating("overall") << " "
-              << "-- "<<getPersonalRatingOfUser(Utrip::instance()->getLoggedInUser()) << " " //FOR TESTING PURPOSES ONLY
-              << endl;
+            << hotelName << " "
+            << starRating << " "
+            << city << " "
+            << roomService.getTotalNumOfRooms() << " "
+            << fixed << setprecision(2) << " "
+            << roomService.getRoomsAveragePrice() << " "
+            << averageRatings.getRating("overall") << " "
+            // << "-- "<<getPersonalRatingOfUser(Utrip::instance()->getLoggedInUser()) << " " //FOR TESTING PURPOSES ONLY
+            << endl;
     cout.unsetf(ios_base::fixed);
 }
 

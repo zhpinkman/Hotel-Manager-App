@@ -22,10 +22,6 @@ HotelRatingWeights RatingCategoryWeightEstimator::estimate(vector<HotelRatings> 
 
 vector<double> RatingCategoryWeightEstimator::estimate(vector<vector<double>> ratingsList) 
 {
-    cout<<"main estimate:"<<ratingsList.size()<<endl;
-    for (int i = 0; i < ratingsList.size(); i++) 
-        cout<<vec2str(ratingsList[i])<<endl;
-
     vector<vector<double>> individualRatingsList;
     vector<double> overallRatings;
     splitRatings(ratingsList, individualRatingsList, overallRatings);
