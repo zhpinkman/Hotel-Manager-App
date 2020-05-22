@@ -74,7 +74,6 @@ std::vector<Hotel*> HotelFilterManager::filter(std::vector<Hotel*> hotels) const
 std::vector<Hotel*> HotelFilterManager::filterByHistoryBasedPriceFilter(std::vector<Hotel*> hotels) const {
 	double mean, standardDeviation;
 	std::tie(mean, standardDeviation) = utrip->calculateReservationPriceStatistics();
-	cout<<"history price manager: "<<mean<<" "<<standardDeviation<<" "<<mean - 2*standardDeviation<<" "<<mean + 2*standardDeviation<<endl;
 	return AveragePriceFilter(mean - 2*standardDeviation, mean + 2*standardDeviation).apply(hotels);
 }
 

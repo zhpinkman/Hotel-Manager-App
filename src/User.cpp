@@ -88,10 +88,6 @@ HotelRatingWeights User::getEstimatedWeights()
         if (ratings.size() < 5)
             throw new InsufficientRatingsException();
         estimatedWeights = RatingCategoryWeightEstimator().estimate(ratings);
-        // cout<<"learned weights are: "<<endl;
-        // for (string s: HotelRatingWeights::categories)
-            // cout<<estimatedWeights.getWeight(s) * (4./estimatedWeights.getWeight("location"))<<" ";
-        // cout<<endl;
         estimatedWeightsAreUpToDate = true;
         return estimatedWeights;
     }
