@@ -39,6 +39,8 @@ void CommandHandler::runCommand(const std::string &command)
         interface.runGetReserveCommand(request);
       else if (request.getRequestUrl()[0] == "manual_weights")
         interface.runGetManualWeightsCommand(request);
+      else if (request.getRequestUrl()[0] == "estimated_weights")
+        interface.runGetEstimatedWeightsCommand(request);
       else 
         throw new NotFoundException();
     }
