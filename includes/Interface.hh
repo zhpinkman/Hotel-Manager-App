@@ -189,8 +189,10 @@ public:
         std::cout<<"active "<<(manualWightsAreActive ? "true " : "false");
         if (manualWightsAreActive)
         {
+            std::cout<<std::fixed<<std::setprecision(2);
             for (std::string category: HotelRatingWeights::categories)
                 std::cout<<category<<" "<<weights.getWeight(category)<<" ";
+            std::cout.unsetf(std::ios_base::fixed);
         }
         std::cout<<std::endl;
     }
