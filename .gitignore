@@ -114,7 +114,6 @@ _deps
 
 # End of https://www.gitignore.io/api/cmake,clion+all,visualstudiocode
 
-*.out
 input
 build/
 

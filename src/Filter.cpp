@@ -8,18 +8,18 @@ using namespace std;
 vector<Hotel*> Filter::apply(vector<Hotel*> hotels) const {
 	vector<Hotel*> result;
 	std::copy_if(hotels.begin(), hotels.end(), std::back_inserter(result),
-	 [this](Hotel* hotel){return this->accept(hotel);});
+	 [this](Hotel* hotel){return this->accepts(hotel);});
 	return result;
 }
 
-bool CityFilter::accept(Hotel* hotel) const {
+bool CityFilter::accepts(Hotel* hotel) const {
 	return this->city == hotel->getCity();
 }
 
 CityFilter::CityFilter(std::string city): city(city) {}
 
 
-bool StarRatingFilter::accept(Hotel* hotel) const {
+bool StarRatingFilter::accepts(Hotel* hotel) const {
 	return hotel->getStar() >= this->minStarRating &&
 	       hotel->getStar() <= this->maxStarRating;
 }
@@ -28,7 +28,7 @@ StarRatingFilter::StarRatingFilter(uint minStarRating, uint maxStarRating) :
 	minStarRating(minStarRating), maxStarRating(maxStarRating) {}
 
 
-bool AveragePriceFilter::accept(Hotel* hotel) const {
+bool AveragePriceFilter::accepts(Hotel* hotel) const {
 	double avgPrice = hotel->getRoomService().getRoomsAveragePrice();
 	return avgPrice >= this->minPrice && avgPrice <= this->maxPrice;
 }
@@ -37,7 +37,7 @@ AveragePriceFilter::AveragePriceFilter(double minPrice, double maxPrice) :
 	minPrice(minPrice), maxPrice(maxPrice) {}
 
 
-bool FreeRoomFilter::accept(Hotel* hotel) const {
+bool FreeRoomFilter::accepts(Hotel* hotel) const {
 	return hotel->getRoomService().doesFreeRoomExists(this->roomType, this->quantity,
 	 this->arrivalTime, this->departureTime);
 }
