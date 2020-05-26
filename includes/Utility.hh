@@ -17,8 +17,8 @@ namespace utility {
   std::vector<std::string> split_by_char(std::string word, char separator);
 
   double mean(std::vector<double> data);
-  double variance(std::vector<double> data);
-  double standardDeviation(std::vector<double> data);
+  double sampleVariance(std::vector<double> data);
+  double sampleStandardDeviation(std::vector<double> data);
   double sum(std::vector<double> data);
   double weightedSum(std::vector<double> data, std::vector<double> weights);
   double weightedAverage(std::vector<double> data, std::vector<double> weights);

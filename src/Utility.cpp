@@ -51,17 +51,18 @@ double utility::mean(vector<double> data)
   return sum / data.size();
 }
 
-double utility::variance(std::vector<double> data)
+double utility::sampleVariance(std::vector<double> data)
 {
-  vector<double> squares;
-  std::transform(data.begin(), data.end(), std::back_inserter(squares), [](double x){return x*x;});
-  return mean(squares) - pow(mean(data), 2);
+  double _mean = mean(data);
+  double sumOfSquares = 0;
+  for (double datum: data)
+    sumOfSquares += pow(datum - _mean, 2);
+  return sumOfSquares / (data.size() - 1);
 }
 
-
-double utility::standardDeviation(vector<double> data)
+double utility::sampleStandardDeviation(vector<double> data)
 {
-  return sqrt(variance(data));
+  return sqrt(sampleVariance(data));
 }
 
 double utility::sum(std::vector<double> data)

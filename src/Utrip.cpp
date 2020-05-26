@@ -295,7 +295,7 @@ pair<double,double> Utrip::calculateReservationPriceStatistics() const {
     }
 
     return std::pair<double, double>(utility::mean(reservedRoomPrices),
-        utility::standardDeviation(reservedRoomPrices));
+        utility::sampleStandardDeviation(reservedRoomPrices));
 }
 
 bool Utrip::isEligibleForHistoryBasedPriceFilter() const {
