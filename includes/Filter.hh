@@ -8,12 +8,12 @@
 class Filter {
 public:
   std::vector<Hotel*> apply(std::vector<Hotel*> hotels) const;
-  virtual bool accept(Hotel* hotel) const = 0;
+  virtual bool accepts(Hotel* hotel) const = 0;
 };
 
 class CityFilter : public Filter {
 public:
-  virtual bool accept(Hotel* hotel) const;
+  virtual bool accepts(Hotel* hotel) const;
   CityFilter(std::string city);
 private:
   std::string city;
@@ -22,7 +22,7 @@ private:
 
 class StarRatingFilter: public Filter {
 public:
-  virtual bool accept(Hotel* hotel) const;
+  virtual bool accepts(Hotel* hotel) const;
   StarRatingFilter(uint minStarRating, uint maxStarRating);
 private:
   uint minStarRating, maxStarRating;
@@ -30,7 +30,7 @@ private:
 
 class AveragePriceFilter: public Filter {
 public:
-  virtual bool accept(Hotel* hotel) const;
+  virtual bool accepts(Hotel* hotel) const;
   AveragePriceFilter(double minPrice, double maxPrice);
 private:
   double minPrice, maxPrice;
@@ -39,7 +39,7 @@ private:
 
 class FreeRoomFilter: public Filter {
 public:
-  virtual bool accept(Hotel* hotel) const;
+  virtual bool accepts(Hotel* hotel) const;
   FreeRoomFilter(RoomService::RoomType roomType, std::size_t quantity,
                  std::size_t arrivalTime, std::size_t departureTime);
 private:
