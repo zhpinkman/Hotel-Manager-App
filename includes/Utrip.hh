@@ -58,6 +58,7 @@ public:
     bool getWeightsAreManual() const;
     HotelRatingWeights getManualWeights() const;
     HotelRatingWeights getEstimatedWeights();
+    bool defaultPriceFilterWillBeApplied() const;
 
     void addFilter(const std::unordered_map<std::string, std::string> &filterObjects);
     void setSortSettings(std::string property, std::string order);

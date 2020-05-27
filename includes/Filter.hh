@@ -58,6 +58,7 @@ public:
   void addFilter(Filter* filter);
   std::vector<Hotel*> filter(std::vector<Hotel*> hotels) const;
   void setDefaultPriceFilterIsActive(bool isActive);
+  bool defaultPriceFilterWillBeApplied() const;
   ~HotelFilterManager();
 private:
   std::vector<Hotel*> filterByHistoryBasedPriceFilter(std::vector<Hotel*> hotels) const;

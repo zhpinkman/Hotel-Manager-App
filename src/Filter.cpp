@@ -65,9 +65,7 @@ std::vector<Hotel*> HotelFilterManager::filter(std::vector<Hotel*> hotels) const
 	for (Filter* filter: filters)
 		result = filter->apply(result);
 
-	if (defaultPriceFilterIsActive && 
-		Utrip::instance()->isEligibleForHistoryBasedPriceFilter() &&
-		!this->hasFilterOfType<AveragePriceFilter>())
+	if (defaultPriceFilterWillBeApplied())
 		result = this->filterByHistoryBasedPriceFilter(result);
 
 	return result;
@@ -82,6 +80,13 @@ std::vector<Hotel*> HotelFilterManager::filterByHistoryBasedPriceFilter(std::vec
 void HotelFilterManager::setDefaultPriceFilterIsActive(bool isActive)
 {
 	defaultPriceFilterIsActive = isActive;
+}
+
+bool HotelFilterManager::defaultPriceFilterWillBeApplied() const 
+{
+	return (defaultPriceFilterIsActive && 
+		Utrip::instance()->isEligibleForHistoryBasedPriceFilter() &&
+		!this->hasFilterOfType<AveragePriceFilter>());
 }
 
 HotelFilterManager::HotelFilterManager() : defaultPriceFilterIsActive(true) {}

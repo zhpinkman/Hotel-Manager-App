@@ -71,9 +71,12 @@ public:
         {
             auto hotels = Utrip::instance()->getHotels();
 
+            if (Utrip::instance()->defaultPriceFilterWillBeApplied())
+                std::cout<<"* Results have been filtered by the default price filter."<<std::endl;
+
             if (!hotels.size())
                 std::cout << "Empty" << std::endl;
-            for (const auto &hotel : hotels)
+            else for (const auto &hotel : hotels)
                 hotel->printBriefly();
         }
     }
@@ -143,8 +146,7 @@ public:
                       utility::extractFromString<std::size_t>(request.getParam("quantity")),
                       utility::extractFromString<std::size_t>(request.getParam("check_in")),
                       utility::extractFromString<std::size_t>(request.getParam("check_out")));
-        // printSuccessMessage();
-        std::cout << "----------" << std::endl;
+        printSuccessMessage();
     }
 
     void runGetReserveCommand(const RequestType &request) const

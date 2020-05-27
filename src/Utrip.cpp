@@ -325,6 +325,10 @@ HotelRatingWeights Utrip::getEstimatedWeights()
     return getLoggedInUser()->getEstimatedWeights();
 }
 
+bool Utrip::defaultPriceFilterWillBeApplied() const 
+{
+    return hotelFilterManager.defaultPriceFilterWillBeApplied();
+}
 
 void Utrip::activateManualWeights(HotelRatingWeights weights)
 {
