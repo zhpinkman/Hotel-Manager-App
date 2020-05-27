@@ -67,6 +67,8 @@ void CommandHandler::runCommand(const std::string &command)
         interface.runSortCommand(request);
       else if (request.getRequestUrl()[0] == "manual_weights")
         interface.runSetManualWeightsCommand(request);
+      else if (request.getRequestUrl()[0] == "default_price_filter")
+        interface.runSetDefaultPriceFilterIsActiveCommand(request);
       else 
         throw new NotFoundException();
     }

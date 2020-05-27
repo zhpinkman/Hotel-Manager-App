@@ -54,9 +54,10 @@ class Utrip;
 
 class HotelFilterManager {
 public:
-  HotelFilterManager(Utrip* utrip);
+  HotelFilterManager();
   void addFilter(Filter* filter);
   std::vector<Hotel*> filter(std::vector<Hotel*> hotels) const;
+  void setDefaultPriceFilterIsActive(bool isActive);
   ~HotelFilterManager();
 private:
   std::vector<Hotel*> filterByHistoryBasedPriceFilter(std::vector<Hotel*> hotels) const;
@@ -68,5 +69,5 @@ private:
   }
 
   std::vector<Filter*> filters;
-  Utrip* utrip;
+  bool defaultPriceFilterIsActive;
 };

@@ -14,8 +14,6 @@ Utrip* Utrip::instance()
     return singleton_instance;
 }
 
-Utrip::Utrip(): hotelFilterManager(this) {}
-
 void Utrip::importHotels(std::string filename) {
     const std::ifstream &hotelsFile = utility::open_csv_file(filename);
     RAW_DATA_LIST rawHotelsData = utility::parse_csv_file(const_cast<std::ifstream &>(hotelsFile));
@@ -43,7 +41,6 @@ void Utrip::signup(const User &user)
 
     userManager.signup(user);
     userManager.login(user);
-    hotelFilterManager = HotelFilterManager(this);
 }
 
 void Utrip::login(const User &user)
@@ -52,7 +49,6 @@ void Utrip::login(const User &user)
         throw new BadRequestException();
 
     userManager.login(user);
-    hotelFilterManager = HotelFilterManager(this);
 }
 
 void Utrip::logout()
@@ -68,7 +64,6 @@ void Utrip::resetFilters()
     if (!userManager.isUserLoggedIn())
         throw new PermissionDeniedException();
 
-    hotelFilterManager = HotelFilterManager(this);
 }
 
 void Utrip::addCreditToWallet(const double amount)
@@ -345,4 +340,9 @@ void Utrip::deactivateManualWeights()
         throw new PermissionDeniedException(); 
 
     getLoggedInUser()->deactivateManualWeights();
+}
+
+void Utrip::setDefaultPriceFilterIsActive(bool isActive)
+{
+    hotelFilterManager.setDefaultPriceFilterIsActive(isActive);
 }

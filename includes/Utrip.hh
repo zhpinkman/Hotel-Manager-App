@@ -34,7 +34,7 @@ class Utrip
 public:
     static Utrip* instance();
     
-    Utrip();
+    Utrip() = default;
 
     void importHotels(std::string filename);
     void importHotels(const RAW_DATA_LIST &rawHotelsData);
@@ -72,7 +72,7 @@ public:
     void deleteReservations(const std::size_t reservationId);
     void activateManualWeights(HotelRatingWeights weights);
     void deactivateManualWeights();
-
+    void setDefaultPriceFilterIsActive(bool isActive);
 
     // returns a tuple with the mean as its first element and the standard deviation
     // as its second element.

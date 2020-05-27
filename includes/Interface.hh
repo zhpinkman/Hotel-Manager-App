@@ -232,4 +232,11 @@ public:
         std::cout.unsetf(std::ios_base::fixed);
         std::cout<<std::endl;
     }
+
+    void runSetDefaultPriceFilterIsActiveCommand(const RequestType& request)
+    {
+        Utrip::instance()->setDefaultPriceFilterIsActive(
+            utility::extractFromString<bool>(request.getParam("active"))
+        );
+    }
 };
