@@ -9,7 +9,7 @@
 class HotelRatingWeights;
 
 class HotelRatings
-{
+{ 
 public:
 	HotelRatings();
     HotelRatings(double location, double cleanliness, double staff,

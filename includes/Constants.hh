@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <string>
 
 #define AMENITIES_ARG_INDEX 4
 #define CITY_ARG_INDEX 5

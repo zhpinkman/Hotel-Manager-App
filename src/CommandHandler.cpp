@@ -3,7 +3,6 @@
 #include "Exception.hh"
 #include "Interface.hh"
 #include "Request.hh"
-#include "Utility.hh"
 
 #include <iostream>
 #include <string>

@@ -9,16 +9,15 @@
 #include <exception>
 
 #include "UserManager.hh"
-#include "Hotel.hh"
-#include "Exception.hh"
-#include "Utility.hh"
-#include "Constants.hh"
 #include "HotelManager.hh"
 #include "Filter.hh"
-#include "RoomService.hh"
 #include "Sort.hh"
-#include "HotelRatings.hh"
+#include "Hotel.hh"
+#include "Exception.hh"
+#include "Constants.hh"
 #include "HotelManager.hh"
+#include "RoomService.hh"
+#include "HotelRatings.hh"
 
 class User;
 

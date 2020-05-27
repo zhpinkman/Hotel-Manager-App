@@ -1,10 +1,11 @@
 #pragma once
 
-#include <unordered_map>
-#include <string>
 #include "Constants.hh"
 #include "Hotel.hh"
 #include "Exception.hh"
+
+#include <unordered_map>
+#include <string>
 
 class HotelManager
 {

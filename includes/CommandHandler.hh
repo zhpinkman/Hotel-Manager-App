@@ -4,10 +4,11 @@
 
 #define HOTEL_GET_ARG_SIZE 5
 
-#include <string>
-#include <vector>
 #include "Interface.hh"
 #include "Request.hh"
+
+#include <string>
+#include <vector>
 
 class CommandHandler
 {

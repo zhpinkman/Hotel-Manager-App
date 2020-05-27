@@ -3,6 +3,8 @@
 #include "Hotel.hh"
 #include "Utility.hh"
 #include "Location.hh"
+#include "HotelRatings.hh"
+
 #include <iostream>
 
 using namespace std;

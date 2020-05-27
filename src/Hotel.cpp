@@ -6,7 +6,6 @@
 #include "RoomService.hh"
 #include "Constants.hh"
 #include "User.hh"
-#include "RatingCategoryWeightEstimator.hh"
 #include "Utrip.hh"
 #include "Utility.hh"
 

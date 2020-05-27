@@ -1,9 +1,8 @@
-#include "../includes/CommandHandler.hh"
-#include "../includes/Constants.hh"
+#include "CommandHandler.hh"
+
 #include <cstdlib>
 #include <iostream>
 #include <string>
-
 
 int main(int argc, char const *argv[]) {
   constexpr std::size_t HOTELS_FILE_INDEX = 1;
