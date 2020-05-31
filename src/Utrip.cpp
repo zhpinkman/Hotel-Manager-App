@@ -348,5 +348,7 @@ void Utrip::deactivateManualWeights()
 
 void Utrip::setDefaultPriceFilterIsActive(bool isActive)
 {
+    if (!userManager.isUserLoggedIn())
+        throw new PermissionDeniedException(); 
     hotelFilterManager.setDefaultPriceFilterIsActive(isActive);
 }

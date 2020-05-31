@@ -15,6 +15,7 @@ namespace utility {
   std::vector<std::vector<std::string>>
   parse_csv_file(std::ifstream &file);
   std::vector<std::string> split_by_char(std::string word, char separator);
+  double truncate(double value, int nDecimalDigits);
 
   double mean(std::vector<double> data);
   double sampleVariance(std::vector<double> data);

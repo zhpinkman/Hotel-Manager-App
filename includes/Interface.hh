@@ -195,7 +195,7 @@ public:
         {
             std::cout<<std::fixed<<std::setprecision(2);
             for (std::string category: HotelRatingWeights::categories)
-                std::cout<<category<<" "<<weights.getWeight(category)<<" ";
+                std::cout<<category<<" "<<utility::truncate(weights.getWeight(category), 2)<<" ";
             std::cout.unsetf(std::ios_base::fixed);
         }
         std::cout<<std::endl;
@@ -203,26 +203,32 @@ public:
 
     void runSetManualWeightsCommand(const RequestType& request) 
     {
-        double isActive = utility::extractFromString<bool>(request.getParam("active"));
-        if (isActive) {
-            std::vector<std::string> allKeywords = utility::vectorCat({"active"}, HotelRatingWeights::categories);
-            if (request.containsExactly(allKeywords)) {
-                Utrip::instance()->activateManualWeights(HotelRatingWeights(
-                    utility::extractFromString<double>(request.getParam("location")),
-                    utility::extractFromString<double>(request.getParam("cleanliness")),
-                    utility::extractFromString<double>(request.getParam("staff")),
-                    utility::extractFromString<double>(request.getParam("facilities")),
-                    utility::extractFromString<double>(request.getParam("value_for_money"))
-                ));
-            } else 
-                throw new BadRequestException();
-        } else {
-            if (request.containsExactly({"active"}))
-                Utrip::instance()->deactivateManualWeights();
-            else 
-                throw new BadRequestException();
+        try 
+        {
+            double isActive = utility::extractFromString<bool>(request.getParam("active"));
+            if (isActive) {
+                std::vector<std::string> allKeywords = utility::vectorCat({"active"}, HotelRatingWeights::categories);
+                if (request.containsExactly(allKeywords)) {
+                    Utrip::instance()->activateManualWeights(HotelRatingWeights(
+                        utility::extractFromString<double>(request.getParam("location")),
+                        utility::extractFromString<double>(request.getParam("cleanliness")),
+                        utility::extractFromString<double>(request.getParam("staff")),
+                        utility::extractFromString<double>(request.getParam("facilities")),
+                        utility::extractFromString<double>(request.getParam("value_for_money"))
+                    ));
+                } else 
+                    throw new BadRequestException();
+            } else {
+                if (request.containsExactly({"active"}))
+                    Utrip::instance()->deactivateManualWeights();
+                else 
+                    throw new BadRequestException();
+            }
+            printSuccessMessage();
+        } catch (std::invalid_argument ex) 
+        {
+            throw new BadRequestException();
         }
-        printSuccessMessage();
     }
 
     void runGetEstimatedWeightsCommand(const RequestType& request)
@@ -237,8 +243,14 @@ public:
 
     void runSetDefaultPriceFilterIsActiveCommand(const RequestType& request)
     {
-        Utrip::instance()->setDefaultPriceFilterIsActive(
-            utility::extractFromString<bool>(request.getParam("active"))
-        );
+        try {
+            Utrip::instance()->setDefaultPriceFilterIsActive(
+                utility::extractFromString<bool>(request.getParam("active"))
+            );
+            printSuccessMessage();
+        } catch (ParseException ex) 
+        {
+            throw new BadRequestException();
+        }
     }
 };

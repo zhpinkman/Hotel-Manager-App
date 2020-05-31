@@ -101,7 +101,9 @@ vector<double> utility::randomUniform(double lowerBound, double upperBound, uint
 
 template<> bool utility::extractFromString<bool>(const std::string& stringValue)
 {
-  return trim(stringValue) == "true";
+  if (trim(stringValue) == "true") return true;
+  if (trim(stringValue) == "false") return false;
+  throw ParseException();
 }
 
 string utility::trim(string s) {
@@ -111,3 +113,10 @@ string utility::trim(string s) {
   int end = s.find_last_not_of(" \n\t");
   return s.substr(start, end-start+1);
 }
+
+
+ double utility::truncate(double value, int nDecimalDigits)
+ {
+   int temp = (int)(value * pow(10, nDecimalDigits));
+   return ((double)temp) / pow(10, nDecimalDigits);
+ }

@@ -57,4 +57,10 @@ public:
   InsufficientRatingsException() : Exception("Insufficient Ratings") {}
 };
 
+class ParseException : public Exception
+{
+public:
+  ParseException() : Exception("Parse Exception") {}
+};
+
 

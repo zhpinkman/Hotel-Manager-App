@@ -93,7 +93,7 @@ void Hotel::printBriefly() const
             << roomService.getTotalNumOfRooms() << " "
             << fixed << setprecision(2) << " "
             << roomService.getRoomsAveragePrice() << " "
-            << averageRatings.getRating("overall") << " "
+            // << " -- " << getPersonalRatingOfUser(Utrip::instance()->getLoggedInUser()) << " " //for testing purposes, can be deleted.
             << endl;
     cout.unsetf(ios_base::fixed);
 }

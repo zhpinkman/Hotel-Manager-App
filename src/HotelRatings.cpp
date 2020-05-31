@@ -67,15 +67,20 @@ HotelRatingWeights::HotelRatingWeights(double location, double cleanliness, doub
 	double facilities, double value_for_money) 
 	: weights(categories) 
 {
-	weights.set("location", location);
-	weights.set("cleanliness", cleanliness);
-	weights.set("staff", staff);
-	weights.set("facilities", facilities);
-	weights.set("value_for_money", value_for_money);
+	setWeight("location", location);
+	setWeight("cleanliness", cleanliness);
+	setWeight("staff", staff);
+	setWeight("facilities", facilities);
+	setWeight("value_for_money", value_for_money);
 }
 
 double HotelRatingWeights::getWeight(string category) const {return weights.get(category);}
-void HotelRatingWeights::setWeight(string category, double value) {weights.set(category, value);}
+void HotelRatingWeights::setWeight(string category, double value)
+{ 
+	if (value < 1. || value > 5.)
+		throw invalid_argument("HotelRatingWeights: weight must be in the [1., 5.] interval.");
+	weights.set(category, value);
+}
 bool HotelRatingWeights::isInitialized() const {return weights.isInitialized();}
 
 std::string HotelRatingWeights::toString() const 
