@@ -56,7 +56,7 @@ void Hotel::print() const
               << "city: " << city << endl;
     cout << fixed << setprecision(2);
     cout << "latitude: " << location.latitude << endl
-              << "logitude: " << location.longitude << endl;
+              << "longitude: " << location.longitude << endl;
 
     cout.unsetf(ios_base::fixed);
 
@@ -90,7 +90,7 @@ void Hotel::printBriefly() const
             << hotelName << " "
             << starRating << " "
             << city << " "
-            << roomService.getTotalNumOfRooms() << " "
+            << roomService.getTotalNumOfRooms()
             << fixed << setprecision(2) << " "
             << roomService.getRoomsAveragePrice() << " "
             // << " -- " << getPersonalRatingOfUser(Utrip::instance()->getLoggedInUser()) << " " //for testing purposes, can be deleted.
@@ -107,13 +107,13 @@ double Hotel::getPersonalRatingOfUser(User* user) const
 {
     if (rates.find(user->getUsername()) != rates.end()) // if user has already rated this hotel
         return rates.at(user->getUsername()).getRating("overall");
-    else if (user->getWeightsAreManual()) 
+    else if (user->getWeightsAreManual())
         return getAverageRatings().estimateOverallRatingUsingWeights(user->getManualWeights());
-    else 
+    else
         return getAverageRatings().estimateOverallRatingUsingWeights(user->getEstimatedWeights());
 }
 
-void Hotel::addRating(User* user, const HotelRatings &addedRate) 
+void Hotel::addRating(User* user, const HotelRatings &addedRate)
 {
     rates[user->getUsername()] = addedRate;
     user->invalidateEstimatedWeights();

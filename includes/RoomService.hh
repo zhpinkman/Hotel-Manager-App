@@ -4,6 +4,8 @@
 #include <string>
 #include <cstdlib>
 #include <stdexcept>
+#include <set>
+#include <iostream>
 
 #include "Exception.hh"
 
@@ -18,16 +20,16 @@ struct RoomService
   };
 
   template <typename DateType = std::size_t>
-  struct ReservationTime
+  struct Reservation
   {
-    ReservationTime(const std::size_t reservationId,
-                    const std::string &hotelId,
-                    const std::string &username,
-                    const RoomType roomType,
-                    const std::size_t quantity,
-                    const double price,
-                    const std::size_t arrivalTime,
-                    const std::size_t departureTime)
+    Reservation(const std::size_t reservationId,
+                const std::string &hotelId,
+                const std::string &username,
+                const RoomType roomType,
+                const std::size_t quantity,
+                const double price,
+                const std::size_t arrivalTime,
+                const std::size_t departureTime)
         : reservationId(reservationId),
           hotelId(hotelId),
           username(username),
@@ -47,9 +49,10 @@ struct RoomService
     double price;
     DateType arrivalTime;
     DateType departureTime;
+    std::set<std::size_t> roomIds;
   };
 
-  using ReservationType = ReservationTime<>;
+  using ReservationType = Reservation<>;
   using ReservationSet = std::vector<ReservationType>; // TODO can replace with set
 
 private:
@@ -143,48 +146,79 @@ public:
     return quantity * unitPrice;
   }
 
+  ReservationSet findInterferingReservations(const RoomType roomType,
+                                             const std::size_t arrivalTime,
+                                             const std::size_t departureTime) const
+  {
+    ReservationSet interferingReservations;
+
+    for (const auto &reservation : reservations)
+      if ((reservation.roomType == roomType) &&
+          ((reservation.departureTime >= arrivalTime) ||
+           (reservation.arrivalTime <= departureTime)))
+        interferingReservations.push_back(reservation);
+
+    return interferingReservations;
+  }
+
+  std::size_t findRoomTypeQuantity(const RoomType roomType) const
+  {
+    switch (roomType)
+    {
+    case RoomType::STANDARD:
+      return numOfStandardRooms;
+      break;
+    case RoomType::DELUXE:
+      return numOfDeluxeRooms;
+      break;
+    case RoomType::LUXURY:
+      return numOfLuxuryRooms;
+      break;
+    case RoomType::PREMIUM:
+      return numOfPremiumRooms;
+      break;
+    default:
+      return 0;
+    }
+  }
+
   bool doesFreeRoomExists(const RoomType roomType,
                           const std::size_t quantity,
                           const std::size_t arrivalTime,
                           const std::size_t departureTime) const
   {
     std::size_t numOfOccupiedRooms = 0;
-    for (const auto &reservation : reservations)
-      if ((reservation.roomType == roomType) &&
-          ((reservation.departureTime > arrivalTime) ||
-           (reservation.arrivalTime < departureTime)))
-        numOfOccupiedRooms += reservation.quantity;
 
-    std::size_t totalNumOfDesiredRooms = 0;
-    switch (roomType)
-    {
-    case RoomType::STANDARD:
-      totalNumOfDesiredRooms = numOfStandardRooms;
-      break;
-    case RoomType::DELUXE:
-      totalNumOfDesiredRooms = numOfDeluxeRooms;
-      break;
-    case RoomType::LUXURY:
-      totalNumOfDesiredRooms = numOfLuxuryRooms;
-      break;
-    case RoomType::PREMIUM:
-      totalNumOfDesiredRooms = numOfPremiumRooms;
-      break;
-    }
+    const auto interferingReservations = findInterferingReservations(roomType, arrivalTime, departureTime);
+    for (const auto &reservation : interferingReservations)
+      numOfOccupiedRooms += reservation.quantity;
 
-    return (totalNumOfDesiredRooms - numOfOccupiedRooms) >= quantity;
+    return (findRoomTypeQuantity(roomType) - numOfOccupiedRooms) >= quantity;
   }
 
-  void reserve(const std::size_t reservationId,
-               const std::string &hotelId,
-               const std::string &username,
-               const RoomType roomType,
-               const std::size_t quantity,
-               const double price,
-               const std::size_t arrivalTime,
-               const std::size_t departureTime)
+  ReservationType reserve(const std::size_t reservationId,
+                          const std::string &hotelId,
+                          const std::string &username,
+                          const RoomType roomType,
+                          const std::size_t quantity,
+                          const double price,
+                          const std::size_t arrivalTime,
+                          const std::size_t departureTime)
   {
-    reservations.emplace_back(reservationId, hotelId, username, roomType, quantity, price, arrivalTime, departureTime);
+    ReservationType newReservation(reservationId, hotelId, username, roomType, quantity, price, arrivalTime,
+                                   departureTime);
+    const auto interferingReservations = findInterferingReservations(roomType, arrivalTime, departureTime);
+
+    std::set<std::size_t> occupiedRoomIds;
+    for (const auto &reservation : interferingReservations)
+      occupiedRoomIds.insert(reservation.roomIds.begin(), reservation.roomIds.end()); // Could be refactored with std::transform
+
+    for (std::size_t id = 1; id <= findRoomTypeQuantity(roomType) && newReservation.roomIds.size() < quantity; id++)
+      if (occupiedRoomIds.find(id) == occupiedRoomIds.end())
+        newReservation.roomIds.insert(id);
+
+    reservations.push_back(newReservation);
+    return newReservation;
   }
 
   ReservationSet getUserReservations(const std::string &username) const

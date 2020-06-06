@@ -64,6 +64,7 @@ void Utrip::resetFilters()
     if (!userManager.isUserLoggedIn())
         throw new PermissionDeniedException();
 
+    hotelFilterManager = HotelFilterManager();
 }
 
 void Utrip::addCreditToWallet(const double amount)
@@ -96,7 +97,7 @@ std::vector<Hotel*> Utrip::getHotels() const
     std::vector<Hotel*> filteredHotels =
         hotelFilterManager.filter(std::forward<std::vector<Hotel*>>(hotelsResultSet));
 
-    std::vector<Hotel*> sortedHotels = 
+    std::vector<Hotel*> sortedHotels =
         hotelSortManager.sort(filteredHotels);
 
     return sortedHotels;
@@ -136,7 +137,7 @@ void Utrip::addFilter(const std::unordered_map<std::string, std::string> &filter
     else if (filterObjects.find("min_price") != filterObjects.end() &&
              filterObjects.find("max_price") != filterObjects.end())
         hotelFilterManager.addFilter(new AveragePriceFilter(
-            extractFromString<double>(filterObjects.at("min_price")), 
+            extractFromString<double>(filterObjects.at("min_price")),
             extractFromString<double>(filterObjects.at("max_price"))
         ));
 
@@ -201,11 +202,11 @@ HotelRatings Utrip::getRating(const std::string &hotelId)
     return hotelManager.getHotels(hotelId).getAverageRatings();
 }
 
-void Utrip::reserve(const std::string &hotelId,
-             const std::string &roomType,
-             const std::size_t quantity,
-             const std::size_t arrivalTime,
-             const std::size_t departureTime)
+RoomService::ReservationType Utrip::reserve(const std::string &hotelId,
+                                            const std::string &roomType,
+                                            const std::size_t quantity,
+                                            const std::size_t arrivalTime,
+                                            const std::size_t departureTime)
 {
     if (!userManager.isUserLoggedIn())
         throw new PermissionDeniedException();
@@ -222,7 +223,7 @@ void Utrip::reserve(const std::string &hotelId,
         throw new NotEnoughRoomException();
 
     user->reduceCredit(calculatedPrice);
-    roomService.reserve(user->getNextUserReserveId(),
+    return roomService.reserve(user->getNextUserReserveId(),
                         hotelId,
                         user->getUsername(),
                         requestedRoomType,
@@ -325,7 +326,7 @@ HotelRatingWeights Utrip::getEstimatedWeights()
     return getLoggedInUser()->getEstimatedWeights();
 }
 
-bool Utrip::defaultPriceFilterWillBeApplied() const 
+bool Utrip::defaultPriceFilterWillBeApplied() const
 {
     return hotelFilterManager.defaultPriceFilterWillBeApplied();
 }
@@ -333,15 +334,15 @@ bool Utrip::defaultPriceFilterWillBeApplied() const
 void Utrip::activateManualWeights(HotelRatingWeights weights)
 {
     if (!userManager.isUserLoggedIn())
-        throw new PermissionDeniedException(); 
+        throw new PermissionDeniedException();
 
     getLoggedInUser()->activateManualWeights(weights);
 }
 
-void Utrip::deactivateManualWeights() 
+void Utrip::deactivateManualWeights()
 {
     if (!userManager.isUserLoggedIn())
-        throw new PermissionDeniedException(); 
+        throw new PermissionDeniedException();
 
     getLoggedInUser()->deactivateManualWeights();
 }
@@ -349,6 +350,6 @@ void Utrip::deactivateManualWeights()
 void Utrip::setDefaultPriceFilterIsActive(bool isActive)
 {
     if (!userManager.isUserLoggedIn())
-        throw new PermissionDeniedException(); 
+        throw new PermissionDeniedException();
     hotelFilterManager.setDefaultPriceFilterIsActive(isActive);
 }

@@ -21,7 +21,30 @@ public:
         Utrip::instance()->importRatings(ratingsFilePath);
     }
 
+    static std::string getRoomTypePrefix(const RoomService::RoomType roomType)
+    {
+        switch (roomType)
+        {
+        case RoomService::RoomType::DELUXE:
+            return "d";
+        case RoomService::RoomType::PREMIUM:
+            return "p";
+        case RoomService::RoomType::LUXURY:
+            return "l";
+        case RoomService::RoomType::STANDARD:
+            return "s";
+        }
+    }
     void printSuccessMessage() { std::cout << "OK" << std::endl; }
+
+    void printReservationIds(const RoomService::ReservationType &reservation)
+    {
+        const std::string roomTypePrefix = getRoomTypePrefix(reservation.roomType);
+        for (const auto &id : reservation.roomIds)
+            std::cout << roomTypePrefix << id << " ";
+
+        std::cout << std::endl;
+    }
 
     void runSignupCommand(const RequestType &request)
     {
@@ -141,12 +164,13 @@ public:
 
     void runSetReserveCommand(const RequestType &request)
     {
-        Utrip::instance()->reserve(request.getParam("hotel"),
-                      request.getParam("type"),
-                      utility::extractFromString<std::size_t>(request.getParam("quantity")),
-                      utility::extractFromString<std::size_t>(request.getParam("check_in")),
-                      utility::extractFromString<std::size_t>(request.getParam("check_out")));
-        printSuccessMessage();
+        const auto newReservation =
+            Utrip::instance()->reserve(request.getParam("hotel"),
+                                       request.getParam("type"),
+                                       utility::extractFromString<std::size_t>(request.getParam("quantity")),
+                                       utility::extractFromString<std::size_t>(request.getParam("check_in")),
+                                       utility::extractFromString<std::size_t>(request.getParam("check_out")));
+        printReservationIds(newReservation);
     }
 
     void runGetReserveCommand(const RequestType &request) const
@@ -164,8 +188,8 @@ public:
                       << "room: " << RoomService::toString(reservation.roomType) << " "
                       << "quantity: " << reservation.quantity << " "
                       << "cost: " << static_cast<std::size_t>(reservation.price) << " "
-                      << "check_in: " << reservation.arrivalTime << " "
-                      << "check_out: " << reservation.departureTime << std::endl;
+                      << "check_in " << reservation.arrivalTime << " "
+                      << "check_out " << reservation.departureTime << std::endl;
     }
 
     void runDeleteReserveCommand(const RequestType &request)
@@ -180,13 +204,13 @@ public:
         printSuccessMessage();
     }
 
-    void runSortCommand(const RequestType& request) 
+    void runSortCommand(const RequestType& request)
     {
         Utrip::instance()->setSortSettings(request.getParam("property"), request.getParam("order"));
         printSuccessMessage();
     }
 
-    void runGetManualWeightsCommand(const RequestType& request) 
+    void runGetManualWeightsCommand(const RequestType& request)
     {
         bool manualWightsAreActive = Utrip::instance()->getWeightsAreManual();
         HotelRatingWeights weights = Utrip::instance()->getManualWeights();
@@ -201,9 +225,9 @@ public:
         std::cout<<std::endl;
     }
 
-    void runSetManualWeightsCommand(const RequestType& request) 
+    void runSetManualWeightsCommand(const RequestType& request)
     {
-        try 
+        try
         {
             double isActive = utility::extractFromString<bool>(request.getParam("active"));
             if (isActive) {
@@ -216,16 +240,16 @@ public:
                         utility::extractFromString<double>(request.getParam("facilities")),
                         utility::extractFromString<double>(request.getParam("value_for_money"))
                     ));
-                } else 
+                } else
                     throw new BadRequestException();
             } else {
                 if (request.containsExactly({"active"}))
                     Utrip::instance()->deactivateManualWeights();
-                else 
-                    throw new BadRequestException();
+                    else
+                        throw new BadRequestException();
             }
             printSuccessMessage();
-        } catch (std::invalid_argument ex) 
+        } catch (std::invalid_argument ex)
         {
             throw new BadRequestException();
         }
@@ -248,7 +272,7 @@ public:
                 utility::extractFromString<bool>(request.getParam("active"))
             );
             printSuccessMessage();
-        } catch (ParseException ex) 
+        } catch (ParseException ex)
         {
             throw new BadRequestException();
         }
