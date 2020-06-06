@@ -9,7 +9,7 @@ class Filter {
 public:
   std::vector<Hotel*> apply(std::vector<Hotel*> hotels) const;
   virtual bool accepts(Hotel* hotel) const = 0;
-}; 
+};
 
 class CityFilter : public Filter {
 public:

@@ -28,11 +28,11 @@ class Utrip
     HotelFilterManager hotelFilterManager;
     HotelSortManager hotelSortManager;
 
-    static Utrip* singleton_instance;
+    static Utrip *singleton_instance;
 
 public:
-    static Utrip* instance();
-    
+    static Utrip *instance();
+
     Utrip() = default;
 
     void importHotels(std::string filename);
@@ -46,15 +46,15 @@ public:
     void addCreditToWallet(const double amount);
 
     std::vector<double> reportBalanceHistory(const std::size_t count) const;
-    std::vector<Hotel*> getHotels() const;
+    std::vector<Hotel *> getHotels() const;
     HotelManager::HotelList getAllHotels() const;
     const Hotel *const getHotel(const std::string &id) const;
     const Hotel::CommentList &getComments(const std::string &hotelId) const;
     RoomService::ReservationSet getReservations() const;
     HotelRatings getRating(const std::string &hotelId);
     bool isEligibleForHistoryBasedPriceFilter() const;
-    User* getLoggedInUser();
-    const User* getLoggedInUser() const;
+    User *getLoggedInUser();
+    const User *getLoggedInUser() const;
     bool getWeightsAreManual() const;
     HotelRatingWeights getManualWeights() const;
     HotelRatingWeights getEstimatedWeights();
@@ -64,11 +64,11 @@ public:
     void setSortSettings(std::string property, std::string order);
     void addComment(const std::string &hotelId, const std::string &commentContent);
     void addRating(const std::string &hotelId, const HotelRatings rateData);
-    void reserve(const std::string &hotelId,
-                 const std::string &roomType,
-                 const std::size_t quantity,
-                 const std::size_t arrivalTime,
-                 const std::size_t departureTime);
+    RoomService::ReservationType reserve(const std::string &hotelId,
+                                         const std::string &roomType,
+                                         const std::size_t quantity,
+                                         const std::size_t arrivalTime,
+                                         const std::size_t departureTime);
     void deleteReservations(const std::size_t reservationId);
     void activateManualWeights(HotelRatingWeights weights);
     void deactivateManualWeights();
@@ -76,7 +76,7 @@ public:
 
     // returns a tuple with the mean as its first element and the standard deviation
     // as its second element.
-    std::pair<double,double> calculateReservationPriceStatistics() const;
+    std::pair<double, double> calculateReservationPriceStatistics() const;
 
     ~Utrip() = default;
 };
