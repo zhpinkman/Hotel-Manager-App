@@ -91,7 +91,7 @@ void Hotel::printBriefly() const
             << starRating << " "
             << city << " "
             << roomService.getTotalNumOfRooms() << " "
-            << fixed << setprecision(2) << " "
+            << fixed << setprecision(2)
             << roomService.getRoomsAveragePrice() << " "
             // << " -- " << getPersonalRatingOfUser(Utrip::instance()->getLoggedInUser()) << " " //for testing purposes, can be deleted.
             << endl;
