@@ -25,8 +25,8 @@ class HotelSortManager {
 public:
 	HotelSortManager(SortableHotelProperty property, SortOrder sortOrder) :
 		property(property), sortOrder(sortOrder) {}
-	// the default behaviour is to sort ascending based on hotel id:
-	HotelSortManager(): property(ID), sortOrder(ASCENDING) {}
+	HotelSortManager() { reset(); }
+	void reset();
 	void setParameters(SortableHotelProperty _property, SortOrder _sortOrder) {
 		property = _property;
 		sortOrder = _sortOrder;

@@ -17,6 +17,13 @@ vector<Hotel*> HotelSortManager::sort(vector<Hotel*> hotels) const
 	return result;
 }
 
+void HotelSortManager::reset() 
+{
+	// the default behaviour is to sort ascending based on hotel id:
+	property = SortableHotelProperty::ID;
+	sortOrder = SortOrder::ASCENDING;
+}
+
 
 bool HotelComparator::operator()(const Hotel* hotel1, const Hotel* hotel2) const {
 	if (property == SortableHotelProperty::ID) 

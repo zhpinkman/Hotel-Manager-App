@@ -57,6 +57,7 @@ void Utrip::logout()
         throw new PermissionDeniedException();
 
     userManager.logout();
+    hotelSortManager.reset();
 }
 
 void Utrip::resetFilters()
