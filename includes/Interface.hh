@@ -157,7 +157,7 @@ public:
                   << "staff: " << ratings.getRating("staff") << std::endl
                   << "facilities: " << ratings.getRating("facilities") << std::endl
                   << "value_for_money: " << ratings.getRating("value_for_money") << std::endl
-                  << "overal_rating: " << ratings.getRating("overall") << std::endl;
+                  << "overall_rating: " << ratings.getRating("overall") << std::endl;
 
         std::cout.unsetf(std::ios_base::fixed);
     }
